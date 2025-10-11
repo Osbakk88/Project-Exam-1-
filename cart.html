@@ -1,1 +1,64 @@
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Your shopping cart" />
+    <title>Shopping Cart - Online Shop</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <h1>
+            <a href="index.html" class="logo-link">Online Shop</a>
+          </h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li>
+              <a href="cart.html" class="cart-link">
+                Cart
+                <span class="cart-count" aria-label="items in cart">0</span>
+              </a>
+            </li>
+            <li id="authNav">
+              <!-- Will be populated by JavaScript based on login status -->
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container cart-container" id="main-content">
+      <h2>Shopping Cart</h2>
+
+      <div id="cartItems">
+        <!-- Cart items will be loaded here by JavaScript -->
+      </div>
+
+      <div id="cartSummary" class="cart-summary hidden">
+        <div class="cart-total">Total: <span id="cartTotal">$0.00</span></div>
+        <div class="flex-gap-mt">
+          <button id="clearCartBtn" class="btn btn-danger">Clear Cart</button>
+          <button id="checkoutBtn" class="btn btn-primary flex-grow">
+            Proceed to Checkout
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer-dark">
+      <div class="container">
+        <p>&copy; 2025 Online Shop. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/cart.js"></script>
+  </body>
+</html>

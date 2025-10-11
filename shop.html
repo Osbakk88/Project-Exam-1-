@@ -1,50 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Browse our product collection - electronics, accessories and more"
+    />
+    <title>Shop - Online Shop</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
-        <h1>Welcome to Our Shop</h1>
+      <div class="container">
+        <div class="logo">
+          <a href="index.html" class="logo-link">
+            <h1>Online Shop</h1>
+          </a>
+        </div>
         <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html" aria-current="page">Shop</a></li>
+            <li>
+              <a href="cart.html" class="cart-link">
+                Cart
+                <span class="cart-count" aria-label="items in cart">0</span>
+              </a>
+            </li>
+            <li id="authNav">
+              <!-- Will be populated by JavaScript based on login status -->
+            </li>
+          </ul>
         </nav>
+      </div>
     </header>
-    <main>
-        <section id="home">
-            <h2>About Us</h2>
-            <p>We offer the best products at the best prices. Shop with confidence!</p>
-        </section>
-        <section id="products">
-            <h2>Our Products</h2>
-            <ul>
-                <li>Product 1</li>
-                <li>Product 2</li>
-                <li>Product 3</li>
-            </ul>
-        </section>
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <form action="#" method="post">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </section>
+
+    <main class="container" id="main-content">
+      <section id="hero">
+        <h2>Welcome to Our Online Shop</h2>
+        <p>Discover amazing products at great prices. Shop with confidence!</p>
+      </section>
+
+      <section id="filters" class="filters-section">
+        <div class="filters-container">
+          <h2>Our Products</h2>
+          <div class="filters-controls">
+            <label for="searchInput" class="visually-hidden"
+              >Search products</label
+            >
+            <input
+              type="text"
+              id="searchInput"
+              class="search-input"
+              placeholder="Search products..."
+              aria-label="Search products"
+            />
+            <label for="sortSelect" class="visually-hidden"
+              >Sort products</label
+            >
+            <select
+              id="sortSelect"
+              class="sort-select"
+              aria-label="Sort products by"
+            >
+              <option value="">Sort by</option>
+              <option value="title-asc">Name A-Z</option>
+              <option value="title-desc">Name Z-A</option>
+              <option value="price-asc">Price Low to High</option>
+              <option value="price-desc">Price High to Low</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="products"
+        class="products-section"
+        aria-label="Product catalog"
+      >
+        <div id="productsContainer" class="products-grid" aria-live="polite">
+          <!-- Products will be loaded here by JavaScript -->
+        </div>
+      </section>
     </main>
-    <footer>
-        <p>&copy; 2023 Our Shop. All rights reserved.</p>
+
+    <footer class="main-footer">
+      <div class="container">
+        <p>&copy; 2025 Online Shop. All rights reserved.</p>
+        <nav aria-label="Footer navigation">
+          <a href="#privacy">Privacy Policy</a>
+          <a href="#terms">Terms of Service</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
     </footer>
-</body>
+
+    <script src="js/api.js"></script>
+    <script src="js/modules.js"></script>
+    <script src="js/shop.js"></script>
+  </body>
 </html>

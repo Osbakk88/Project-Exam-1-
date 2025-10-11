@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Navigation</title>
+  </head>
+  <body>
+    <h1>Test View Details Navigation</h1>
+    <button onclick="testNavigation()">Test Navigate to Product</button>
+
+    <script>
+      function testNavigation() {
+        // Test with a known product ID
+        const testProductId = "ca7ca9c8-c8b3-4283-8c7a-4e1c48e5b8c1";
+        console.log("Testing navigation to product:", testProductId);
+        window.location.href = `product.html?id=${testProductId}`;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Welcome to Online Shop - Browse our collection of electronics and accessories"
+    />
+    <title>Online Shop</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header>
+      <div class="container">
+        <div class="logo">
+          <a href="index.html" class="logo-link">
+            <h1>Online Shop</h1>
+          </a>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html" aria-current="page">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li>
+              <a href="cart.html" class="cart-link">
+                Cart
+                <span class="cart-count" aria-label="items in cart">0</span>
+              </a>
+            </li>
+            <li id="authNav">
+              <a href="login.html">Login</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <!-- Interactive Banner Carousel -->
+      <section
+        class="banner-carousel-section"
+        aria-label="Featured Products Carousel"
+      >
+        <div class="carousel-container">
+          <div class="carousel-wrapper">
+            <div class="carousel-track" id="carouselTrack">
+              <!-- Carousel slides will be populated by JavaScript -->
+              <div class="carousel-slide loading-slide">
+                <div class="slide-content">
+                  <div class="slide-text">
+                    <h2>Loading Latest Products...</h2>
+                    <p>Discovering amazing deals for you</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carousel Controls -->
+            <button
+              class="carousel-btn carousel-btn-prev"
+              id="prevBtn"
+              aria-label="Previous product"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="15,18 9,12 15,6"></polyline>
+              </svg>
+            </button>
+            <button
+              class="carousel-btn carousel-btn-next"
+              id="nextBtn"
+              aria-label="Next product"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="9,18 15,12 9,6"></polyline>
+              </svg>
+            </button>
+
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators" id="carouselIndicators">
+              <!-- Will be populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="features-section">
+        <div class="container">
+          <h2>Why Shop With Us?</h2>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon" aria-hidden="true">📱</div>
+              <h3>Premium Products</h3>
+              <p>
+                Carefully curated selection of high-quality electronics and
+                accessories from trusted brands.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon" aria-hidden="true">🚚</div>
+              <h3>Fast Shipping</h3>
+              <p>
+                Quick and reliable delivery to get your products to you as fast
+                as possible.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon" aria-hidden="true">🔒</div>
+              <h3>Secure Shopping</h3>
+              <p>
+                Shop with confidence knowing your personal and payment
+                information is protected.
+              </p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon" aria-hidden="true">💬</div>
+              <h3>Customer Support</h3>
+              <p>
+                Friendly support team ready to help with any questions or
+                concerns.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Product Feed Section -->
+      <section class="product-feed-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Latest Products</h2>
+            <p class="section-subtitle">
+              Discover our newest arrivals and trending items
+            </p>
+          </div>
+
+          <!-- Product Filter Tabs -->
+          <div class="feed-filters">
+            <button class="filter-tab active" data-filter="all">
+              All Products
+            </button>
+            <button class="filter-tab" data-filter="latest">Latest</button>
+            <button class="filter-tab" data-filter="featured">Featured</button>
+          </div>
+
+          <!-- Product Grid -->
+          <div id="productFeedGrid" class="product-feed-grid">
+            <!-- Will be populated by JavaScript -->
+            <div class="feed-loading">
+              <div class="loading-spinner"></div>
+              <p>Loading amazing products...</p>
+            </div>
+          </div>
+
+          <!-- Load More Button -->
+          <div class="feed-actions">
+            <button
+              id="loadMoreBtn"
+              class="btn btn-secondary"
+              style="display: none"
+            >
+              Load More Products
+            </button>
+            <a href="shop.html" class="btn btn-primary">Browse All Products</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Newsletter Signup -->
+      <section class="newsletter-section">
+        <div class="container">
+          <div class="newsletter-content">
+            <h2>Stay Updated</h2>
+            <p>
+              Get the latest deals and product updates delivered to your inbox.
+            </p>
+            <form class="newsletter-form" id="newsletterForm">
+              <label for="emailInput" class="visually-hidden"
+                >Your email address</label
+              >
+              <input
+                type="email"
+                id="emailInput"
+                name="email"
+                placeholder="Enter your email"
+                required
+                aria-describedby="email-error"
+              />
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+              <div
+                id="email-error"
+                class="error-message"
+                role="alert"
+                aria-live="polite"
+              ></div>
+              <div
+                id="newsletter-success"
+                class="success-message"
+                role="alert"
+                aria-live="polite"
+              ></div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Online Shop</h3>
+            <p>Your trusted partner for premium electronics and accessories.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="shop.html">Shop</a></li>
+              <li><a href="cart.html">Cart</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Customer Service</h4>
+            <ul class="footer-links">
+              <li><a href="#contact">Contact Us</a></li>
+              <li><a href="#shipping">Shipping Info</a></li>
+              <li><a href="#returns">Returns</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Follow Us</h4>
+            <div class="social-links">
+              <a href="#facebook" aria-label="Follow us on Facebook">📘</a>
+              <a href="#twitter" aria-label="Follow us on Twitter">🐦</a>
+              <a href="#instagram" aria-label="Follow us on Instagram">📷</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Online Shop. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Screen reader announcements -->
+    <div class="visually-hidden" aria-live="polite" id="announcements"></div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/modules.js"></script>
+    <script src="js/homepage.js"></script>
+  </body>
+</html>

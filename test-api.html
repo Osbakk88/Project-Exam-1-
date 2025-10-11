@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Test</title>
+  </head>
+  <body>
+    <h1>Testing API Connection</h1>
+    <div id="test-results"></div>
+
+    <script src="js/api.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const resultsDiv = document.getElementById("test-results");
+        resultsDiv.innerHTML = "<p>Testing API connection...</p>";
+
+        // Test multiple API endpoints to see which one works
+        const endpoints = [
+          "https://v2.api.noroff.dev/online-shop",
+          "https://static.noroff.dev/api/online-shop",
+          "https://api.noroff.dev/api/v1/online-shop",
+        ];
+
+        for (const endpoint of endpoints) {
+          try {
+            console.log(`Testing endpoint: ${endpoint}`);
+            const response = await fetch(endpoint);
+            console.log(`Status for ${endpoint}: ${response.status}`);
+
+            if (response.ok) {
+              const data = await response.json();
+              resultsDiv.innerHTML += `
+                            <p style="color: green;">✅ Working endpoint: ${endpoint}</p>
+                            <p>Found ${data.length} products</p>
+                        `;
+              break;
+            } else {
+              resultsDiv.innerHTML += `
+                            <p style="color: orange;">⚠️ ${endpoint} returned ${response.status}</p>
+                        `;
+            }
+          } catch (error) {
+            resultsDiv.innerHTML += `
+                        <p style="color: red;">❌ ${endpoint}: ${error.message}</p>
+                    `;
+          }
+        }
+
+        // Now test our API wrapper
+        try {
+          console.log("Testing API wrapper...");
+          const result = await API.Shop.getProducts();
+          console.log("API Result:", result);
+
+          if (result.success) {
+            resultsDiv.innerHTML += `
+                        <hr>
+                        <p style="color: green;">✅ API Wrapper Works!</p>
+                        <p>Found ${result.data.length} products</p>
+                        <pre>${JSON.stringify(result.data[0], null, 2)}</pre>
+                    `;
+          } else {
+            resultsDiv.innerHTML += `
+                        <hr>
+                        <p style="color: red;">❌ API Wrapper Error: ${result.error}</p>
+                    `;
+          }
+        } catch (error) {
+          console.error("Test error:", error);
+          resultsDiv.innerHTML += `
+                    <hr>
+                    <p style="color: red;">❌ JavaScript Error: ${error.message}</p>
+                    <pre>${error.stack}</pre>
+                `;
+        }
+      });
+    </script>
+  </body>
+</html>
