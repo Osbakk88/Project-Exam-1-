@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Checkout - Complete your order" />
+    <title>Checkout - Online Shop</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <h1>
+            <a href="index.html" class="logo-link">Online Shop</a>
+          </h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li>
+              <a href="cart.html" class="cart-link">
+                Cart
+                <span class="cart-count" aria-label="items in cart">0</span>
+              </a>
+            </li>
+            <li id="authNav">
+              <!-- Will be populated by JavaScript based on login status -->
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container checkout-container" id="main-content">
+      <div class="breadcrumb">
+        <a href="cart.html">← Back to Cart</a>
+      </div>
+
+      <h2>Checkout</h2>
+
+      <div class="checkout-grid">
+        <!-- Order Summary -->
+        <section class="order-summary">
+          <h3>Order Summary</h3>
+          <div id="checkoutItems">
+            <!-- Items will be loaded here -->
+          </div>
+          <div class="checkout-total">
+            <div class="total-line">
+              <span>Subtotal:</span>
+              <span id="subtotal">$0.00</span>
+            </div>
+            <div class="total-line">
+              <span>Shipping:</span>
+              <span id="shipping">$5.99</span>
+            </div>
+            <div class="total-line">
+              <span>Tax:</span>
+              <span id="tax">$0.00</span>
+            </div>
+            <div class="total-line total-final">
+              <span>Total:</span>
+              <span id="finalTotal">$0.00</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checkout Forms -->
+        <section class="checkout-forms">
+          <!-- Delivery Address Form -->
+          <div class="form-section">
+            <h3>Delivery Address</h3>
+            <form id="deliveryForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name *</label>
+                  <input type="text" id="firstName" name="firstName" required />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name *</label>
+                  <input type="text" id="lastName" name="lastName" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" />
+              </div>
+
+              <div class="form-group">
+                <label for="address">Street Address *</label>
+                <input type="text" id="address" name="address" required />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city">City *</label>
+                  <input type="text" id="city" name="city" required />
+                </div>
+                <div class="form-group">
+                  <label for="zipCode">ZIP Code *</label>
+                  <input type="text" id="zipCode" name="zipCode" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="country">Country *</label>
+                <select id="country" name="country" required>
+                  <option value="">Select Country</option>
+                  <option value="NO">Norway</option>
+                  <option value="US">United States</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="DE">Germany</option>
+                  <option value="FR">France</option>
+                  <option value="ES">Spain</option>
+                  <option value="IT">Italy</option>
+                  <option value="NL">Netherlands</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="deliveryNotes">Delivery Notes</label>
+                <textarea
+                  id="deliveryNotes"
+                  name="deliveryNotes"
+                  rows="3"
+                  placeholder="Special delivery instructions (optional)"
+                ></textarea>
+              </div>
+            </form>
+          </div>
+
+          <!-- Payment Method Form -->
+          <div class="form-section">
+            <h3>Payment Method</h3>
+            <form id="paymentForm">
+              <div class="payment-methods">
+                <div class="payment-option">
+                  <input
+                    type="radio"
+                    id="creditCard"
+                    name="paymentMethod"
+                    value="creditCard"
+                    checked
+                  />
+                  <label for="creditCard" class="payment-label">
+                    <span class="payment-icon">💳</span>
+                    Credit/Debit Card
+                  </label>
+                </div>
+
+                <div class="payment-option">
+                  <input
+                    type="radio"
+                    id="paypal"
+                    name="paymentMethod"
+                    value="paypal"
+                  />
+                  <label for="paypal" class="payment-label">
+                    <span class="payment-icon">🅿️</span>
+                    PayPal
+                  </label>
+                </div>
+
+                <div class="payment-option">
+                  <input
+                    type="radio"
+                    id="applePay"
+                    name="paymentMethod"
+                    value="applePay"
+                  />
+                  <label for="applePay" class="payment-label">
+                    <span class="payment-icon">📱</span>
+                    Apple Pay
+                  </label>
+                </div>
+
+                <div class="payment-option">
+                  <input
+                    type="radio"
+                    id="bankTransfer"
+                    name="paymentMethod"
+                    value="bankTransfer"
+                  />
+                  <label for="bankTransfer" class="payment-label">
+                    <span class="payment-icon">🏦</span>
+                    Bank Transfer
+                  </label>
+                </div>
+              </div>
+
+              <!-- Credit Card Details (shown when credit card is selected) -->
+              <div id="creditCardDetails" class="card-details">
+                <div class="form-group">
+                  <label for="cardNumber">Card Number *</label>
+                  <input
+                    type="text"
+                    id="cardNumber"
+                    name="cardNumber"
+                    placeholder="1234 5678 9012 3456"
+                    maxlength="19"
+                  />
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="expiryDate">Expiry Date *</label>
+                    <input
+                      type="text"
+                      id="expiryDate"
+                      name="expiryDate"
+                      placeholder="MM/YY"
+                      maxlength="5"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="cvv">CVV *</label>
+                    <input
+                      type="text"
+                      id="cvv"
+                      name="cvv"
+                      placeholder="123"
+                      maxlength="4"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="cardName">Name on Card *</label>
+                  <input
+                    type="text"
+                    id="cardName"
+                    name="cardName"
+                    placeholder="John Smith"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Place Order Button -->
+          <div class="checkout-actions">
+            <button
+              id="placeOrderBtn"
+              class="btn btn-primary btn-large btn-full-width"
+            >
+              Place Order
+            </button>
+            <p class="checkout-disclaimer">
+              * This is a demo checkout. No actual payment will be processed.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer-dark">
+      <div class="container">
+        <p>&copy; 2025 Online Shop. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/checkout.js"></script>
+  </body>
+</html>

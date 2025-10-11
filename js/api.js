@@ -379,7 +379,62 @@ const UI = {
     }).format(numPrice);
   },
 
-  // Create product card HTML
+  // Create star rating display
+  createStarRating: function (rating, reviewCount) {
+    const ratingDiv = document.createElement("div");
+    ratingDiv.className = "product-rating";
+
+    const starsSpan = document.createElement("span");
+    starsSpan.className = "star-rating";
+
+    // Ensure rating is a valid number between 0 and 5
+    const validRating = Math.max(0, Math.min(5, rating || 0));
+    const fullStars = Math.floor(validRating);
+    const hasHalfStar = validRating % 1 !== 0;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+    // Create star display
+    let starDisplay = "★".repeat(fullStars);
+    if (hasHalfStar) starDisplay += "☆";
+    starDisplay += "☆".repeat(emptyStars);
+
+    starsSpan.textContent = starDisplay;
+    starsSpan.setAttribute("aria-label", validRating + " out of 5 stars");
+    ratingDiv.appendChild(starsSpan);
+
+    // Add rating text
+    const ratingText = document.createElement("span");
+    ratingText.className = "rating-text";
+    ratingText.textContent = " (" + validRating + "/5)";
+    if (reviewCount && reviewCount > 0) {
+      ratingText.textContent +=
+        " • " + reviewCount + " review" + (reviewCount !== 1 ? "s" : "");
+    }
+    ratingDiv.appendChild(ratingText);
+
+    return ratingDiv;
+  },
+
+  // Create star rating HTML string for template literals
+  createStarRatingHTML: function (rating, reviewCount) {
+    const validRating = Math.max(0, Math.min(5, rating || 0));
+    const fullStars = Math.floor(validRating);
+    const hasHalfStar = validRating % 1 !== 0;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
+    let starDisplay = "★".repeat(fullStars);
+    if (hasHalfStar) starDisplay += "☆";
+    starDisplay += "☆".repeat(emptyStars);
+
+    let reviewText = "";
+    if (reviewCount && reviewCount > 0) {
+      reviewText =
+        " • " + reviewCount + " review" + (reviewCount !== 1 ? "s" : "");
+    }
+
+    return `<span class="star-rating" aria-label="${validRating} out of 5 stars">${starDisplay}</span><span class="rating-text"> (${validRating}/5)${reviewText}</span>`;
+  },
+
   createProductCard(product) {
     const discountPrice =
       product.discountedPrice < product.price ? product.discountedPrice : null;
@@ -448,6 +503,11 @@ const UI = {
     description.className = "product-description";
     description.textContent = product.description;
     infoDiv.appendChild(description);
+
+    // Add rating display (show for all products, including 0 rating)
+    const reviewCount = product.reviews ? product.reviews.length : null;
+    const ratingElement = this.createStarRating(product.rating, reviewCount);
+    infoDiv.appendChild(ratingElement);
 
     // Create action buttons with direct event listeners
     const actionsDiv = document.createElement("div");

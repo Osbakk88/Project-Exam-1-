@@ -8,47 +8,26 @@ let currentFilter = "all";
 let productsPerPage = 12;
 
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Homepage DOM loaded");
+  console.log("🚀 Homepage DOM loaded");
 
   // Test carousel container
   const carouselTrack = document.getElementById("carouselTrack");
-  console.log("Carousel track found:", !!carouselTrack);
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
 
-  // Test product feed container
-  const productFeedGrid = document.getElementById("productFeedGrid");
-  console.log("Product feed grid found:", !!productFeedGrid);
+  console.log("🔍 Element check:");
+  console.log("  - Carousel track found:", !!carouselTrack);
+  console.log("  - Previous button found:", !!prevBtn);
+  console.log("  - Next button found:", !!nextBtn);
 
   // Initialize cart display
   API.Cart.updateCartUI();
 
-  // Initialize auth navigation
-  updateNavigation();
+  // Initialize auth navigation - disabled to prevent link override
+  // updateNavigation();
 
-  // Initialize homepage components
-  console.log("About to initialize carousel...");
-
-  // Add test content to carousel first
-  if (carouselTrack) {
-    carouselTrack.innerHTML = `
-      <div class="carousel-slide">
-        <div class="slide-content">
-          <h3>Test Product 1</h3>
-          <p>Loading products...</p>
-        </div>
-      </div>
-    `;
-  }
-
-  // Add test content to product feed
-  if (productFeedGrid) {
-    productFeedGrid.innerHTML = `
-      <div class="feed-product-card">
-        <h4>Test Product</h4>
-        <p>Loading products...</p>
-      </div>
-    `;
-  }
-
+  // Initialize carousel immediately
+  console.log("🎠 About to initialize carousel...");
   initializeCarousel();
   console.log("About to initialize product feed...");
   initializeProductFeed();
@@ -105,61 +84,119 @@ function updateNavigation() {
 
 // Initialize carousel functionality
 async function initializeCarousel() {
-  console.log("Starting carousel initialization...");
+  console.log("🎠 Starting carousel initialization...");
   const carouselTrack = document.getElementById("carouselTrack");
 
   if (!carouselTrack) {
-    console.error("Carousel track element not found!");
+    console.error("❌ Carousel track element not found!");
     return;
   }
 
   // Show loading message
   carouselTrack.innerHTML =
-    '<div class="carousel-slide"><div class="slide-content"><h3>Loading products...</h3></div></div>';
+    '<div class="carousel-slide active"><div class="slide-content"><h3>Loading products...</h3></div></div>';
 
   try {
     // Fetch products directly using fetch API
-    console.log("Fetching products from API...");
+    console.log("📡 Fetching products from API...");
     const response = await fetch("https://v2.api.noroff.dev/online-shop");
     const result = await response.json();
 
-    console.log("Raw API result:", result);
+    console.log("📦 API response status:", response.status);
+    console.log("📊 API result structure:", {
+      hasData: !!result.data,
+      dataLength: result.data ? result.data.length : 0,
+      isArray: Array.isArray(result.data),
+    });
 
     if (result && result.data && Array.isArray(result.data)) {
       const products = result.data;
-      console.log("Found", products.length, "products");
+      console.log("✅ Found", products.length, "products");
 
       // Get 3 random products for carousel
       const shuffled = [...products].sort(() => 0.5 - Math.random());
       carouselProducts = shuffled.slice(0, 3);
-      console.log("Selected random products for carousel:", carouselProducts);
+      console.log(
+        "🎲 Selected random products for carousel:",
+        carouselProducts.map((p) => p.title)
+      );
 
-      // Create carousel slides manually
-      let slidesHTML = "";
+      // Clear existing slides
+      carouselTrack.innerHTML = "";
+
+      // Create carousel slides one by one
       carouselProducts.forEach((product, index) => {
-        slidesHTML += `
-          <div class="carousel-slide ${index === 0 ? "active" : ""}">
+        const hasDiscount =
+          product.discountedPrice && product.discountedPrice < product.price;
+        const displayPrice = hasDiscount
+          ? product.discountedPrice
+          : product.price;
+
+        console.log(
+          `🏗️ Creating slide ${index + 1} for product: "${product.title}"`
+        );
+
+        const slideHTML = `
+          <div class="carousel-slide ${
+            index === 0 ? "active" : ""
+          }" data-product="${product.title}">
+            <div class="slide-image">
+              <img src="${
+                product.image?.url ||
+                product.image ||
+                "https://via.placeholder.com/600x400?text=Product+Image"
+              }" 
+                   alt="${product.title}" 
+                   onerror="this.src='https://via.placeholder.com/600x400?text=Product+Image'" />
+            </div>
             <div class="slide-content">
-              <div class="slide-image">
-                <img src="${
-                  product.image?.url || "/api/placeholder/400/300"
-                }" alt="${product.title}" />
-              </div>
-              <div class="slide-info">
-                <h3>${product.title}</h3>
-                <p class="slide-price">$${product.price}</p>
-                <button onclick="window.location.href='product.html?id=${
-                  product.id
-                }'" class="btn btn-primary">View Product</button>
+              <div class="slide-text">
+                <h2>${product.title}</h2>
+                <p>${
+                  product.description
+                    ? product.description.length > 120
+                      ? product.description.substring(0, 120) + "..."
+                      : product.description
+                    : "Discover this amazing product with excellent quality and design."
+                }</p>
+                <div class="slide-rating">
+                  <span class="star-rating" aria-label="${
+                    product.rating || 0
+                  } out of 5 stars">
+                    ${"★".repeat(Math.floor(product.rating || 0))}${"☆".repeat(
+          5 - Math.floor(product.rating || 0)
+        )}
+                  </span>
+                  <span class="rating-text">(${product.rating || 0}/5)</span>
+                </div>
+                <div class="slide-price">
+                  ${
+                    hasDiscount
+                      ? `<span class="discounted-price">${displayPrice} kr</span>
+                     <span class="original-price">${product.price} kr</span>`
+                      : `<span class="price">${product.price} kr</span>`
+                  }
+                </div>
+                <a href="product.html?id=${product.id}" class="slide-cta">
+                  View Product →
+                </a>
               </div>
             </div>
           </div>
         `;
+
+        // Create slide element and add to track
+        const slideDiv = document.createElement("div");
+        slideDiv.innerHTML = slideHTML;
+        const slideElement = slideDiv.firstElementChild;
+        carouselTrack.appendChild(slideElement);
       });
 
-      // Update carousel track
-      carouselTrack.innerHTML = slidesHTML;
-      console.log("Carousel slides added successfully!");
+      console.log(
+        "✅ Carousel slides created:",
+        carouselTrack.children.length,
+        "slides total"
+      );
 
       // Setup indicators
       const indicators = document.getElementById("carouselIndicators");
@@ -172,15 +209,96 @@ async function initializeCarousel() {
         });
         indicators.innerHTML = indicatorsHTML;
       }
+
+      // Verify slides were created
+      const createdSlides = document.querySelectorAll(".carousel-slide");
+      console.log("🔍 Slides in DOM:", createdSlides.length);
+      createdSlides.forEach((slide, i) => {
+        const productName = slide.getAttribute("data-product");
+        console.log(
+          `📋 Slide ${i}: "${productName}" - ${
+            slide.classList.contains("active") ? "ACTIVE" : "inactive"
+          }`
+        );
+      });
+
+      // Setup controls and indicators
+      setupCarouselControlsAndIndicators();
+
+      console.log(
+        "🎊 Carousel setup complete with",
+        carouselProducts.length,
+        "products"
+      );
     } else {
-      console.error("Invalid API response structure");
+      console.error("❌ Invalid API response structure");
       carouselTrack.innerHTML =
-        '<div class="carousel-slide"><div class="slide-content"><h3>No products available</h3></div></div>';
+        '<div class="carousel-slide active"><div class="slide-content"><h3>No products available</h3></div></div>';
     }
   } catch (error) {
-    console.error("Error loading carousel products:", error);
-    carouselTrack.innerHTML =
-      '<div class="carousel-slide"><div class="slide-content"><h3>Error loading products</h3><p>Please try again later</p></div></div>';
+    console.error("❌ Error loading carousel products:", error);
+
+    // Fallback: Create test carousel with dummy products
+    console.log("🔧 Creating fallback test carousel...");
+    carouselProducts = [
+      {
+        id: 1,
+        title: "Test Product 1",
+        price: 199,
+        description: "This is a test product",
+        image: "https://via.placeholder.com/600x400?text=Product+1",
+      },
+      {
+        id: 2,
+        title: "Test Product 2",
+        price: 299,
+        description: "This is another test product",
+        image: "https://via.placeholder.com/600x400?text=Product+2",
+      },
+      {
+        id: 3,
+        title: "Test Product 3",
+        price: 399,
+        description: "This is a third test product",
+        image: "https://via.placeholder.com/600x400?text=Product+3",
+      },
+    ];
+
+    // Clear and create test slides
+    carouselTrack.innerHTML = "";
+
+    carouselProducts.forEach((product, index) => {
+      const slideElement = document.createElement("div");
+      slideElement.className = `carousel-slide ${index === 0 ? "active" : ""}`;
+      slideElement.setAttribute("data-product", product.title);
+      slideElement.innerHTML = `
+        <div class="slide-image">
+          <img src="${product.image}" alt="${product.title}" />
+        </div>
+        <div class="slide-content">
+          <div class="slide-text">
+            <h2>${product.title}</h2>
+            <p>${product.description}</p>
+            <div class="slide-price">
+              <span class="price">${product.price} kr</span>
+            </div>
+            <a href="product.html?id=${product.id}" class="slide-cta">
+              View Product →
+            </a>
+          </div>
+        </div>
+      `;
+      carouselTrack.appendChild(slideElement);
+    });
+
+    console.log(
+      "✅ Test carousel created with",
+      carouselProducts.length,
+      "slides"
+    );
+
+    // Setup controls and indicators
+    setupCarouselControlsAndIndicators();
   }
 }
 
@@ -254,64 +372,8 @@ function renderCarousel() {
   setupCarouselControls();
 }
 
-// Setup carousel controls
-function setupCarouselControls() {
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-  const indicators = document.querySelectorAll(".carousel-indicator");
-
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      goToSlide(currentSlide - 1);
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      goToSlide(currentSlide + 1);
-    });
-  }
-
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener("click", () => {
-      goToSlide(index);
-    });
-  });
-}
-
-// Navigate to specific slide
-function goToSlide(slideIndex) {
-  const slides = document.querySelectorAll(".carousel-slide");
-  const indicators = document.querySelectorAll(".carousel-indicator");
-
-  if (!slides.length) return;
-
-  // Handle looping
-  if (slideIndex >= slides.length) {
-    slideIndex = 0;
-  } else if (slideIndex < 0) {
-    slideIndex = slides.length - 1;
-  }
-
-  // Update current slide
-  currentSlide = slideIndex;
-
-  // Update slides
-  slides.forEach((slide, index) => {
-    slide.classList.toggle("active", index === currentSlide);
-  });
-
-  // Update indicators
-  indicators.forEach((indicator, index) => {
-    indicator.classList.toggle("active", index === currentSlide);
-  });
-
-  // Move track
-  const track = document.getElementById("carouselTrack");
-  if (track) {
-    track.style.transform = `translateX(-${currentSlide * 100}%)`;
-  }
-}
+// Old setupCarouselControls function removed - using the new opacity-based version below
+// Old goToSlide function also removed - using the unified version below
 
 // Start carousel autoplay
 function startCarouselAutoplay() {
@@ -375,6 +437,16 @@ async function initializeProductFeed() {
             </div>
             <div class="feed-product-info">
               <h4>${product.title}</h4>
+              <div class="product-rating">
+                <span class="star-rating" aria-label="${
+                  product.rating || 0
+                } out of 5 stars">
+                  ${"★".repeat(Math.floor(product.rating || 0))}${"☆".repeat(
+          5 - Math.floor(product.rating || 0)
+        )}
+                </span>
+                <span class="rating-text">(${product.rating || 0}/5)</span>
+              </div>
               <p class="feed-product-price">$${product.price}</p>
               <div class="feed-product-actions">
                 <button onclick="window.location.href='product.html?id=${
@@ -440,6 +512,12 @@ function renderProductFeed() {
         </div>
         <div class="feed-product-info">
           <h3 class="feed-product-title">${product.title}</h3>
+          <div class="product-rating">
+            ${API.UI.createStarRatingHTML(
+              product.rating,
+              product.reviews ? product.reviews.length : null
+            )}
+          </div>
           <div class="feed-product-price">
             ${
               product.discountedPrice && product.discountedPrice < product.price
@@ -577,6 +655,179 @@ function handleNewsletterSubmit(e) {
   successDiv.textContent =
     "Thank you for subscribing! You'll hear from us soon.";
   emailInput.value = "";
+}
+
+// Carousel navigation functions
+function nextSlide() {
+  console.log(
+    "nextSlide called - current:",
+    currentSlide,
+    "total products:",
+    carouselProducts.length
+  );
+
+  if (carouselProducts.length === 0) {
+    console.log("No products loaded, cannot navigate");
+    return;
+  }
+
+  currentSlide = (currentSlide + 1) % carouselProducts.length;
+  console.log("Moving to slide:", currentSlide);
+  updateCarouselDisplay();
+}
+
+function prevSlide() {
+  console.log(
+    "prevSlide called - current:",
+    currentSlide,
+    "total products:",
+    carouselProducts.length
+  );
+
+  if (carouselProducts.length === 0) {
+    console.log("No products loaded, cannot navigate");
+    return;
+  }
+
+  currentSlide =
+    (currentSlide - 1 + carouselProducts.length) % carouselProducts.length;
+  console.log("Moving to slide:", currentSlide);
+  updateCarouselDisplay();
+}
+
+function goToSlide(index) {
+  console.log(
+    "goToSlide called with index:",
+    index,
+    "total products:",
+    carouselProducts.length
+  );
+
+  if (carouselProducts.length === 0) {
+    console.log("No products loaded, cannot navigate");
+    return;
+  }
+
+  currentSlide = index;
+  console.log("Moving to slide:", currentSlide);
+  updateCarouselDisplay();
+}
+
+function updateCarouselDisplay() {
+  console.log("🎠 Updating carousel display for slide:", currentSlide);
+
+  const slides = document.querySelectorAll(".carousel-slide");
+  const indicators = document.querySelectorAll(".carousel-indicator");
+
+  console.log(
+    "🔍 Found slides:",
+    slides.length,
+    "indicators:",
+    indicators.length
+  );
+
+  if (slides.length === 0) {
+    console.error("❌ No carousel slides found in DOM!");
+    return;
+  }
+
+  slides.forEach((slide, index) => {
+    const isActive = index === currentSlide;
+
+    // Remove all active classes first
+    slide.classList.remove("active");
+
+    // Add active class to current slide
+    if (isActive) {
+      slide.classList.add("active");
+    }
+
+    // Get product title for debugging
+    const productName = slide.getAttribute("data-product") || "Unknown";
+
+    console.log(
+      `🎯 Slide ${index}: ${
+        isActive ? "✅ ACTIVE" : "❌ inactive"
+      } - "${productName}"`
+    );
+  });
+
+  indicators.forEach((indicator, index) => {
+    const isActive = index === currentSlide;
+    indicator.classList.toggle("active", isActive);
+  });
+
+  // Show current product info
+  const activeSlide = slides[currentSlide];
+  if (activeSlide) {
+    const productName =
+      activeSlide.getAttribute("data-product") || "Unknown Product";
+    console.log(`🎊 NOW SHOWING: "${productName}"`);
+  } else {
+    console.error(`❌ No slide found at index ${currentSlide}`);
+  }
+}
+
+// Setup carousel controls and indicators
+function setupCarouselControlsAndIndicators() {
+  console.log("🎛️ Setting up carousel controls and indicators...");
+
+  // Setup indicators first
+  const indicators = document.getElementById("carouselIndicators");
+  if (indicators) {
+    indicators.innerHTML = "";
+    carouselProducts.forEach((_, index) => {
+      const indicator = document.createElement("button");
+      indicator.className = `carousel-indicator ${index === 0 ? "active" : ""}`;
+      indicator.setAttribute("data-index", index);
+      indicator.addEventListener("click", () => goToSlide(index));
+      indicators.appendChild(indicator);
+    });
+    console.log("✅ Created", carouselProducts.length, "indicators");
+  }
+
+  // Navigation buttons
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  console.log("🔍 Button check:");
+  console.log("  - Prev button found:", !!prevBtn);
+  console.log("  - Next button found:", !!nextBtn);
+  console.log("  - Carousel products count:", carouselProducts.length);
+
+  if (prevBtn) {
+    // Remove any existing listeners
+    prevBtn.replaceWith(prevBtn.cloneNode(true));
+    const newPrevBtn = document.getElementById("prevBtn");
+    newPrevBtn.addEventListener("click", () => {
+      console.log("⬅️ Previous button clicked");
+      prevSlide();
+    });
+  }
+
+  if (nextBtn) {
+    // Remove any existing listeners
+    nextBtn.replaceWith(nextBtn.cloneNode(true));
+    const newNextBtn = document.getElementById("nextBtn");
+    newNextBtn.addEventListener("click", () => {
+      console.log("➡️ Next button clicked");
+      nextSlide();
+    });
+  }
+
+  // Initialize the display
+  currentSlide = 0;
+  updateCarouselDisplay();
+
+  // Auto-play carousel
+  setInterval(() => {
+    if (carouselProducts.length > 1) {
+      console.log("⏰ Auto-advancing carousel");
+      nextSlide();
+    }
+  }, 5000); // Change slide every 5 seconds
+
+  console.log("✅ Carousel controls and indicators setup complete");
 }
 
 // Email validation helper

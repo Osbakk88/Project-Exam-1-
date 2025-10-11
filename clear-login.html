@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clear Login State</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 50px;
+        text-align: center;
+        background: #f8f9fa;
+      }
+      .clear-button {
+        background: #dc3545;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 10px;
+      }
+      .access-button {
+        background: #007bff;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔧 Clear Login State & Access Login</h1>
+    <p>
+      If you're being redirected to shop, click the button below to clear any
+      stored login data:
+    </p>
+
+    <button onclick="clearLoginState()" class="clear-button">
+      🗑️ Clear Login Data
+    </button>
+
+    <br /><br />
+
+    <button onclick="window.location.href='login.html'" class="access-button">
+      🔐 Access Login Page
+    </button>
+
+    <div id="status"></div>
+
+    <script>
+      function clearLoginState() {
+        // Clear all possible stored authentication data
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("apiKey");
+        localStorage.removeItem("user");
+        localStorage.removeItem("authToken");
+        sessionStorage.clear();
+
+        // Clear any cookies
+        document.cookie.split(";").forEach(function (c) {
+          document.cookie = c
+            .replace(/^ +/, "")
+            .replace(
+              /=.*/,
+              "=;expires=" + new Date().toUTCString() + ";path=/"
+            );
+        });
+
+        document.getElementById("status").innerHTML =
+          '<p style="color: green;">✅ Login state cleared! You can now access the login page.</p>';
+
+        // Auto redirect to login after clearing
+        setTimeout(() => {
+          window.location.href = "login.html";
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>

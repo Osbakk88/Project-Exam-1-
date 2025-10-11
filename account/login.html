@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Online Shop</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <h1>
+            <a href="../index.html" class="no-decoration">Online Shop</a>
+          </h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../shop.html">Shop</a></li>
+            <li>
+              <a href="../cart.html">Cart <span class="cart-count">0</span></a>
+            </li>
+            <li><a href="register.html">Register</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="auth-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+            <small class="input-hint"
+              >Use @stud.noroff.no email or click "Fill Demo Credentials"</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+            <small class="input-hint">Minimum 8 characters</small>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full-width">
+            Login
+          </button>
+
+          <div class="form-footer">
+            <p class="forgot-password">
+              <a href="#" id="forgotPasswordLink">Forgot your password?</a>
+            </p>
+          </div>
+        </form>
+
+        <div id="loginMessage"></div>
+
+        <div class="demo-section">
+          <button
+            type="button"
+            class="btn btn-outline btn-small"
+            id="fillDemoBtn"
+          >
+            Fill Demo Credentials
+          </button>
+        </div>
+
+        <p class="text-center margin-top">
+          Don't have an account? <a href="register.html">Register here</a>
+        </p>
+      </div>
+    </main>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/login.js"></script>
+  </body>
+</html>

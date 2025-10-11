@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auth Test - Register & Login</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .section {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+      }
+      .error {
+        color: red;
+        margin-top: 10px;
+      }
+      .success {
+        color: green;
+        margin-top: 10px;
+      }
+      .info {
+        color: blue;
+        margin-top: 10px;
+      }
+      h3 {
+        margin-top: 0;
+        color: #333;
+      }
+      .step {
+        background: #f8f9fa;
+        padding: 10px;
+        margin: 10px 0;
+        border-left: 4px solid #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Authentication Flow Test</h1>
+
+    <div class="section">
+      <h3>Step 1: Register New User</h3>
+      <form id="registerForm">
+        <div class="form-group">
+          <label>Name (letters, numbers, _ only):</label>
+          <input type="text" id="regName" value="TestUser_123" required />
+        </div>
+        <div class="form-group">
+          <label>Email:</label>
+          <input type="email" id="regEmail" required />
+        </div>
+        <div class="form-group">
+          <label>Password:</label>
+          <input
+            type="password"
+            id="regPassword"
+            value="password123"
+            required
+          />
+        </div>
+        <button type="submit">Register User</button>
+      </form>
+      <div id="registerResult"></div>
+    </div>
+
+    <div class="section">
+      <h3>Step 2: Login with Registered User</h3>
+      <form id="loginForm">
+        <div class="form-group">
+          <label>Email:</label>
+          <input type="email" id="loginEmail" required />
+        </div>
+        <div class="form-group">
+          <label>Password:</label>
+          <input
+            type="password"
+            id="loginPassword"
+            value="password123"
+            required
+          />
+        </div>
+        <button type="submit" disabled>Login User</button>
+      </form>
+      <div id="loginResult"></div>
+    </div>
+
+    <div class="section">
+      <h3>Step 3: Create API Key</h3>
+      <button id="createApiKeyBtn" disabled>Create API Key</button>
+      <div id="apiKeyResult"></div>
+    </div>
+
+    <div class="step">
+      <strong>Instructions:</strong>
+      <ol>
+        <li>Click "Register User" to create a new account</li>
+        <li>After successful registration, the login form will be enabled</li>
+        <li>Click "Login User" to authenticate</li>
+        <li>After successful login, click "Create API Key"</li>
+      </ol>
+    </div>
+
+    <script>
+      // Generate unique email for testing - must use stud.noroff.no domain
+      const uniqueEmail = `testuser${Date.now()}@stud.noroff.no`;
+      document.getElementById("regEmail").value = uniqueEmail;
+
+      let currentUserToken = null;
+
+      // Register Form
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const result = document.getElementById("registerResult");
+          const submitBtn = this.querySelector("button");
+          const originalText = submitBtn.textContent;
+
+          result.innerHTML = '<div class="info">Registering user...</div>';
+          submitBtn.textContent = "Registering...";
+          submitBtn.disabled = true;
+
+          try {
+            const response = await fetch(
+              "https://v2.api.noroff.dev/auth/register",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  name: document.getElementById("regName").value,
+                  email: document.getElementById("regEmail").value,
+                  password: document.getElementById("regPassword").value,
+                }),
+              }
+            );
+
+            const data = await response.json();
+            console.log("Registration response:", data);
+            console.log("Response status:", response.status);
+            console.log("Response headers:", [...response.headers.entries()]);
+
+            if (response.ok) {
+              result.innerHTML =
+                '<div class="success">Registration successful! You can now login.</div>';
+
+              // Enable login form and pre-fill email
+              document.getElementById("loginEmail").value =
+                document.getElementById("regEmail").value;
+              document.querySelector("#loginForm button").disabled = false;
+            } else {
+              let errorMessage = "Unknown error";
+              if (data.errors && Array.isArray(data.errors)) {
+                errorMessage = data.errors
+                  .map((err) => err.message || err)
+                  .join(", ");
+              } else if (data.message) {
+                errorMessage = data.message;
+              } else if (data.error) {
+                errorMessage = data.error;
+              }
+
+              result.innerHTML = `<div class="error">Registration failed (${response.status}): ${errorMessage}</div>`;
+              result.innerHTML += `<div class="error">Full response: <pre>${JSON.stringify(
+                data,
+                null,
+                2
+              )}</pre></div>`;
+              console.log("Registration error details:", data);
+            }
+          } catch (error) {
+            result.innerHTML =
+              '<div class="error">Network error: ' + error.message + "</div>";
+            console.error("Registration network error:", error);
+          } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+        });
+
+      // Login Form
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const result = document.getElementById("loginResult");
+          const submitBtn = this.querySelector("button");
+          const originalText = submitBtn.textContent;
+
+          result.innerHTML = '<div class="info">Logging in...</div>';
+          submitBtn.textContent = "Logging in...";
+          submitBtn.disabled = true;
+
+          try {
+            const response = await fetch(
+              "https://v2.api.noroff.dev/auth/login",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  email: document.getElementById("loginEmail").value,
+                  password: document.getElementById("loginPassword").value,
+                }),
+              }
+            );
+
+            const data = await response.json();
+            console.log("Login response:", data);
+            console.log("Response status:", response.status);
+
+            if (response.ok) {
+              currentUserToken =
+                data.accessToken || data.token || data.data?.accessToken;
+              result.innerHTML =
+                '<div class="success">Login successful! Token received and stored.</div>';
+
+              // Enable API key creation
+              document.getElementById("createApiKeyBtn").disabled = false;
+            } else {
+              let errorMessage = "Unknown error";
+              if (data.errors && Array.isArray(data.errors)) {
+                errorMessage = data.errors
+                  .map((err) => err.message || err)
+                  .join(", ");
+              } else if (data.message) {
+                errorMessage = data.message;
+              } else if (data.error) {
+                errorMessage = data.error;
+              }
+
+              result.innerHTML = `<div class="error">Login failed (${response.status}): ${errorMessage}</div>`;
+              result.innerHTML += `<div class="error">Full response: <pre>${JSON.stringify(
+                data,
+                null,
+                2
+              )}</pre></div>`;
+              console.log("Login error details:", data);
+            }
+          } catch (error) {
+            result.innerHTML =
+              '<div class="error">Network error: ' + error.message + "</div>";
+            console.error("Login network error:", error);
+          } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+        });
+
+      // API Key Creation
+      document
+        .getElementById("createApiKeyBtn")
+        .addEventListener("click", async function (e) {
+          const result = document.getElementById("apiKeyResult");
+          const btn = this;
+          const originalText = btn.textContent;
+
+          if (!currentUserToken) {
+            result.innerHTML =
+              '<div class="error">No access token available. Please login first.</div>';
+            return;
+          }
+
+          result.innerHTML = '<div class="info">Creating API key...</div>';
+          btn.textContent = "Creating...";
+          btn.disabled = true;
+
+          try {
+            const response = await fetch(
+              "https://v2.api.noroff.dev/auth/create-api-key",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${currentUserToken}`,
+                },
+                body: JSON.stringify({
+                  name: "Test API Key",
+                }),
+              }
+            );
+
+            const data = await response.json();
+            console.log("API Key response:", data);
+
+            if (response.ok) {
+              result.innerHTML =
+                '<div class="success">API Key created successfully!</div>';
+            } else {
+              result.innerHTML =
+                '<div class="error">API Key creation failed: ' +
+                (data.message || data.error || "Unknown error") +
+                "</div>";
+              console.log("API Key error details:", data);
+            }
+          } catch (error) {
+            result.innerHTML =
+              '<div class="error">Network error: ' + error.message + "</div>";
+            console.error("API Key network error:", error);
+          } finally {
+            btn.textContent = originalText;
+            btn.disabled = false;
+          }
+        });
+    </script>
+  </body>
+</html>

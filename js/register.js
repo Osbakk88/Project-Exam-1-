@@ -12,10 +12,33 @@ document.addEventListener("DOMContentLoaded", function () {
   registerForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
+
+    // Validate name (only letters, numbers, and underscore)
+    const namePattern = /^[a-zA-Z0-9_]+$/;
+    if (!namePattern.test(name)) {
+      messageDiv.innerHTML = "";
+      const errorDiv = document.createElement("div");
+      errorDiv.className = "error";
+      errorDiv.textContent =
+        "Name can only contain letters, numbers, and underscore (_).";
+      messageDiv.appendChild(errorDiv);
+      return;
+    }
+
+    // Validate email domain
+    if (!email.endsWith("@stud.noroff.no")) {
+      messageDiv.innerHTML = "";
+      const errorDiv = document.createElement("div");
+      errorDiv.className = "error";
+      errorDiv.textContent =
+        "Only @stud.noroff.no email addresses are allowed.";
+      messageDiv.appendChild(errorDiv);
+      return;
+    }
 
     // Validate passwords match
     if (password !== confirmPassword) {
@@ -23,6 +46,16 @@ document.addEventListener("DOMContentLoaded", function () {
       const errorDiv = document.createElement("div");
       errorDiv.className = "error";
       errorDiv.textContent = "Passwords do not match.";
+      messageDiv.appendChild(errorDiv);
+      return;
+    }
+
+    // Validate password length
+    if (password.length < 8) {
+      messageDiv.innerHTML = "";
+      const errorDiv = document.createElement("div");
+      errorDiv.className = "error";
+      errorDiv.textContent = "Password must be at least 8 characters long.";
       messageDiv.appendChild(errorDiv);
       return;
     }

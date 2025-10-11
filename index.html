@@ -31,7 +31,19 @@
               </a>
             </li>
             <li id="authNav">
-              <a href="login.html">Login</a>
+              <button
+                onclick="window.location.href='login.html'"
+                style="
+                  background: none;
+                  border: none;
+                  color: inherit;
+                  cursor: pointer;
+                  font-size: inherit;
+                  text-decoration: underline;
+                "
+              >
+                Login
+              </button>
             </li>
           </ul>
         </nav>
@@ -100,47 +112,6 @@
         </div>
       </section>
 
-      <!-- Features Section -->
-      <section id="features" class="features-section">
-        <div class="container">
-          <h2>Why Shop With Us?</h2>
-          <div class="features-grid">
-            <div class="feature-card">
-              <div class="feature-icon" aria-hidden="true">📱</div>
-              <h3>Premium Products</h3>
-              <p>
-                Carefully curated selection of high-quality electronics and
-                accessories from trusted brands.
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon" aria-hidden="true">🚚</div>
-              <h3>Fast Shipping</h3>
-              <p>
-                Quick and reliable delivery to get your products to you as fast
-                as possible.
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon" aria-hidden="true">🔒</div>
-              <h3>Secure Shopping</h3>
-              <p>
-                Shop with confidence knowing your personal and payment
-                information is protected.
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon" aria-hidden="true">💬</div>
-              <h3>Customer Support</h3>
-              <p>
-                Friendly support team ready to help with any questions or
-                concerns.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- Product Feed Section -->
       <section class="product-feed-section">
         <div class="container">
@@ -149,15 +120,6 @@
             <p class="section-subtitle">
               Discover our newest arrivals and trending items
             </p>
-          </div>
-
-          <!-- Product Filter Tabs -->
-          <div class="feed-filters">
-            <button class="filter-tab active" data-filter="all">
-              All Products
-            </button>
-            <button class="filter-tab" data-filter="latest">Latest</button>
-            <button class="filter-tab" data-filter="featured">Featured</button>
           </div>
 
           <!-- Product Grid -->

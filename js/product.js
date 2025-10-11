@@ -42,7 +42,7 @@ function updateNavigation() {
     authNav.appendChild(logoutBtn);
   } else {
     authNav.innerHTML = `
-      <a href="login.html">Login</a>
+      <a href="account/login.html">Login</a>
     `;
   }
 }
@@ -110,6 +110,31 @@ function displayProduct(product) {
   const productTitle = document.createElement("h1");
   productTitle.textContent = product.title;
   productInfoDiv.appendChild(productTitle);
+
+  // Add product rating and share section
+  const topSection = document.createElement("div");
+  topSection.className = "product-top-section";
+
+  const reviewCount = product.reviews ? product.reviews.length : null;
+  const ratingElement = API.UI.createStarRating(product.rating, reviewCount);
+  topSection.appendChild(ratingElement);
+
+  // Add share button
+  const shareBtn = document.createElement("button");
+  shareBtn.className = "btn btn-outline share-btn";
+  shareBtn.innerHTML = `
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92S19.61 16.08 18 16.08z"/>
+    </svg>
+    Share
+  `;
+  shareBtn.setAttribute("title", "Share this product");
+  shareBtn.addEventListener("click", function () {
+    shareProduct(product);
+  });
+  topSection.appendChild(shareBtn);
+
+  productInfoDiv.appendChild(topSection);
 
   // Price section
   const priceSection = document.createElement("div");
@@ -189,15 +214,24 @@ function displayProduct(product) {
 
   actionsDiv.appendChild(quantityDiv);
 
-  const addToCartBtn = document.createElement("button");
-  addToCartBtn.className = "btn btn-primary btn-large add-to-cart-btn";
-  addToCartBtn.textContent = "Add to Cart";
-  // Attach event listener directly to button to avoid duplicates
-  addToCartBtn.addEventListener("click", function () {
-    console.log("Direct button click handler called");
-    addToCart();
-  });
-  actionsDiv.appendChild(addToCartBtn);
+  // Only show Add to Cart for logged-in users
+  if (API.Auth.isLoggedIn()) {
+    const addToCartBtn = document.createElement("button");
+    addToCartBtn.className = "btn btn-primary btn-large add-to-cart-btn";
+    addToCartBtn.textContent = "Add to Cart";
+    addToCartBtn.addEventListener("click", function () {
+      console.log("Direct button click handler called");
+      addToCart();
+    });
+    actionsDiv.appendChild(addToCartBtn);
+  } else {
+    const loginPrompt = document.createElement("div");
+    loginPrompt.className = "login-prompt";
+    loginPrompt.innerHTML = `
+      <p>Please <a href="account/login.html">log in</a> to add items to your cart.</p>
+    `;
+    actionsDiv.appendChild(loginPrompt);
+  }
 
   const backBtn = document.createElement("button");
   backBtn.className = "btn btn-secondary btn-full-width back-btn";
@@ -318,6 +352,63 @@ function showError(message) {
 
   container.innerHTML = "";
   container.appendChild(errorDiv);
+}
+
+function shareProduct(product) {
+  const currentUrl = window.location.href;
+  const shareUrl = `${window.location.origin}${window.location.pathname}?id=${product.id}`;
+
+  // Try to use the Web Share API if available (mobile devices)
+  if (navigator.share) {
+    navigator
+      .share({
+        title: product.title,
+        text: `Check out this product: ${product.title}`,
+        url: shareUrl,
+      })
+      .catch((err) => {
+        console.log("Error sharing:", err);
+        fallbackShare(shareUrl);
+      });
+  } else {
+    // Fallback to clipboard copy
+    fallbackShare(shareUrl);
+  }
+}
+
+function fallbackShare(url) {
+  // Copy URL to clipboard
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        showNotification("Product URL copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Failed to copy URL:", err);
+        showShareDialog(url);
+      });
+  } else {
+    // Fallback for older browsers
+    showShareDialog(url);
+  }
+}
+
+function showShareDialog(url) {
+  // Create a simple dialog with the URL
+  const dialog = document.createElement("div");
+  dialog.className = "share-dialog";
+  dialog.innerHTML = `
+    <div class="share-dialog-content">
+      <h4>Share this product</h4>
+      <input type="text" value="${url}" readonly>
+      <div class="share-dialog-actions">
+        <button class="btn btn-primary" onclick="this.previousElementSibling.previousElementSibling.select(); document.execCommand('copy'); this.parentElement.parentElement.parentElement.remove(); showNotification('URL copied!');">Copy URL</button>
+        <button class="btn btn-secondary" onclick="this.parentElement.parentElement.parentElement.remove();">Close</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(dialog);
 }
 
 function showNotification(message, type = "success") {

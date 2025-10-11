@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navigation Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      .test-link {
+        display: block;
+        padding: 10px 20px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        margin: 10px 0;
+        border-radius: 5px;
+        text-align: center;
+        max-width: 200px;
+      }
+      .test-link:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Navigation Test Page</h1>
+    <p>Click these links to test navigation:</p>
+
+    <a href="index.html" class="test-link">🏠 Homepage</a>
+    <a href="login.html" class="test-link">🔐 Login Page</a>
+    <a href="shop.html" class="test-link">🛍️ Shop Page</a>
+    <a href="cart.html" class="test-link">🛒 Cart Page</a>
+
+    <h2>Direct File Links (for testing):</h2>
+    <ul>
+      <li><a href="login.html">login.html (root)</a></li>
+      <li><a href="account/login.html">account/login.html</a></li>
+      <li><a href="register.html">register.html (root)</a></li>
+      <li><a href="account/register.html">account/register.html</a></li>
+    </ul>
+
+    <h2>Current Page Info:</h2>
+    <p>Current URL: <span id="currentUrl"></span></p>
+    <p>Current Path: <span id="currentPath"></span></p>
+
+    <script>
+      document.getElementById("currentUrl").textContent = window.location.href;
+      document.getElementById("currentPath").textContent =
+        window.location.pathname;
+    </script>
+  </body>
+</html>

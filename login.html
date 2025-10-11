@@ -3,8 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Online Shop</title>
+    <title>Login & Register - Online Shop</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      .auth-tabs {
+        display: flex;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid #e0e0e0;
+      }
+      .auth-tab {
+        flex: 1;
+        padding: 1rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.1rem;
+        color: #666;
+        border-bottom: 3px solid transparent;
+        transition: all 0.3s ease;
+      }
+      .auth-tab.active {
+        color: #007bff;
+        border-bottom-color: #007bff;
+        font-weight: bold;
+      }
+      .auth-form {
+        display: none;
+      }
+      .auth-form.active {
+        display: block;
+      }
+      .demo-accounts {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        margin: 1rem 0;
+      }
+      .demo-account {
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        background: white;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+      }
+      .demo-account button {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 0.3rem 0.8rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+      .demo-account button:hover {
+        background: #218838;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -21,7 +75,6 @@
             <li>
               <a href="cart.html">Cart <span class="cart-count">0</span></a>
             </li>
-            <li><a href="register.html">Register</a></li>
           </ul>
         </nav>
       </div>
@@ -29,32 +82,140 @@
 
     <main class="container">
       <div class="auth-container">
-        <h2>Login</h2>
-        <form id="loginForm">
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required />
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login">Login</button>
+          <button class="auth-tab" data-tab="register">Register</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm" class="auth-form active">
+          <h2>Login to Your Account</h2>
+
+          <div class="demo-accounts">
+            <h4>🎯 Quick Demo Accounts:</h4>
+            <div class="demo-account">
+              <strong>Admin User:</strong> admin_user@stud.noroff.no
+              <button
+                onclick="fillCredentials('admin_user@stud.noroff.no', 'admin123')"
+              >
+                Use This Account
+              </button>
+            </div>
+            <div class="demo-account">
+              <strong>Regular User:</strong> demo_user@stud.noroff.no
+              <button
+                onclick="fillCredentials('demo_user@stud.noroff.no', 'password123')"
+              >
+                Use This Account
+              </button>
+            </div>
+            <div class="demo-account">
+              <strong>Create New:</strong> Generate a fresh test account
+              <button onclick="createNewDemoAccount()">Create & Use</button>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required />
-          </div>
+          <form id="loginFormElement">
+            <div class="form-group">
+              <label for="loginEmail">Email Address:</label>
+              <input
+                type="email"
+                id="loginEmail"
+                name="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
 
-          <button type="submit" class="btn btn-primary btn-full-width">
-            Login
-          </button>
-        </form>
+            <div class="form-group">
+              <label for="loginPassword">Password:</label>
+              <input
+                type="password"
+                id="loginPassword"
+                name="password"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
 
-        <div id="loginMessage"></div>
+            <button type="submit" class="btn btn-primary btn-full-width">
+              Login
+            </button>
+          </form>
 
-        <p class="text-center margin-top">
-          Don't have an account? <a href="register.html">Register here</a>
-        </p>
+          <div id="loginMessage"></div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="registerForm" class="auth-form">
+          <h2>Create New Account</h2>
+
+          <form id="registerFormElement">
+            <div class="form-group">
+              <label for="registerName">Name:</label>
+              <input
+                type="text"
+                id="registerName"
+                name="name"
+                placeholder="Enter your name"
+                pattern="[a-zA-Z0-9_]+"
+                required
+              />
+              <small class="input-hint"
+                >Only letters, numbers, and underscore (_) allowed</small
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="registerEmail">Email:</label>
+              <input
+                type="email"
+                id="registerEmail"
+                name="email"
+                placeholder="Enter your email"
+                pattern=".*@stud\.noroff\.no"
+                required
+              />
+              <small class="input-hint"
+                >Must be a @stud.noroff.no email address</small
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="registerPassword">Password:</label>
+              <input
+                type="password"
+                id="registerPassword"
+                name="password"
+                placeholder="Enter your password"
+                minlength="8"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password:</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                minlength="8"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full-width">
+              Register
+            </button>
+          </form>
+
+          <div id="registerMessage"></div>
+        </div>
       </div>
     </main>
 
     <script src="js/api.js"></script>
-    <script src="js/login.js"></script>
+    <script src="js/login-register.js"></script>
   </body>
 </html>

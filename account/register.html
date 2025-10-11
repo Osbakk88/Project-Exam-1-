@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - Online Shop</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <h1>
+            <a href="../index.html" class="no-decoration">Online Shop</a>
+          </h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../shop.html">Shop</a></li>
+            <li>
+              <a href="../cart.html">Cart <span class="cart-count">0</span></a>
+            </li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="auth-container">
+        <h2>Register</h2>
+        <form id="registerForm">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              pattern="[a-zA-Z0-9_]+"
+              required
+            />
+            <small class="input-hint"
+              >Only letters, numbers, and underscore (_) allowed</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              pattern=".*@stud\.noroff\.no"
+              required
+            />
+            <small class="input-hint"
+              >Must be a @stud.noroff.no email address</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password (min 8 characters):</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              minlength="8"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              minlength="8"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full-width">
+            Register
+          </button>
+        </form>
+
+        <div id="registerMessage"></div>
+
+        <p class="text-center margin-top">
+          Already have an account? <a href="login.html">Login here</a>
+        </p>
+      </div>
+    </main>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/register.js"></script>
+  </body>
+</html>

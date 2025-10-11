@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .error {
+        color: red;
+        margin-top: 10px;
+      }
+      .success {
+        color: green;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Simple Login Test</h2>
+    <form id="testLoginForm">
+      <div class="form-group">
+        <label>Email:</label>
+        <input
+          type="email"
+          id="testEmail"
+          value="chrosb02397@stud.noroff.no"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" id="testPassword" value="password123" required />
+      </div>
+      <button type="submit">Test Login</button>
+    </form>
+    <div id="testResult"></div>
+
+    <script>
+      document
+        .getElementById("testLoginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const result = document.getElementById("testResult");
+          result.innerHTML = "Testing...";
+
+          try {
+            const response = await fetch(
+              "https://v2.api.noroff.dev/auth/login",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  email: document.getElementById("testEmail").value,
+                  password: document.getElementById("testPassword").value,
+                }),
+              }
+            );
+
+            const data = await response.json();
+
+            if (response.ok) {
+              result.innerHTML =
+                '<div class="success">Login successful! Token received.</div>';
+              console.log("Login data:", data);
+            } else {
+              result.innerHTML =
+                '<div class="error">Login failed: ' +
+                (data.message || "Unknown error") +
+                "</div>";
+              console.log("Login error:", data);
+            }
+          } catch (error) {
+            result.innerHTML =
+              '<div class="error">Network error: ' + error.message + "</div>";
+            console.error("Login error:", error);
+          }
+        });
+    </script>
+  </body>
+</html>

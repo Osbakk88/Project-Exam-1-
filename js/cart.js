@@ -21,7 +21,7 @@ function updateNavigation() {
     `;
   } else {
     authNav.innerHTML = `
-      <a href="login.html">Login</a>
+      <a href="account/login.html">Login</a>
     `;
   }
 }
@@ -265,22 +265,13 @@ function setupEventListeners() {
           "You need to be logged in to checkout. Would you like to login now?"
         )
       ) {
-        window.location.href = "login.html";
+        window.location.href = "account/login.html";
       }
       return;
     }
 
-    const cartItems = API.Cart.getCart();
-    const total = API.Cart.getTotalPrice();
-
-    // In a real app, you'd integrate with a payment processor
-    alert(
-      `Checkout functionality would be implemented here.\n\nOrder Summary:\n${
-        cartItems.length
-      } items\nTotal: ${API.UI.formatPrice(
-        total
-      )}\n\nThis would redirect to payment processing.`
-    );
+    // Redirect to checkout page
+    window.location.href = "checkout.html";
   });
 
   // Listen for cart updates from other pages
