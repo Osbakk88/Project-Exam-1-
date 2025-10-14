@@ -172,9 +172,15 @@ async function initializeCarousel() {
                 <div class="slide-price">
                   ${
                     hasDiscount
-                      ? `<span class="discounted-price">${displayPrice} kr</span>
-                     <span class="original-price">${product.price} kr</span>`
-                      : `<span class="price">${product.price} kr</span>`
+                      ? `<span class="discounted-price">${API.UI.formatPrice(
+                          displayPrice
+                        )}</span>
+                     <span class="original-price">${API.UI.formatPrice(
+                       product.price
+                     )}</span>`
+                      : `<span class="price">${API.UI.formatPrice(
+                          product.price
+                        )}</span>`
                   }
                 </div>
                 <a href="product.html?id=${product.id}" class="slide-cta">
@@ -280,7 +286,7 @@ async function initializeCarousel() {
             <h2>${product.title}</h2>
             <p>${product.description}</p>
             <div class="slide-price">
-              <span class="price">${product.price} kr</span>
+              <span class="price">${API.UI.formatPrice(product.price)}</span>
             </div>
             <a href="product.html?id=${product.id}" class="slide-cta">
               View Product →
@@ -447,7 +453,9 @@ async function initializeProductFeed() {
                 </span>
                 <span class="rating-text">(${product.rating || 0}/5)</span>
               </div>
-              <p class="feed-product-price">$${product.price}</p>
+              <p class="feed-product-price">${API.UI.formatPrice(
+                product.price
+              )}</p>
               <div class="feed-product-actions">
                 <button onclick="window.location.href='product.html?id=${
                   product.id
@@ -502,13 +510,7 @@ function renderProductFeed() {
           }" 
                alt="${product.title}"
                onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg=='">
-          ${
-            product.discountedPrice && product.discountedPrice < product.price
-              ? `<div class="feed-discount-badge">${Math.round(
-                  (1 - product.discountedPrice / product.price) * 100
-                )}% OFF</div>`
-              : ""
-          }
+          <!-- Removed discount badge for simpler student code -->
         </div>
         <div class="feed-product-info">
           <h3 class="feed-product-title">${product.title}</h3>

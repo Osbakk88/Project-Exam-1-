@@ -173,19 +173,17 @@ class UIUtils {
   /**
    * Format price for display
    * @param {number} price - Price to format
-   * @param {string} currency - Currency code
+   * @param {string} currency - Currency code (not used, kept for compatibility)
    * @returns {string} Formatted price
    */
-  static formatPrice(price, currency = "NOK") {
-    try {
-      return new Intl.NumberFormat("no-NO", {
-        style: "currency",
-        currency: currency,
-      }).format(price);
-    } catch (error) {
-      console.error("Error formatting price:", error);
-      return `${currency} ${price.toFixed(2)}`;
+  static formatPrice(price, currency = "kr") {
+    // Simple price validation
+    if (!price || price <= 0) {
+      return "Price not available";
     }
+
+    // Simple Norwegian currency format
+    return `kr ${price}`;
   }
 
   /**

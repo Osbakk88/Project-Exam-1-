@@ -6,37 +6,7 @@
   box-sizing: border-box;
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
-  }
-  50% {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+/* Simple hover effects instead of complex animations */
 
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -127,12 +97,12 @@ button,
 /* ===== MODERN CONTENT AREAS ===== */
 main {
   padding: 2rem 0;
-  animation: fadeIn 0.6s ease-out;
+  /* Remove complex animation for student-appropriate code */
 }
 
 .content-section {
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
+  /* backdrop-filter removed for simpler code */
   border-radius: 24px;
   padding: 2.5rem;
   margin: 2rem 0;
@@ -172,13 +142,13 @@ main {
 
 /* ===== MODERN HEADER STYLES ===== */
 header {
-  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background: #000000;
+  /* backdrop-filter removed for simpler code */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid rgba(222, 184, 135, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 header .container {
@@ -272,35 +242,35 @@ nav ul {
 
 nav a {
   text-decoration: none;
-  color: #000000;
-  background: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
+  background: #000000;
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 1rem;
   padding: 0.35rem 1.2rem;
   border-radius: 10px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* backdrop-filter removed for simpler code */
+  border: 1px solid #000000;
 }
 
 nav a:hover,
 nav a:focus {
-  color: #000000;
-  background: rgba(255, 255, 255, 1);
-  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+  background: #333333;
+  border-color: #333333;
 }
 
 /* Auth navigation (login/logout) styling to match nav links */
 #authNav a,
 #authNav button {
   text-decoration: none;
-  color: #000000;
-  background: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
+  background: #000000;
   font-weight: 600;
-  font-size: 0.75rem;
+  font-size: 1rem;
   padding: 0.35rem 1.2rem;
   border-radius: 10px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* backdrop-filter removed for simpler code */
+  border: 1px solid #000000;
   cursor: pointer;
   font-family: inherit;
   transition: all 0.3s ease;
@@ -310,9 +280,9 @@ nav a:focus {
 #authNav a:focus,
 #authNav button:hover,
 #authNav button:focus {
-  color: #000000;
-  background: rgba(255, 255, 255, 1);
-  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+  background: #333333;
+  border-color: #333333;
 }
 
 .cart-link {
@@ -378,9 +348,9 @@ nav a:focus {
   border: 2px solid rgba(255, 255, 255, 0.3);
   font-size: 0.95rem;
   font-weight: 500;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
+  /* backdrop-filter removed for simpler code */
   color: #2d3748;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
@@ -444,7 +414,7 @@ nav a:focus {
   border: 2px solid transparent;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter removed for simpler code */
   letter-spacing: 0.025em;
 }
 
@@ -524,6 +494,30 @@ nav a:focus {
   box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
 }
 
+/* ===== GLOBAL BUTTON OVERRIDE ===== */
+button,
+.btn {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #000000 !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  font-size: 14px !important;
+}
+
+button:hover,
+.btn:hover {
+  background: #333333 !important;
+  color: #ffffff !important;
+  transform: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
 /* ===== PRODUCT GRID ===== */
 .products-section {
   margin: 2rem 0;
@@ -537,36 +531,16 @@ nav a:focus {
 }
 
 .product-card {
-  animation: slideIn 0.6s ease-out forwards;
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  /* Simplified for student-appropriate code */
 }
 
-.product-card:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.product-card:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.product-card:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.product-card:nth-child(4) {
-  animation-delay: 0.4s;
-}
-.product-card:nth-child(5) {
-  animation-delay: 0.5s;
-}
-.product-card:nth-child(6) {
-  animation-delay: 0.6s;
-}
-.product-card:nth-child(n + 7) {
-  animation-delay: 0.7s;
-}
+/* Removed complex animation delays for simpler student code */
+/* Removed all animation delays for simpler code */
 
 .product-card {
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
+  /* backdrop-filter removed for simpler code */
   border: 2px solid #000000;
   border-radius: 24px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15),
@@ -628,25 +602,7 @@ nav a:focus {
   filter: brightness(1.1) saturate(1.2);
 }
 
-.discount-badge {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-  color: white;
-  padding: 0.5rem 0.8rem;
-  border-radius: 25px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  animation: pulse 2s infinite;
-  z-index: 10;
-}
+/* Removed discount badge styling for simpler student code */
 
 .product-info {
   padding: 2rem 1.5rem;
@@ -779,8 +735,8 @@ nav a:focus {
   display: flex;
   gap: 1.5rem;
   align-items: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: slideIn 0.5s ease-out;
+  transition: all 0.3s ease;
+  /* animation removed for simpler code */
   position: relative;
   overflow: hidden;
 }
@@ -950,19 +906,16 @@ nav a:focus {
 .login-requirement {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 2px solid rgba(141, 115, 85, 0.2);
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .login-prompt {
   text-align: center;
   padding: 1.5rem;
-  background: linear-gradient(
-    135deg,
-    rgba(141, 115, 85, 0.1),
-    rgba(45, 45, 45, 0.05)
-  );
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 16px;
-  border: 1px solid rgba(141, 115, 85, 0.2);
+  border: 2px solid #000000;
+  margin: 1rem 0;
 }
 
 .login-prompt h3 {
@@ -973,9 +926,22 @@ nav a:focus {
 }
 
 .login-prompt p {
-  color: #666;
-  margin-bottom: 1.5rem;
+  color: #666666;
+  margin-bottom: 0;
   font-size: 1rem;
+  line-height: 1.4;
+}
+
+.login-prompt a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid #000000;
+}
+
+.login-prompt a:hover {
+  color: #333333;
+  border-bottom-color: #333333;
 }
 
 .login-actions {
@@ -988,13 +954,13 @@ nav a:focus {
 }
 
 .or-divider {
-  color: #8b7355;
+  color: #000000;
   font-weight: 500;
   font-size: 0.9rem;
 }
 
 .login-prompt small {
-  color: #8b7355;
+  color: #666666;
   font-size: 0.85rem;
   font-style: italic;
 }
@@ -1002,6 +968,36 @@ nav a:focus {
 .checkout-section.hidden,
 .login-requirement.hidden {
   display: none;
+}
+
+/* Login requirement box styling for cart */
+.login-required {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.login-requirement-box {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  border: 2px solid #000000;
+  margin: 1rem 0;
+}
+
+.login-requirement-box h4 {
+  color: #000000;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.login-requirement-box p {
+  color: #666666;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
 /* ===== AUTH FORMS ===== */
@@ -1184,7 +1180,7 @@ nav a:focus {
   color: white;
   font-weight: 500;
   z-index: 1000;
-  animation: slideIn 0.3s ease-out;
+  /* animation removed for simpler code */
   max-width: 300px;
 }
 
@@ -1665,10 +1661,12 @@ footer {
   color: #95a5a6;
 }
 
-/* Current page indicator */
+/* Current page indicator - matches carousel color */
 nav a[aria-current="page"] {
-  color: #3498db;
+  color: #c2a2a8 !important;
   font-weight: 600;
+  background: #000000 !important;
+  border-color: #c2a2a8 !important;
 }
 
 /* Mobile Responsive */
@@ -1850,7 +1848,7 @@ nav a[aria-current="page"] {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
   border: 2px solid #000000;
-  animation: slideIn 0.8s ease-out;
+  /* animation removed for simpler code */
   position: relative;
   overflow: hidden;
 }
@@ -1994,7 +1992,7 @@ nav a[aria-current="page"] {
 }
 
 .breadcrumb a {
-  color: #3498db;
+  color: #000000;
   text-decoration: none;
 }
 
@@ -2454,21 +2452,7 @@ nav a[aria-current="page"] {
   transform: scale(1.1);
 }
 
-.feed-discount-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-  z-index: 2;
-}
+/* Removed feed discount badge styling for simpler student code */
 
 .feed-product-info {
   padding: 1.5rem;
@@ -2697,34 +2681,35 @@ nav a[aria-current="page"] {
 }
 
 .login-prompt {
-  padding: 1.5rem;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 193, 7, 0.1),
-    rgba(255, 152, 0, 0.1)
-  );
-  border: 2px solid rgba(255, 193, 7, 0.3);
-  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 2px solid #000000 !important;
+  border-radius: 8px;
   text-align: center;
-  margin: 1rem 0;
+  margin: 0 0 1rem 0;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .login-prompt p {
   margin: 0;
-  font-size: 1.1rem;
-  color: #856404;
+  font-size: 1rem;
+  color: #666666;
+  line-height: 1.4;
 }
 
 .login-prompt a {
-  color: #764ba2;
+  color: #000000 !important;
   font-weight: 600;
   text-decoration: none;
+  border-bottom: 1px solid #000000;
   transition: color 0.3s ease;
 }
 
 .login-prompt a:hover {
-  color: #5a3a7a;
-  text-decoration: underline;
+  color: #333333;
+  border-bottom-color: #333333;
 }
 
 .share-dialog {

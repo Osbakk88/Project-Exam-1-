@@ -211,12 +211,11 @@ function updateCheckoutArea() {
     checkoutArea.innerHTML = `
       <div class="login-required">
         <div class="login-requirement-box">
-          <h4>🔐 Login Required to Purchase</h4>
+          <h4>Login Required to Purchase</h4>
           <p>You must log in to complete your purchase.</p>
           <button id="loginForCheckoutBtn" class="btn btn-primary btn-full-width">
             Login to Checkout
           </button>
-          <small>Your cart will be saved while you sign in.</small>
         </div>
       </div>
     `;

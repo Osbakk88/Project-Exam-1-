@@ -90,12 +90,7 @@ function displayProduct(product) {
   };
   productImageDiv.appendChild(productImg);
 
-  if (discount > 0) {
-    const discountBadge = document.createElement("span");
-    discountBadge.className = "discount-badge";
-    discountBadge.textContent = `${discount}% OFF`;
-    productImageDiv.appendChild(discountBadge);
-  }
+  // Removed discount badge for simpler student-appropriate code
 
   const productInfoDiv = document.createElement("div");
   productInfoDiv.className = "product-detail-info";

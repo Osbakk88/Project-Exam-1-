@@ -369,22 +369,13 @@ const UI = {
 
   // Format price for display
   formatPrice(price) {
-    // Handle invalid prices
-    if (price === null || price === undefined || isNaN(price)) {
+    // Simple price validation
+    if (!price || price <= 0) {
       return "Price not available";
     }
 
-    // Convert to number if it's a string
-    const numPrice = typeof price === "string" ? parseFloat(price) : price;
-
-    if (isNaN(numPrice)) {
-      return "Price not available";
-    }
-
-    return new Intl.NumberFormat("no-NO", {
-      style: "currency",
-      currency: "NOK",
-    }).format(numPrice);
+    // Simple Norwegian currency format
+    return `kr ${price}`;
   },
 
   // Create star rating display
@@ -469,12 +460,7 @@ const UI = {
     };
     imageDiv.appendChild(img);
 
-    if (discountPrice) {
-      const discountBadge = document.createElement("span");
-      discountBadge.className = "discount-badge";
-      discountBadge.textContent = "Sale!";
-      imageDiv.appendChild(discountBadge);
-    }
+    // Removed discount badge for simpler student-appropriate code
 
     // Create product info section
     const infoDiv = document.createElement("div");
