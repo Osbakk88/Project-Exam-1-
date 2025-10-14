@@ -27,14 +27,14 @@ document.addEventListener("DOMContentLoaded", function () {
     .addEventListener("submit", handleRegister);
 });
 
-// Pre-create demo accounts  
+// Pre-create demo accounts
 async function initializeDemoAccounts() {
   console.log("🔧 Initializing demo accounts...");
-  
+
   const demoAccounts = [
     {
       name: "testuser123",
-      email: "testuser123@stud.noroff.no", 
+      email: "testuser123@stud.noroff.no",
       password: "testpass123",
     },
   ];
@@ -44,7 +44,10 @@ async function initializeDemoAccounts() {
       const result = await API.Auth.register(account);
       console.log(`✅ Test account created: ${account.email}`, result);
     } catch (error) {
-      console.log(`ℹ️ Account registration failed or already exists: ${account.email}`, error);
+      console.log(
+        `ℹ️ Account registration failed or already exists: ${account.email}`,
+        error
+      );
     }
   }
 }
@@ -57,7 +60,7 @@ function switchTab(tabName) {
   // Update tab appearance
   tabs.forEach((tab) => {
     tab.classList.remove("active");
-    if (tab.getAttribute('data-tab') === tabName) {
+    if (tab.getAttribute("data-tab") === tabName) {
       tab.classList.add("active");
     }
   });
