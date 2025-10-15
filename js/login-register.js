@@ -31,10 +31,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // Pre-create demo accounts for exam - simplified approach
 async function initializeDemoAccounts() {
   console.log("🔧 Initializing demo accounts...");
-  
+
   // Since only the owner account works reliably, we'll focus on that
   console.log("✅ Owner account available: owner@stud.noroff.no / owner123");
-  
+
   // Don't try to create additional accounts that may fail with API restrictions
 }
 
@@ -103,7 +103,7 @@ async function handleLogin(e) {
   const password = document.getElementById("loginPassword").value;
   console.log("📧 Email:", email);
   console.log("🔑 Password length:", password.length);
-  
+
   const message = document.getElementById("loginMessage");
   const submitBtn = e.target.querySelector('button[type="submit"]');
 
@@ -120,19 +120,25 @@ async function handleLogin(e) {
 
   try {
     console.log("Attempting login with:", { email, password });
-    
+
     // Special handling for the working owner account
     if (email === "owner@stud.noroff.no" && password === "owner123") {
       console.log("🔑 Using owner account with valid tokens");
-      
+
       // Set the working credentials from api.js
-      localStorage.setItem("accessToken", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoib3NiYWtrODgiLCJlbWFpbCI6ImNocm9zYjAyMzk3QHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzYwMTg1NzgwfQ.w3ARZ4X-zyPnZFM0rrNJKuxUxf11p_rtapEGo0tbHfI");
+      localStorage.setItem(
+        "accessToken",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoib3NiYWtrODgiLCJlbWFpbCI6ImNocm9zYjAyMzk3QHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzYwMTg1NzgwfQ.w3ARZ4X-zyPnZFM0rrNJKuxUxf11p_rtapEGo0tbHfI"
+      );
       localStorage.setItem("apiKey", "4a7c1acd-3cae-47ee-a661-1ef655293dea");
-      localStorage.setItem("user", JSON.stringify({
-        name: "osbakk88",
-        email: "chrosb02397@stud.noroff.no"
-      }));
-      
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          name: "osbakk88",
+          email: "chrosb02397@stud.noroff.no",
+        })
+      );
+
       message.innerHTML = `
         <div class="notification success">
           <p>Login successful! Redirecting...</p>
@@ -151,10 +157,10 @@ async function handleLogin(e) {
           window.location.href = "shop.html";
         }
       }, 1500);
-      
+
       return;
     }
-    
+
     // Try normal API login for other accounts
     const result = await API.Auth.login({ email, password });
     console.log("Login result:", result);
@@ -218,16 +224,20 @@ async function handleRegister(e) {
   const email = document.getElementById("registerEmail").value.trim();
   const password = document.getElementById("registerPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
-  
-  console.log("📋 Registration data:", { name, email, passwordLength: password.length });
-  
+
+  console.log("📋 Registration data:", {
+    name,
+    email,
+    passwordLength: password.length,
+  });
+
   const message = document.getElementById("registerMessage");
   if (!message) {
     console.error("❌ registerMessage element not found!");
     alert("Registration form error - message container missing");
     return;
   }
-  
+
   const submitBtn = e.target.querySelector('button[type="submit"]');
 
   // Test if we can display a message
@@ -236,7 +246,7 @@ async function handleRegister(e) {
       <p>Testing message display...</p>
     </div>
   `;
-  
+
   console.log("✅ Message displayed successfully");
 
   // Noroff API validation
@@ -329,7 +339,7 @@ async function handleRegister(e) {
     } else {
       // Handle API error (this is where our registration restriction should be caught)
       console.log("🚨 Registration failed with API error:", result.error);
-      
+
       message.innerHTML = `
         <div class="notification error">
           <p><strong>Account Registration Unavailable</strong></p>
@@ -348,7 +358,7 @@ async function handleRegister(e) {
     console.error("🚨 Registration error caught:", error);
     console.log("🎯 Message container exists:", !!message);
     console.log("🎯 Message container element:", message);
-    
+
     const errorHTML = `
       <div class="notification error">
         <p><strong>Account Registration Unavailable</strong></p>
@@ -362,7 +372,7 @@ async function handleRegister(e) {
         </div>
       </div>
     `;
-    
+
     console.log("🎨 Setting error HTML:", errorHTML);
     message.innerHTML = errorHTML;
     console.log("✅ Error message set, current innerHTML:", message.innerHTML);
