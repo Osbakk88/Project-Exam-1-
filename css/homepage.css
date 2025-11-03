@@ -544,6 +544,25 @@
   text-align: center;
 }
 
+/* ===== BROWSE ALL PRODUCTS BUTTON ===== */
+.feed-actions {
+  text-align: center;
+  margin: 4rem 0;
+  padding: 2rem 0;
+}
+
+.feed-actions .btn {
+  font-size: 1.1rem;
+  padding: 1rem 2.5rem;
+  min-width: 220px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.feed-actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
 .loading-message,
 .no-products,
 .error-message {
