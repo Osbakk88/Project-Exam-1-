@@ -2,7 +2,7 @@
 
 /* ===== PRODUCT DETAIL MAIN LAYOUT ===== */
 .product-detail-main {
-  min-height: 100vh;
+  min-height: 700px;
   background: #f8f8f8;
   padding: 3rem 1rem;
   display: flex;

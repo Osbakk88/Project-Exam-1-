@@ -1,4 +1,4 @@
-# My Exam 2 Project Plan
+# My Exam 2 Project Plan (This document is created with the help of AI)
 
 ## What I Need to Build
 
@@ -152,7 +152,7 @@ I need to make an online shop website for my exam. Here's what I planned to do:
 - **Designmodo tutorial** - For cart design ideas (combined with my Figma designs)
 - **AI help** - For organizing this document and understanding concepts
 
-All the actual coding was done by me, but I got help understanding how to organize and plan properly.
+All the actual coding was done by me, but I got help understanding how to organize and plan properly from my assignment, the teacher and AI.
 
 ---
 

@@ -1,31 +1,160 @@
-/* Cart Page CSS - Shopping cart styles and checkout functionality */
+#main-content {
+  min-heig.item:fir.item:first-child .buttons {
+  top: calc(50% - 11rem);
+}
 
-/* ===== CART CONTAINER ===== */
+.item:first-child .image {
+  top: calc(50% - 11rem);
+}d .buttons {
+  top: calc(50% - 9rem);
+}
+
+.item:first-child .image {
+  top: calc(50% - 9rem);
+}
+
+#main-content {
+  min-height: 600px;
+  padding-bottom: 2rem;
+  padding-top: 6rem;
+}
+
+.shopping-cart {
+  min-height: 400px;
+  margin-top: 4rem;
+}
+
+.shopping-cart .title {
+  display: none;
+}
+
+.shopping-bag-text {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  color: #2d2d2d;
+  font-size: 2rem;
+  font-weight: 700;
+  padding-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  border-bottom: 2px solid #2d2d2d;
+}
+
+.item:first-child .buttons {
+  top: calc(50% - 9rem);
+}
+
+.item:first-child .image {
+  top: calc(50% - 9rem);
+}
+
+.item:first-child .description {
+  margin-top: 10rem;
+  font-size: 1.5rem;
+}
+
+.item:first-child .description span:first-child {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.item:first-child .description span:last-child {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.item:first-child .quantity {
+  top: calc(80% - 15rem);
+}
+
+.item:first-child::after {
+  content: "";
+  position: absolute;
+  bottom: 30%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #2d2d2d;
+}
+
+.checkout-buttons-section {
+  position: absolute;
+  bottom: 3rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.checkout-buttons-section .btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.login-to-purchase-btn {
+  background: #000;
+  color: white;
+}
+
+.login-to-purchase-btn:hover {
+  background: #333;
+}
+
+.clear-cart-btn {
+  background: #f8f9fa;
+  color: #333;
+  border: 2px solid #ddd;
+}
+
+.clear-cart-btn:hover {
+  background: #e9ecef;
+}
+
+.item:first-child .total-price {
+  position: absolute;
+  bottom: 8rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+
 .cart-container {
   padding: 2rem 0;
   max-width: 800px;
   margin: 0 auto;
 }
 
-/* ===== CART ITEMS ===== */
 .item {
   background: white;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
+  padding: 3.5rem 1.5rem;
+  margin-bottom: 2rem;
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border: 2px solid #000;
   display: block;
   position: relative;
-  max-width: 600px;
+  max-width: 850px;
   margin-left: auto;
   margin-right: auto;
+  min-height: 900px;
 }
 
 .buttons {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .delete-btn {
@@ -33,13 +162,13 @@
   color: white;
   border: none;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 
@@ -48,13 +177,14 @@
 }
 
 .image {
-  width: 100px;
-  height: 100px;
+  width: 290px;
+  height: 290px;
   border-radius: 10px;
   overflow: hidden;
-  float: left;
-  margin-right: 1rem;
-  margin-bottom: 0.5rem;
+  position: absolute;
+  left: 90px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .image img {
@@ -66,6 +196,8 @@
 .description {
   display: block;
   margin-bottom: 1rem;
+  margin-left: 410px;
+  margin-top: 10rem;
   overflow: hidden;
 }
 
@@ -89,29 +221,64 @@
   align-items: center;
   gap: 0.5rem;
   margin-right: 1rem;
+  position: absolute;
+  left: 220px;
+  top: 80%;
+  transform: translateX(-50%);
+  margin-top: 0;
 }
 
 .quantity button {
   background: #000;
-  color: white;
+  color: transparent;
   border: none;
-  border-radius: 5px;
-  width: 30px;
-  height: 30px;
+  border-radius: 8px;
+  width: 26px;
+  height: 26px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.quantity button::after {
+  content: "+";
+  position: absolute;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1;
+}
+
+/* Used AI to help me fix the issue with the minus sign not showing up in center */
+.quantity button:first-child::after {
+  content: "-";
 }
 
 .quantity button:hover {
   background: #333;
+  transform: scale(1.05);
 }
 
 .quantity input {
-  width: 50px;
+  width: 40px;
+  height: 24px;
   text-align: center;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 0.25rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 0;
+  font-weight: 600;
+  font-size: 0.8rem;
 }
 
 .total-price {
@@ -119,9 +286,10 @@
   font-weight: 700;
   color: #000;
   display: inline-block;
+  margin-left: 410px;
+  margin-top: 1rem;
 }
 
-/* ===== CART SUMMARY ===== */
 .cart-summary-section {
   background: white;
   padding: 2rem;
@@ -153,7 +321,6 @@
   justify-content: center;
 }
 
-/* ===== EMPTY CART ===== */
 .empty-cart-state {
   text-align: center;
   padding: 3rem 2rem;
@@ -174,7 +341,6 @@
   margin-bottom: 2rem;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .item {
     flex-direction: column;

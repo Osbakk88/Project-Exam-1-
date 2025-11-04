@@ -1,4 +1,4 @@
-# Exam 2 - Online Shop
+# Exam 2 - Online Shop - 
 
 My second exam attempt. Building a simple e-commerce website with JavaScript and the Noroff API as I had missunderstod the the exam at first.
 

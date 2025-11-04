@@ -3,7 +3,7 @@
 /* ===== BANNER CAROUSEL STYLES ===== */
 .banner-carousel-section {
   position: relative;
-  height: 70vh;
+  height: 500px;
   min-height: 500px;
   overflow: hidden;
   margin-bottom: 4rem;
@@ -804,7 +804,7 @@
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 1024px) {
   .hero-carousel {
-    height: 50vh;
+    height: 400px;
     min-height: 350px;
   }
 
@@ -829,7 +829,7 @@
 
 @media (max-width: 768px) {
   .hero-carousel {
-    height: 40vh;
+    height: 300px;
     min-height: 300px;
   }
 

@@ -54,8 +54,8 @@ function displayCart() {
   // Clear container and populate with Designmodo-style items
   cartItemsContainer.innerHTML = "";
 
-  cartItems.forEach((item) => {
-    const cartItemElement = createDesignmodoCartItem(item);
+  cartItems.forEach((item, index) => {
+    const cartItemElement = createDesignmodoCartItem(item, index === 0);
     cartItemsContainer.appendChild(cartItemElement);
   });
 
@@ -64,18 +64,62 @@ function displayCart() {
 }
 
 function showEmptyCart() {
+  const cartItemsContainer = document.getElementById("cartItems");
   const cartSummary = document.getElementById("cartSummary");
   const emptyCart = document.getElementById("emptyCart");
 
+  // Clear the cart items container
+  cartItemsContainer.innerHTML = "";
+
+  // Hide cart summary and show empty cart
   cartSummary.style.display = "none";
   emptyCart.style.display = "block";
+
+  console.log("Showing empty cart state");
 }
 
-function createDesignmodoCartItem(item) {
+function createDesignmodoCartItem(item, isFirstItem = false) {
   // Create main item div following Designmodo structure
   const itemDiv = document.createElement("div");
   itemDiv.className = "item";
   itemDiv.setAttribute("data-item-id", item.id);
+
+  // Add Shopping Bag text to first item only
+  if (isFirstItem) {
+    const shoppingBagText = document.createElement("div");
+    shoppingBagText.className = "shopping-bag-text";
+    shoppingBagText.textContent = "Shopping Bag";
+    itemDiv.appendChild(shoppingBagText);
+
+    // Add checkout buttons section
+    const checkoutButtons = document.createElement("div");
+    checkoutButtons.className = "checkout-buttons-section";
+
+    // Login to purchase button
+    const loginToPurchaseBtn = document.createElement("button");
+    loginToPurchaseBtn.className = "btn btn-primary login-to-purchase-btn";
+    loginToPurchaseBtn.textContent = "Login to purchase";
+
+    // Clear cart button
+    const clearCartBtn = document.createElement("button");
+    clearCartBtn.className = "btn btn-secondary clear-cart-btn";
+    clearCartBtn.textContent = "Clear Cart";
+    clearCartBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (confirm("Are you sure you want to clear your cart?")) {
+        API.Cart.clearCart();
+        showNotification("Cart cleared", "success");
+        // Redirect to shop page after clearing cart
+        setTimeout(() => {
+          window.location.href = "shop.html";
+        }, 1000);
+      }
+    });
+
+    checkoutButtons.appendChild(loginToPurchaseBtn);
+    checkoutButtons.appendChild(clearCartBtn);
+    itemDiv.appendChild(checkoutButtons);
+  }
 
   // Action buttons (delete, favorite)
   const buttonsDiv = document.createElement("div");
@@ -170,7 +214,7 @@ function createDesignmodoCartItem(item) {
   const totalPriceDiv = document.createElement("div");
   totalPriceDiv.className = "total-price";
   const itemTotal = displayPrice * item.quantity;
-  totalPriceDiv.textContent = API.UI.formatPrice(itemTotal);
+  totalPriceDiv.textContent = "Total: " + API.UI.formatPrice(itemTotal);
 
   // Assemble the item
   itemDiv.appendChild(buttonsDiv);
