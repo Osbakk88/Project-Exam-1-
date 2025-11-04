@@ -1,6 +1,3 @@
-/* Homepage CSS - Carousel, hero sections, and homepage-specific styling */
-
-/* ===== BANNER CAROUSEL STYLES ===== */
 .banner-carousel-section {
   position: relative;
   height: 500px;
@@ -173,7 +170,6 @@
   border-color: rgba(255, 255, 255, 0.6);
 }
 
-/* ===== CAROUSEL CONTROLS ===== */
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -208,7 +204,6 @@
   right: 2rem;
 }
 
-/* ===== CAROUSEL INDICATORS ===== */
 .carousel-indicators {
   position: absolute;
   bottom: 2rem;
@@ -235,7 +230,6 @@
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
 }
 
-/* ===== PRODUCT FEED STYLES FOR HOMEPAGE ===== */
 .product-feed-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -320,7 +314,6 @@
   color: #8b7355;
 }
 
-/* ===== PRODUCT GRID STYLES FOR HOMEPAGE ===== */
 .products-section {
   margin: 2rem 0;
 }
@@ -474,7 +467,6 @@
   overflow: hidden;
 }
 
-/* ===== FEATURED PRODUCTS SECTION ===== */
 .featured-products {
   padding: 4rem 0;
 }
@@ -544,7 +536,6 @@
   text-align: center;
 }
 
-/* ===== BROWSE ALL PRODUCTS BUTTON ===== */
 .feed-actions {
   text-align: center;
   margin: 4rem 0;
@@ -572,7 +563,6 @@
   font-style: italic;
 }
 
-/* ===== HERO SECTION ===== */
 .hero-section {
   background: linear-gradient(135deg, #2d2d2d 0%, #8b7355 100%);
   color: white;
@@ -612,7 +602,6 @@
   opacity: 0.8;
 }
 
-/* ===== PRODUCT FEED SECTION ===== */
 .product-feed-section {
   padding: 4rem 0;
 }
@@ -641,7 +630,6 @@
   margin-right: auto;
 }
 
-/* ===== FEATURES SECTION ===== */
 .features-section {
   padding: 4rem 0;
   background: #f8f9fa;
@@ -684,7 +672,6 @@
   color: #ffd700;
 }
 
-/* ===== CAROUSEL CONTROLS ===== */
 .carousel-nav {
   position: absolute;
   top: 50%;
@@ -746,7 +733,6 @@
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
 
-/* ===== FEATURED SECTIONS ===== */
 .featured-section {
   margin: 4rem 0;
   text-align: center;
@@ -768,7 +754,6 @@
   margin-right: auto;
 }
 
-/* ===== HOMEPAGE GRID ===== */
 .homepage-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -801,7 +786,6 @@
   line-height: 1.6;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 1024px) {
   .hero-carousel {
     height: 400px;

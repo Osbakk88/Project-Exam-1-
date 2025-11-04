@@ -1,5 +1,3 @@
-// API Configuration for Noroff Online Shop
-// NOTE: AI assistance used for API error handling improvements and authentication flow
 const API_BASE_URL = "https://v2.api.noroff.dev";
 
 // API Endpoints

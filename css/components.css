@@ -1,7 +1,3 @@
-/* Components CSS - Reusable UI components */
-/* NOTE: Header, navigation, buttons, forms, and common interface elements */
-
-/* ===== MODERN HEADER STYLES ===== */
 header {
   background: #000000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -18,7 +14,6 @@ header .container {
   padding: 1.8rem 20px;
 }
 
-/* ===== LOGO STYLES ===== */
 .logo {
   display: flex;
   align-items: center;
@@ -68,7 +63,6 @@ header .container {
   filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.2));
 }
 
-/* ===== MODERN NAVIGATION ===== */
 nav ul {
   display: flex;
   list-style: none;
@@ -147,7 +141,6 @@ nav a:focus {
   display: flex;
 }
 
-/* ===== MODERN BUTTONS ===== */
 .btn {
   padding: 0.625rem 2rem;
   border: none;
@@ -241,7 +234,6 @@ nav a:focus {
   box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
 }
 
-/* Global button override */
 button,
 .btn {
   background: #000000 !important;
@@ -265,7 +257,6 @@ button:hover,
   width: 100%;
 }
 
-/* ===== MODERN FORM CONTROLS ===== */
 .search-input,
 .sort-select,
 .form-input,
@@ -306,7 +297,6 @@ button:hover,
   cursor: pointer;
 }
 
-/* Form validation styles */
 .form-input.error,
 .search-input.error,
 .sort-select.error {
@@ -339,7 +329,6 @@ button:hover,
   display: block;
 }
 
-/* ===== FILTERS SECTION ===== */
 .filters-section {
   margin: 3rem 0;
   background: rgba(255, 255, 255, 0.9);
@@ -365,7 +354,6 @@ button:hover,
   align-items: center;
 }
 
-/* ===== FOOTER ===== */
 footer {
   background: #1a1a1a;
   color: #ffffff;
@@ -379,7 +367,6 @@ footer p {
   opacity: 0.8;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .logo-image {
     height: 64px;

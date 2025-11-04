@@ -1,6 +1,3 @@
-/* Login/Register Pages CSS - Authentication forms and styling */
-
-/* ===== AUTH CONTAINER ===== */
 .auth-container {
   max-width: 600px !important;
   margin: 3rem auto !important;
@@ -33,7 +30,6 @@
   font-weight: 400;
 }
 
-/* ===== TAB SYSTEM ===== */
 .auth-tabs {
   display: flex;
   margin-bottom: 5rem !important;
@@ -73,7 +69,6 @@
   color: #333;
 }
 
-/* ===== FORM STYLING ===== */
 .auth-form {
   display: none;
   animation: fadeIn 0.3s ease-in-out;
@@ -117,7 +112,6 @@
   border-color: #ced4da;
 }
 
-/* ===== BUTTONS ===== */
 .auth-btn {
   width: 100%;
   padding: 1rem !important;
@@ -165,7 +159,6 @@
   color: white !important;
 }
 
-/* ===== LINKS ===== */
 .auth-link {
   color: #000 !important;
   text-decoration: none;
@@ -185,7 +178,6 @@
   font-size: 0.95rem;
 }
 
-/* ===== MESSAGES & NOTIFICATIONS ===== */
 .message,
 .notification {
   padding: 1rem;
@@ -219,7 +211,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* ===== ANIMATIONS ===== */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -231,7 +222,6 @@
   }
 }
 
-/* ===== FORM SPACING ===== */
 .auth-form {
   margin-bottom: 3.5rem;
   padding-bottom: 1.5rem;
@@ -245,7 +235,6 @@
   margin-bottom: 4.5rem;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .auth-container {
     margin: 1rem !important;

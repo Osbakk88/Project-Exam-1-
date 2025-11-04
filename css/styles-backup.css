@@ -1,6 +1,3 @@
-/* NOTE: AI assistance used extensively for CSS cleanup, cart positioning fixes, 
-   currency formatting, login form styling, and professional design improvements */
-
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
 * {
@@ -3801,7 +3798,7 @@ nav a[aria-current="page"] {
   justify-content: center !important;
 }
 
-/* Empty cart state - SCOPED TO CART ONLY */
+
 .shopping-cart .empty-cart-state {
   text-align: center;
   padding: 40px 30px;
@@ -3817,7 +3814,7 @@ nav a[aria-current="page"] {
   margin-bottom: 20px;
 }
 
-/* Responsive design for Designmodo cart - SCOPED TO CART ONLY */
+
 @media (max-width: 800px) {
   .shopping-cart {
     width: 100%;
@@ -3849,7 +3846,6 @@ nav a[aria-current="page"] {
   }
 }
 
-/* ===== PRODUCT DETAIL PAGE DESIGN ===== */
 .product-detail-main {
   min-height: 100vh;
   background: #f8f8f8;

@@ -1,16 +1,11 @@
-/* Base CSS - Global styles, reset, typography, and core layout */
-/* NOTE: AI assistance used extensively for CSS cleanup and professional design improvements */
-
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
-/* ===== CSS RESET ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ===== GLOBAL BODY STYLES ===== */
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -22,7 +17,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== MODERN TYPOGRAPHY ===== */
 h1,
 h2,
 h3,
@@ -68,7 +62,6 @@ h6 {
   font-weight: 600;
 }
 
-/* Monospace font for code elements */
 code,
 pre,
 .code,
@@ -76,7 +69,6 @@ pre,
   font-family: "JetBrains Mono", Consolas, Monaco, monospace;
 }
 
-/* ===== UTILITY CLASSES ===== */
 .hidden {
   display: none !important;
 }
@@ -92,7 +84,6 @@ pre,
   padding: 0 1rem;
 }
 
-/* ===== MAIN CONTENT AREAS ===== */
 main {
   padding: 0 0 2rem 0;
 }
@@ -118,13 +109,11 @@ main {
   text-decoration: none;
 }
 
-/* ===== ACCESSIBILITY ===== */
 :focus {
   outline: 2px solid #007bff;
   outline-offset: 2px;
 }
 
-/* Ensure proper contrast for accessibility */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -137,7 +126,6 @@ main {
   border: 0;
 }
 
-/* ===== RESPONSIVE HELPERS ===== */
 @media (max-width: 1024px) {
   h1 {
     font-size: 2rem;
@@ -166,7 +154,6 @@ main {
   }
 }
 
-/* ===== ACCESSIBILITY - REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

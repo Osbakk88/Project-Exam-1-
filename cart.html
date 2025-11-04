@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Your shopping cart" />
     <title>Shopping Cart - Online Shop</title>
-
-    <!-- ATTRIBUTION: Cart design based on Designmodo tutorial -->
-    <!-- Original source: https://designmodo.com/shopping-cart-ui/ -->
-    <!-- Author: Raul Dronca - Designmodo -->
-    <!-- Adapted and modified for this e-commerce project -->
-
-    <!-- Google Fonts - Match other pages -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -45,7 +38,6 @@
               </a>
             </li>
             <li id="authNav">
-              <!-- Will be populated by JavaScript based on login status -->
             </li>
           </ul>
         </nav>
@@ -53,16 +45,10 @@
     </header>
 
     <main id="main-content">
-      <!-- Shopping Cart Container - Based on Designmodo design -->
       <div class="shopping-cart">
         <div class="title">Shopping Bag</div>
-
-        <!-- Cart items will be dynamically loaded here -->
         <div id="cartItems">
-          <!-- Items will be populated by JavaScript -->
         </div>
-
-        <!-- Empty cart state -->
         <div id="emptyCart" class="empty-cart-state">
           <div class="empty-message">
             <h3>Your Shopping Cart is Empty</h3>
@@ -73,8 +59,6 @@
             <a href="shop.html" class="btn btn-primary">Start Shopping</a>
           </div>
         </div>
-
-        <!-- Cart summary and checkout -->
         <div id="cartSummary" class="cart-summary-section hidden">
           <div class="item checkout-section">
             <div class="checkout-content">
@@ -85,7 +69,6 @@
             </div>
 
             <div id="checkoutArea" class="checkout-actions">
-              <!-- Will be populated by JavaScript based on login status -->
               <a href="#" id="clearCartBtn" class="btn btn-primary">
                 Clear Cart
               </a>
@@ -100,8 +83,6 @@
         <p>&copy; 2025 Online Shop. All rights reserved.</p>
       </div>
     </footer>
-
-    <!-- Pure vanilla JavaScript - no frameworks -->
     <script src="js/api.js"></script>
     <script src="js/cart.js"></script>
   </body>

@@ -1,6 +1,3 @@
-/* Shop Page CSS - Product grid, filtering, and shopping functionality */
-
-/* ===== FILTERS SECTION ===== */
 .filters-section {
   margin: 3rem 0;
   background: rgba(255, 255, 255, 0.9);
@@ -25,7 +22,6 @@
   align-items: center;
 }
 
-/* ===== FORM CONTROLS ===== */
 .search-input,
 .sort-select {
   padding: 1rem 1.25rem;
@@ -45,7 +41,6 @@
   cursor: pointer;
 }
 
-/* ===== PRODUCTS SECTION ===== */
 .products-section {
   margin: 2rem 0;
 }
@@ -57,7 +52,6 @@
   padding: 2rem 0;
 }
 
-/* ===== PRODUCT CARDS ===== */
 .product-card {
   background: white;
   border: 2px solid #000;
@@ -119,7 +113,6 @@
   line-height: 1.4;
 }
 
-/* ===== PRODUCT RATING ===== */
 .product-rating {
   margin: 0.5rem 0;
   display: flex;
@@ -137,7 +130,6 @@
   font-size: 0.9rem;
 }
 
-/* ===== PRODUCT TAGS ===== */
 .product-tags {
   margin: 1rem 0;
 }
@@ -153,7 +145,6 @@
   margin-bottom: 0.5rem;
 }
 
-/* ===== PRODUCT ACTIONS ===== */
 .product-actions {
   display: flex;
   gap: 0.5rem;
@@ -167,7 +158,6 @@
   font-size: 0.9rem;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

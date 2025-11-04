@@ -1,6 +1,3 @@
-/* Product Detail Page CSS - Individual product page styling */
-
-/* ===== PRODUCT DETAIL MAIN LAYOUT ===== */
 .product-detail-main {
   min-height: 700px;
   background: #f8f8f8;
@@ -26,7 +23,6 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
 
-/* ===== CLASSIC PRODUCT DETAIL LAYOUT ===== */
 .product-detail {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -91,7 +87,6 @@
   letter-spacing: -0.025em;
 }
 
-/* ===== LEFT SIDE - PRODUCT IMAGE SECTION ===== */
 .product-image-section {
   display: flex;
   flex-direction: column;
@@ -163,7 +158,6 @@
   color: #000;
 }
 
-/* Specific styling for product detail page price inside frame */
 .product-image-frame .product-price {
   text-align: center;
   margin-top: auto;
@@ -180,7 +174,6 @@
   color: #000;
 }
 
-/* ===== RIGHT SIDE - PRODUCT INFO SECTION ===== */
 .product-info-section {
   display: flex;
   flex-direction: column;
@@ -226,7 +219,6 @@
   transform: translateY(-1px);
 }
 
-/* ===== PRICE SECTION ===== */
 .product-price-section {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -261,7 +253,6 @@
   display: inline-block;
 }
 
-/* ===== PRODUCT DESCRIPTION ===== */
 .product-description {
   font-size: 1.15rem;
   line-height: 1.8;
@@ -271,7 +262,6 @@
   background: transparent;
 }
 
-/* ===== PRODUCT CATEGORY ===== */
 .product-category {
   background: #f0f0f0;
   border: 1px solid #ddd;
@@ -285,7 +275,6 @@
   margin: 1rem 0;
 }
 
-/* ===== PRODUCT ACTIONS ===== */
 .product-actions {
   margin-top: 2rem;
 }
@@ -309,7 +298,6 @@
   text-align: center;
 }
 
-/* ===== BREADCRUMB ===== */
 .breadcrumb {
   margin: 1rem 0;
   color: #666;
@@ -324,7 +312,6 @@
   text-decoration: underline;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 1024px) {
   .product-detail-card {
     grid-template-columns: 400px 1fr;
@@ -397,7 +384,6 @@
   }
 }
 
-/* ===== PRODUCT INFO SECTION ===== */
 .product-info-section {
   display: flex;
   flex-direction: column;
@@ -468,7 +454,6 @@
   margin: 1.5rem 0;
 }
 
-/* ===== PRODUCT ACTIONS ===== */
 .product-actions {
   display: flex;
   flex-direction: column;
@@ -509,7 +494,6 @@
   font-weight: 600;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 1024px) {
   .product-detail-container {
     grid-template-columns: 1fr;
