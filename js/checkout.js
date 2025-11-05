@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Setup form functionality
   setupPaymentMethods();
+  setupPaymentSelection();
   setupFormValidation();
   setupPlaceOrder();
 
@@ -41,16 +42,8 @@ function updateNavigation() {
 function setupLogoutHandler() {
   // Handle logout button clicks
   document.addEventListener("click", function (e) {
-    console.log(
-      "Click detected on:",
-      e.target,
-      "data-action:",
-      e.target.getAttribute("data-action")
-    );
-
     if (e.target.getAttribute("data-action") === "logout") {
-      e.preventDefault(); // Prevent any default behavior
-      console.log("Logout button clicked");
+      e.preventDefault();
 
       try {
         if (
@@ -60,13 +53,11 @@ function setupLogoutHandler() {
         ) {
           window.API.Auth.logout();
         } else {
-          console.error("API.Auth.logout not available");
           // Fallback manual logout
           localStorage.clear();
           window.location.reload();
         }
       } catch (error) {
-        console.error("Error during logout:", error);
         // Fallback manual logout
         localStorage.clear();
         window.location.reload();
@@ -206,26 +197,65 @@ function setupFormValidation() {
 }
 
 function setupPlaceOrder() {
-  const placeOrderBtn = document.getElementById("placeOrderBtn");
+  // Use window.load event for more reliable timing
+  window.addEventListener("load", function () {
+    const placeOrderBtn = document.getElementById("placeOrderBtn");
 
-  placeOrderBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    if (validateForms()) {
-      processOrder();
+    if (!placeOrderBtn) {
+      return;
     }
+
+    placeOrderBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // Validate forms before processing
+      if (!validateForms()) {
+        return;
+      }
+
+      // Show processing state
+      placeOrderBtn.textContent = "Processing Order...";
+      placeOrderBtn.disabled = true;
+
+      // Collect order data
+      const orderData = {
+        items: API.Cart.getCart() || [],
+        delivery: getDeliveryData(),
+        payment: getPaymentData(),
+        timestamp: new Date().toISOString(),
+        orderNumber: "ORD-" + Date.now(),
+      };
+
+      // Store order data for success page
+      localStorage.setItem("lastOrder", JSON.stringify(orderData));
+
+      // Redirect after processing delay
+      setTimeout(() => {
+        // Clear cart
+        if (API.Cart && API.Cart.clearCart) {
+          API.Cart.clearCart();
+        }
+
+        // Redirect to success page
+        window.location.href = "success.html";
+      }, 1000);
+    });
   });
 }
 
 function validateForms() {
-  const deliveryForm = document.getElementById("deliveryForm");
-  const paymentForm = document.getElementById("paymentForm");
+  const checkoutCard = document.querySelector(".checkout-card");
+
+  if (!checkoutCard) {
+    return false;
+  }
 
   let isValid = true;
 
-  // Check delivery form
-  const requiredDeliveryFields = deliveryForm.querySelectorAll("[required]");
-  requiredDeliveryFields.forEach((field) => {
+  // Check all required fields in the checkout form
+  const requiredFields = checkoutCard.querySelectorAll("[required]");
+
+  requiredFields.forEach((field) => {
     if (!field.value.trim()) {
       field.classList.add("error");
       isValid = false;
@@ -233,24 +263,6 @@ function validateForms() {
       field.classList.remove("error");
     }
   });
-
-  // Check payment form if credit card is selected
-  const selectedPayment = document.querySelector(
-    'input[name="paymentMethod"]:checked'
-  );
-  if (selectedPayment && selectedPayment.value === "creditCard") {
-    const requiredPaymentFields = document
-      .getElementById("creditCardDetails")
-      .querySelectorAll("[required]");
-    requiredPaymentFields.forEach((field) => {
-      if (!field.value.trim()) {
-        field.classList.add("error");
-        isValid = false;
-      } else {
-        field.classList.remove("error");
-      }
-    });
-  }
 
   if (!isValid) {
     showNotification("Please fill in all required fields", "error");
@@ -290,31 +302,28 @@ function processOrder() {
 
 function getDeliveryData() {
   return {
-    firstName: document.getElementById("firstName").value,
-    lastName: document.getElementById("lastName").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
-    address: document.getElementById("address").value,
-    city: document.getElementById("city").value,
-    zipCode: document.getElementById("zipCode").value,
-    country: document.getElementById("country").value,
-    notes: document.getElementById("deliveryNotes").value,
+    firstName: document.getElementById("firstName")?.value || "",
+    lastName: document.getElementById("lastName")?.value || "",
+    email: document.getElementById("email")?.value || "",
+    phone: document.getElementById("phone")?.value || "",
+    address: document.getElementById("address")?.value || "",
+    city: document.getElementById("city")?.value || "",
+    zipCode: document.getElementById("zipCode")?.value || "",
+    country: document.getElementById("country")?.value || "",
+    notes: document.getElementById("deliveryNotes")?.value || "",
   };
 }
 
 function getPaymentData() {
   const selectedMethod = document.querySelector(
-    'input[name="paymentMethod"]:checked'
+    'input[name="payment"]:checked'
   );
   const paymentData = {
-    method: selectedMethod.value,
+    method: selectedMethod ? selectedMethod.value : "credit-card",
   };
 
-  if (selectedMethod.value === "creditCard") {
-    paymentData.cardNumber =
-      "**** **** **** " + document.getElementById("cardNumber").value.slice(-4);
-    paymentData.cardName = document.getElementById("cardName").value;
-  }
+  // For now, we don't collect credit card details in this simple form
+  // In a real application, you would add credit card input fields
 
   return paymentData;
 }
@@ -341,4 +350,46 @@ function showNotification(message, type = "success") {
   setTimeout(() => {
     notification.remove();
   }, 3000);
+}
+
+function setupPaymentSelection() {
+  const paymentOptions = document.querySelectorAll(".payment-option");
+
+  if (paymentOptions.length === 0) {
+    return;
+  }
+
+  paymentOptions.forEach((option) => {
+    option.addEventListener("click", function () {
+      // Remove selected class from all options
+      paymentOptions.forEach((opt) => {
+        opt.classList.remove("selected");
+      });
+
+      // Add selected class to clicked option
+      this.classList.add("selected");
+    });
+  });
+}
+
+// Global function for payment selection (called from HTML)
+function selectPayment(clickedElement) {
+  // Remove selected class from all payment options
+  const allOptions = document.querySelectorAll(".payment-option");
+  allOptions.forEach((option) => option.classList.remove("selected"));
+
+  // Add selected class to clicked option
+  clickedElement.classList.add("selected");
+
+  // Determine which payment method was selected for future use
+  const method = clickedElement.classList.contains("credit-card")
+    ? "Credit Card"
+    : clickedElement.classList.contains("klarna")
+    ? "Klarna"
+    : clickedElement.classList.contains("vipps")
+    ? "Vipps"
+    : "Unknown";
+
+  // Store the selected payment method on the element
+  clickedElement.dataset.paymentMethod = method;
 }

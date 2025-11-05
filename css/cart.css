@@ -1,15 +1,16 @@
-#main-content {
-  min-heig.item:fir.item:first-child .buttons {
+.item:first-child .buttons {
   top: calc(50% - 11rem);
 }
 
 .item:first-child .image {
   top: calc(50% - 11rem);
-}d .buttons {
+}
+
+.item:last-child .buttons {
   top: calc(50% - 9rem);
 }
 
-.item:first-child .image {
+.item:last-child .image {
   top: calc(50% - 9rem);
 }
 

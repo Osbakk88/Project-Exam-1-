@@ -1,12 +1,8 @@
-// Cart page functionality - Designmodo Integration
+// Cart page functionality - Designmodo Inspired
 // ATTRIBUTION: Cart design based on Designmodo tutorial
-// Original source: https://designmodo.com/shopping-cart-ui/
-// Author: Raul Dronca - Designmodo
 // Adapted and modified for this e-commerce project with API integration
 
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("🛒 Designmodo Cart page loaded");
-
   // Update navigation based on login status
   updateNavigation();
 
@@ -51,7 +47,6 @@ function displayCart() {
   emptyCart.style.display = "none";
   cartSummary.style.display = "block";
 
-  // Clear container and populate with Designmodo-style items
   cartItemsContainer.innerHTML = "";
 
   cartItems.forEach((item, index) => {
@@ -79,7 +74,6 @@ function showEmptyCart() {
 }
 
 function createDesignmodoCartItem(item, isFirstItem = false) {
-  // Create main item div following Designmodo structure
   const itemDiv = document.createElement("div");
   itemDiv.className = "item";
   itemDiv.setAttribute("data-item-id", item.id);
@@ -91,7 +85,7 @@ function createDesignmodoCartItem(item, isFirstItem = false) {
     shoppingBagText.textContent = "Shopping Bag";
     itemDiv.appendChild(shoppingBagText);
 
-    // Add checkout buttons section
+    // Checkout buttons section
     const checkoutButtons = document.createElement("div");
     checkoutButtons.className = "checkout-buttons-section";
 
@@ -99,6 +93,10 @@ function createDesignmodoCartItem(item, isFirstItem = false) {
     const loginToPurchaseBtn = document.createElement("button");
     loginToPurchaseBtn.className = "btn btn-primary login-to-purchase-btn";
     loginToPurchaseBtn.textContent = "Login to purchase";
+    loginToPurchaseBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.location.href = "login.html";
+    });
 
     // Clear cart button
     const clearCartBtn = document.createElement("button");
@@ -314,7 +312,7 @@ function showNotification(message, type = "success") {
   }, 3000);
 }
 
-// Designmodo-style functionality with vanilla JavaScript
+// Quantity buttons functionality
 document.addEventListener("DOMContentLoaded", function () {
   // Minus button functionality
   document.addEventListener("click", function (e) {

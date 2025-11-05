@@ -32,9 +32,7 @@ async function loadProducts() {
   API.UI.showLoading(container);
 
   try {
-    console.log("Loading products...");
     const result = await API.Shop.getProducts();
-    console.log("Products result:", result);
 
     if (result.success) {
       // Handle different API response structures
@@ -67,7 +65,6 @@ async function loadProducts() {
       allProducts = products;
       filteredProducts = [...allProducts];
       displayProducts(filteredProducts);
-      console.log(`Successfully loaded ${allProducts.length} products`);
     } else {
       console.error("API returned error:", result.error);
       API.UI.showError(container, result.error);

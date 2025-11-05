@@ -20,7 +20,6 @@ This is a basic online shop where users can:
 - `css/styles.css` - All the styling
 - `js/api.js` - Handles API calls and login stuff
 - `js/shop.js` - Makes the shop page work
-- `js/cart-designmodo.js` - Shopping cart functionality
 
 ## How to Use
 
@@ -41,10 +40,12 @@ This is a basic online shop where users can:
 - **Cart Design**: Used ideas from a Designmodo tutorial (https://designmodo.com/shopping-cart-ui/)
 - **API Setup**: Followed my teacher's guide for connecting to the Noroff API
 - **Planning**: Got help organizing my project with proper documentation
+-**Teachers guaidence**: Help with the API setup 
 
 ## What I Learned
 
 - How to connect to APIs with JavaScript
+- Creating a carosel 
 - Making forms for login and registration
 - Storing user data in the browser
 - Creating a shopping cart that remembers items

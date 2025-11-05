@@ -1,0 +1,249 @@
+body {
+  background: #f8f6f3 !important;
+  min-height: 100vh;
+}
+
+.checkout-container {
+  max-width: 500px;
+  margin: 5rem auto;
+  padding: 0 1rem;
+}
+
+.checkout-card {
+  background: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: none;
+}
+
+.checkout-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+/* Order Summary */
+.order-summary {
+  border: 1px solid #cccccc;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.summary-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.order-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+}
+
+.item-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item-image {
+  width: 120px;
+  height: 120px;
+  border: 1px solid #cccccc;
+  background: #f5f5f5;
+  flex-shrink: 0;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-details {
+  flex: 1;
+  margin-left: 4.5rem;
+  margin-top: 1.5rem;
+}
+
+.item-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0.25rem;
+}
+
+.item-quantity {
+  font-size: 0.85rem;
+  color: #666666;
+  text-align: center;
+}
+
+.item-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+/* Form Sections */
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #cccccc;
+  margin-left: -2rem;
+  margin-right: -2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  text-align: center;
+}
+
+.form-section:first-child .section-title {
+  border-top: none;
+  padding-top: 0;
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.form-group.full-width {
+  flex: 100%;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #666666;
+}
+
+.form-input::placeholder {
+  color: #999999;
+  font-size: 0.9rem;
+}
+
+/* Payment Method */
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Help form AI to get the payment options working as I wanted */
+.payment-option {
+  padding: 1rem;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  background: #f8f8f8;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: block;
+}
+
+.payment-option input[type="radio"] {
+  display: none;
+}
+
+.payment-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.payment-option input[type="radio"]:checked + .payment-text {
+  font-weight: bold;
+}
+
+.payment-option:has(input[type="radio"]:checked) {
+  border-width: 3px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.payment-option.credit-card {
+  background: #d4e6f1;
+  color: #2c3e50;
+}
+
+.payment-option.klarna {
+  background: #f0d3de;
+  color: #333333;
+}
+
+.payment-option.vipps {
+  background: #ff8a4b;
+  color: #ffffff;
+}
+
+.payment-option:hover {
+  border-color: #999999;
+}
+
+.payment-option.selected {
+  border-color: #000000;
+  border-width: 1px;
+}
+
+/* Place Order Button */
+.place-order-btn {
+  width: 100%;
+  background: #000000;
+  color: #ffffff;
+  padding: 1rem;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.place-order-btn:hover {
+  background: #333333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .checkout-card {
+    padding: 1.5rem;
+  }
+}

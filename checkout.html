@@ -13,7 +13,7 @@
     />
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/components.css" />
-    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/checkout.css" />
   </head>
   <body>
     <header>
@@ -37,230 +37,193 @@
                 <span class="cart-count" aria-label="items in cart">0</span>
               </a>
             </li>
-            <li id="authNav">
-            </li>
+            <li id="authNav"></li>
           </ul>
         </nav>
       </div>
     </header>
 
     <main class="container checkout-container" id="main-content">
-      <div class="breadcrumb">
-        <a href="cart.html">← Back to Cart</a>
-      </div>
+      <h1 class="checkout-title">Checkout</h1>
 
-      <h2>Checkout</h2>
-
-      <div class="checkout-grid">
-        <section class="order-summary">
-          <h3>Order Summary</h3>
-          <div id="checkoutItems">
-          </div>
-          <div class="checkout-total">
-            <div class="total-line">
-              <span>Subtotal:</span>
-              <span id="subtotal">kr 0</span>
+      <div class="checkout-card">
+        <!-- Order Summary -->
+        <div class="form-section">
+          <h2 class="section-title">Order Summary</h2>
+          <div class="order-item">
+            <div class="item-image-container">
+              <div class="item-image">
+                <img
+                  src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=120&h=120&fit=crop"
+                  alt="Pink shoes"
+                />
+              </div>
+              <div class="item-quantity">Quantity: 1</div>
             </div>
-            <div class="total-line">
-              <span>Shipping:</span>
-              <span id="shipping">kr 99</span>
-            </div>
-            <div class="total-line">
-              <span>Tax:</span>
-              <span id="tax">kr 0</span>
-            </div>
-            <div class="total-line total-final">
-              <span>Total:</span>
-              <span id="finalTotal">kr 0</span>
+            <div class="item-details">
+              <div class="item-name">Pink shoes</div>
+              <div class="item-price">kr 699.99</div>
             </div>
           </div>
-        </section>
-        <section class="checkout-forms">
-          <div class="form-section">
-            <h3>Delivery Address</h3>
-            <form id="deliveryForm">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="firstName">First Name *</label>
-                  <input type="text" id="firstName" name="firstName" required />
-                </div>
-                <div class="form-group">
-                  <label for="lastName">Last Name *</label>
-                  <input type="text" id="lastName" name="lastName" required />
-                </div>
-              </div>
+        </div>
 
-              <div class="form-group">
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" name="email" required />
-              </div>
+        <!-- Delivery Address -->
+        <div class="form-section">
+          <h2 class="section-title">Delivery Address</h2>
 
-              <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" />
-              </div>
-
-              <div class="form-group">
-                <label for="address">Street Address *</label>
-                <input type="text" id="address" name="address" required />
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="city">City *</label>
-                  <input type="text" id="city" name="city" required />
-                </div>
-                <div class="form-group">
-                  <label for="zipCode">ZIP Code *</label>
-                  <input type="text" id="zipCode" name="zipCode" required />
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="country">Country *</label>
-                <select id="country" name="country" required>
-                  <option value="">Select Country</option>
-                  <option value="NO">Norway</option>
-                  <option value="US">United States</option>
-                  <option value="GB">United Kingdom</option>
-                  <option value="DE">Germany</option>
-                  <option value="FR">France</option>
-                  <option value="ES">Spain</option>
-                  <option value="IT">Italy</option>
-                  <option value="NL">Netherlands</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="deliveryNotes">Delivery Notes</label>
-                <textarea
-                  id="deliveryNotes"
-                  name="deliveryNotes"
-                  rows="3"
-                  placeholder="Special delivery instructions (optional)"
-                ></textarea>
-              </div>
-            </form>
+          <div class="form-row">
+            <div class="form-group">
+              <input
+                type="text"
+                id="firstName"
+                class="form-input"
+                placeholder="First Name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                id="lastName"
+                class="form-input"
+                placeholder="Last Name"
+                required
+              />
+            </div>
           </div>
 
-          <div class="form-section">
-            <h3>Payment Method</h3>
-            <form id="paymentForm">
-              <div class="payment-methods">
-                <div class="payment-option">
-                  <input
-                    type="radio"
-                    id="creditCard"
-                    name="paymentMethod"
-                    value="creditCard"
-                    checked
-                  />
-                  <label for="creditCard" class="payment-label">
-                    Credit/Debit Card
-                  </label>
-                </div>
-
-                <div class="payment-option">
-                  <input
-                    type="radio"
-                    id="paypal"
-                    name="paymentMethod"
-                    value="paypal"
-                  />
-                  <label for="paypal" class="payment-label"> PayPal </label>
-                </div>
-
-                <div class="payment-option">
-                  <input
-                    type="radio"
-                    id="applePay"
-                    name="paymentMethod"
-                    value="applePay"
-                  />
-                  <label for="applePay" class="payment-label">
-                    Apple Pay
-                  </label>
-                </div>
-
-                <div class="payment-option">
-                  <input
-                    type="radio"
-                    id="bankTransfer"
-                    name="paymentMethod"
-                    value="bankTransfer"
-                  />
-                  <label for="bankTransfer" class="payment-label">
-                    Bank Transfer
-                  </label>
-                </div>
-              </div>
-
-              <div id="creditCardDetails" class="card-details">
-                <div class="form-group">
-                  <label for="cardNumber">Card Number *</label>
-                  <input
-                    type="text"
-                    id="cardNumber"
-                    name="cardNumber"
-                    placeholder="1234 5678 9012 3456"
-                    maxlength="19"
-                  />
-                </div>
-
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="expiryDate">Expiry Date *</label>
-                    <input
-                      type="text"
-                      id="expiryDate"
-                      name="expiryDate"
-                      placeholder="MM/YY"
-                      maxlength="5"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="cvv">CVV *</label>
-                    <input
-                      type="text"
-                      id="cvv"
-                      name="cvv"
-                      placeholder="123"
-                      maxlength="4"
-                    />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="cardName">Name on Card *</label>
-                  <input
-                    type="text"
-                    id="cardName"
-                    name="cardName"
-                    placeholder="John Smith"
-                  />
-                </div>
-              </div>
-            </form>
+          <div class="form-row">
+            <div class="form-group full-width">
+              <input
+                type="text"
+                id="address"
+                class="form-input"
+                placeholder="Street Address"
+                required
+              />
+            </div>
           </div>
 
-          <div class="checkout-actions">
-            <button
-              id="placeOrderBtn"
-              class="btn btn-primary btn-large btn-full-width"
-            >
-              Place Order
-            </button>
-            <p class="checkout-disclaimer">
-              * This is a demo checkout. No actual payment will be processed.
-            </p>
+          <div class="form-row">
+            <div class="form-group">
+              <input
+                type="text"
+                id="zipCode"
+                class="form-input"
+                placeholder="Zip Code"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                id="city"
+                class="form-input"
+                placeholder="City"
+                required
+              />
+            </div>
           </div>
-        </section>
+
+          <div class="form-row">
+            <div class="form-group">
+              <input
+                type="text"
+                id="country"
+                class="form-input"
+                placeholder="Country"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="tel"
+                id="phone"
+                class="form-input"
+                placeholder="Phone Number"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full-width">
+              <input
+                type="email"
+                id="email"
+                class="form-input"
+                placeholder="Email Address"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full-width">
+              <textarea
+                id="deliveryNotes"
+                class="form-input"
+                placeholder="Delivery Notes (Optional)"
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="form-section">
+          <h2 class="section-title">Payment Method</h2>
+          <div class="payment-methods">
+            <label class="payment-option credit-card">
+              <input type="radio" name="payment" value="credit-card" checked />
+              <span class="payment-text">Credit/Debit Card</span>
+            </label>
+            <label class="payment-option klarna">
+              <input type="radio" name="payment" value="klarna" />
+              <span class="payment-text">Klarna - Pay Later</span>
+            </label>
+            <label class="payment-option vipps">
+              <input type="radio" name="payment" value="vipps" />
+              <span class="payment-text">Vipps</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Place Order Button -->
+        <button id="placeOrderBtn" class="place-order-btn" type="button">
+          Place Order
+        </button>
       </div>
     </main>
 
-    <footer class="footer-dark">
+    <footer class="main-footer">
       <div class="container">
-        <p>&copy; 2025 Online Shop. All rights reserved.</p>
+        <nav aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="#about">About</a>
+          <a href="#terms">Terms & Conditions</a>
+        </nav>
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>Contact Us</h4>
+            <p>
+              Modehub Headquarters<br />
+              Strøget 145B, 1550 Copenhagen, Denmark
+            </p>
+            <p>Email: support@modehub.com</p>
+            <p>Phone: +45 72 88 45 10</p>
+          </div>
+          <div class="footer-section">
+            <h4>Customer Service Hours:</h4>
+            <p>
+              Monday to Friday: 09:00 to 17:00 (CET)<br />
+              Saturday to Sunday: Closed
+            </p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; Copyright 2025 Modehub. All rights reserved</p>
+        </div>
       </div>
     </footer>
 

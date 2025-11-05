@@ -10,6 +10,7 @@
     <title>Order Success - Online Shop</title>
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/success.css" />
   </head>
   <body>
     <header>
@@ -43,104 +44,60 @@
 
     <main class="container success-container" id="main-content">
       <div class="success-content">
-        <div class="success-icon">SUCCESS</div>
+        <h1>Order Confirmation:</h1>
+        <h2>Success! Your Purchase is Complete</h2>
 
-        <h2>Order Successfully Placed!</h2>
-        <p class="success-subtitle">
-          Thank you for your purchase. Your order has been received and is being
-          processed.
+        <div class="success-badge">
+          <div class="badge-icon">✓</div>
+        </div>
+
+        <p class="confirmation-text">
+          Congratulations! Your order has been successfully processed.<br />
+          Thank you for choosing <strong>Modehub</strong>.
         </p>
 
-        <div class="order-details">
-          <div class="order-info">
-            <h3>Order Information</h3>
-            <div class="info-row">
-              <span class="label">Order Number:</span>
-              <span class="value" id="orderNumber">#ORD-2025-001</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Order Date:</span>
-              <span class="value" id="orderDate">October 11, 2025</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Estimated Delivery:</span>
-              <span class="value" id="deliveryDate">October 15-18, 2025</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Total Amount:</span>
-              <span class="value total-amount" id="totalAmount">kr 0</span>
-            </div>
-          </div>
+        <p class="shipping-info">
+          Shipping Information: Your items will be carefully packed and shipped
+          to you as soon as possible.
+        </p>
 
-          <div class="delivery-info">
-            <h3>Delivery Address</h3>
-            <div id="deliveryAddress" class="address-block">
-              <!-- Address will be populated by JavaScript -->
-            </div>
-          </div>
+        <p class="email-info">
+          You will receive a confirmation email with tracking details once your
+          order is dispatched.
+        </p>
 
-          <div class="payment-info">
-            <h3>Payment Method</h3>
-            <div id="paymentMethod" class="payment-block">
-              <!-- Payment method will be populated by JavaScript -->
-            </div>
-          </div>
-        </div>
-
-        <div class="order-items">
-          <h3>Items Ordered</h3>
-          <div id="orderedItems" class="items-list">
-            <!-- Items will be populated by JavaScript -->
-          </div>
-        </div>
-
-        <div class="success-actions">
-          <div class="action-buttons">
-            <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
-            <button id="printOrderBtn" class="btn btn-outline">
-              Print Order
-            </button>
-          </div>
-
-          <div class="next-steps">
-            <h4>What's Next?</h4>
-            <ul>
-              <li>📧 You will receive an order confirmation email shortly</li>
-              <li>
-                📦 We'll send you tracking information once your order ships
-              </li>
-              <li>🚚 Estimated delivery time is 3-7 business days</li>
-              <li>
-                ❓ Questions? Contact our
-                <a href="#support">customer support</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="promotional-section">
-          <div class="promo-banner">
-            <h4>🎉 Thank you for choosing us!</h4>
-            <p>Share your experience and get 10% off your next order</p>
-            <div class="social-share">
-              <button class="social-btn facebook">Share on Facebook</button>
-              <button class="social-btn twitter">Share on Twitter</button>
-              <button class="social-btn instagram">Share on Instagram</button>
-            </div>
-          </div>
-        </div>
+        <button class="logout-btn">Log Out</button>
       </div>
     </main>
 
-    <footer class="footer-dark">
+    <footer class="main-footer">
       <div class="container">
-        <p>&copy; 2025 Online Shop. All rights reserved.</p>
         <nav aria-label="Footer navigation">
-          <a href="#privacy">Privacy Policy</a>
-          <a href="#terms">Terms of Service</a>
-          <a href="#contact">Contact</a>
-          <a href="#support">Support</a>
+          <a href="index.html">Home</a>
+          <a href="#about">About</a>
+          <a href="#terms">Terms & Conditions</a>
         </nav>
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>Contact Us</h4>
+            <p>
+              Modehub Headquarters<br />
+              Strøget 145B, 1550 Copenhagen, Denmark
+            </p>
+            <p>Email: support@modehub.com</p>
+            <p>Phone: +45 72 88 45 10</p>
+          </div>
+          <div class="footer-section">
+            <h4>Customer Service Hours:</h4>
+            <p>
+              Monday to Friday: 09:00 to 17:00 (CET)<br />
+              Saturday to Sunday: Closed
+            </p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; Copyright 2025 Modehub. All rights reserved</p>
+        </div>
       </div>
     </footer>
 

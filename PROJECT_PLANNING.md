@@ -8,7 +8,8 @@ I need to make an online shop website for my exam. Here's what I planned to do:
 
 ### High-Fidelity Figma Design
 
-- **Required by exam**: Had to create high-fidelity Figma prototype
+- **Required by exam**: 
+- Had to create high-fidelity Figma prototype
 - Spent about 2 weeks designing the complete website in Figma
 - Made detailed wireframes and mockups for all pages (login, register, shop, cart)
 - Designed responsive layouts for desktop, tablet, and mobile
@@ -134,23 +135,24 @@ I need to make an online shop website for my exam. Here's what I planned to do:
 2. **Cart kept losing items** - Learned about localStorage
 3. **Design looked bad on phones** - Added responsive CSS
 4. **Buttons were different sizes** - Fixed with better CSS
+5. **Learnd about the use of !important in CSS** - Never knew this before!
 
 ## Time It Actually Took
 
 - **First 2 weeks**: High-fidelity Figma design (required deliverable)
-  - Created complete responsive prototype
-  - All pages designed before any coding started
+  - Created complete prototype (Did a lot of changes and still is unsure about my design since i missunderstood and this is my second take)
 - **Week 3**: Login and register pages (following Figma designs)
 - **Week 4**: Shop page and API connection
 - **Week 5**: Shopping cart (this was hard!)
 - **Week 6**: Making it look better and fixing bugs
 
+This plan was not followd to the point I wish. I had to take some breakes and start at diffrent pionts in the assignment. So I dont feel as structured as I would like. 
+
 ## Help I Got
 
-- **Figma tutorials** - Learned how to use Figma for web design
 - **Teacher's API guide** - Showed me exactly how to connect
 - **Designmodo tutorial** - For cart design ideas (combined with my Figma designs)
-- **AI help** - For organizing this document and understanding concepts
+- **AI help** - For organizing this document and understanding concepts in codeing. It has been a very usefull tool. But I see that I can not be used without guaidance and understanding. 
 
 All the actual coding was done by me, but I got help understanding how to organize and plan properly from my assignment, the teacher and AI.
 

@@ -9,18 +9,6 @@ let currentFilter = "all";
 let productsPerPage = 12;
 
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("🚀 Homepage DOM loaded");
-
-  // Test carousel container
-  const carouselTrack = document.getElementById("carouselTrack");
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-
-  console.log("🔍 Element check:");
-  console.log("  - Carousel track found:", !!carouselTrack);
-  console.log("  - Previous button found:", !!prevBtn);
-  console.log("  - Next button found:", !!nextBtn);
-
   // Initialize cart display
   API.Cart.updateCartUI();
 
@@ -28,16 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // updateNavigation();
 
   // Initialize carousel immediately
-  console.log("🎠 About to initialize carousel...");
   initializeCarousel();
-  console.log("About to initialize product feed...");
   initializeProductFeed();
-
-  // Newsletter form handling
-  const newsletterForm = document.getElementById("newsletterForm");
-  if (newsletterForm) {
-    newsletterForm.addEventListener("submit", handleNewsletterSubmit);
-  }
 
   // Handle logout button
   document.addEventListener("click", function (e) {
@@ -66,26 +46,17 @@ document.addEventListener("DOMContentLoaded", function () {
 function updateNavigation() {
   const authNav = document.getElementById("authNav");
   if (!authNav) {
-    console.log("authNav element not found");
     return;
   }
-
-  console.log("Updating navigation - authNav found:", authNav);
 
   // Force show login link to test
   authNav.innerHTML = `
     <a href="login.html">Login</a>
   `;
-
-  console.log("Navigation updated, authNav content:", authNav.innerHTML);
-
-  // Test if API is working
-  console.log("Testing API availability:", typeof API, typeof API.Shop);
 }
 
-// Initialize carousel functionality
+// Initialize carousel functionality with help form AI
 async function initializeCarousel() {
-  console.log("🎠 Starting carousel initialization...");
   const carouselTrack = document.getElementById("carouselTrack");
 
   if (!carouselTrack) {
@@ -99,28 +70,15 @@ async function initializeCarousel() {
 
   try {
     // Fetch products directly using fetch API
-    console.log("📡 Fetching products from API...");
     const response = await fetch("https://v2.api.noroff.dev/online-shop");
     const result = await response.json();
 
-    console.log("📦 API response status:", response.status);
-    console.log("📊 API result structure:", {
-      hasData: !!result.data,
-      dataLength: result.data ? result.data.length : 0,
-      isArray: Array.isArray(result.data),
-    });
-
     if (result && result.data && Array.isArray(result.data)) {
       const products = result.data;
-      console.log("✅ Found", products.length, "products");
 
       // Get 3 random products for carousel
       const shuffled = [...products].sort(() => 0.5 - Math.random());
       carouselProducts = shuffled.slice(0, 3);
-      console.log(
-        "🎲 Selected random products for carousel:",
-        carouselProducts.map((p) => p.title)
-      );
 
       // Clear existing slides
       carouselTrack.innerHTML = "";
@@ -132,10 +90,6 @@ async function initializeCarousel() {
         const displayPrice = hasDiscount
           ? product.discountedPrice
           : product.price;
-
-        console.log(
-          `🏗️ Creating slide ${index + 1} for product: "${product.title}"`
-        );
 
         const slideHTML = `
           <div class="carousel-slide ${
@@ -199,12 +153,6 @@ async function initializeCarousel() {
         carouselTrack.appendChild(slideElement);
       });
 
-      console.log(
-        "✅ Carousel slides created:",
-        carouselTrack.children.length,
-        "slides total"
-      );
-
       // Setup indicators
       const indicators = document.getElementById("carouselIndicators");
       if (indicators) {
@@ -217,36 +165,17 @@ async function initializeCarousel() {
         indicators.innerHTML = indicatorsHTML;
       }
 
-      // Verify slides were created
-      const createdSlides = document.querySelectorAll(".carousel-slide");
-      console.log("🔍 Slides in DOM:", createdSlides.length);
-      createdSlides.forEach((slide, i) => {
-        const productName = slide.getAttribute("data-product");
-        console.log(
-          `📋 Slide ${i}: "${productName}" - ${
-            slide.classList.contains("active") ? "ACTIVE" : "inactive"
-          }`
-        );
-      });
-
       // Setup controls and indicators
       setupCarouselControlsAndIndicators();
-
-      console.log(
-        "🎊 Carousel setup complete with",
-        carouselProducts.length,
-        "products"
-      );
     } else {
-      console.error("❌ Invalid API response structure");
+      console.error(" Invalid API response structure");
       carouselTrack.innerHTML =
         '<div class="carousel-slide active"><div class="slide-content"><h3>No products available</h3></div></div>';
     }
   } catch (error) {
-    console.error("❌ Error loading carousel products:", error);
+    console.error(" Error loading carousel products:", error);
 
     // Fallback: Create test carousel with dummy products
-    console.log("🔧 Creating fallback test carousel...");
     carouselProducts = [
       {
         id: 1,
@@ -297,12 +226,6 @@ async function initializeCarousel() {
       `;
       carouselTrack.appendChild(slideElement);
     });
-
-    console.log(
-      "✅ Test carousel created with",
-      carouselProducts.length,
-      "slides"
-    );
 
     // Setup controls and indicators
     setupCarouselControlsAndIndicators();
@@ -409,7 +332,6 @@ function showCarouselError() {
 
 // Initialize product feed
 async function initializeProductFeed() {
-  console.log("Initializing product feed...");
   const productGrid = document.getElementById("productFeedGrid");
 
   if (!productGrid) {
@@ -424,8 +346,6 @@ async function initializeProductFeed() {
     // Fetch products directly
     const response = await fetch("https://v2.api.noroff.dev/online-shop");
     const result = await response.json();
-
-    console.log("Product feed API result:", result);
 
     if (result && result.data && Array.isArray(result.data)) {
       const products = result.data;
@@ -468,11 +388,6 @@ async function initializeProductFeed() {
       });
 
       productGrid.innerHTML = productHTML;
-      console.log(
-        "Product feed populated with",
-        displayedProducts.length,
-        "products"
-      );
     } else {
       console.error("Invalid product feed API response");
       productGrid.innerHTML = '<div class="error">No products available</div>';
@@ -630,104 +545,38 @@ function showFeedError() {
   }
 }
 
-// Newsletter form handling
-function handleNewsletterSubmit(e) {
-  e.preventDefault();
-
-  const emailInput = document.getElementById("emailInput");
-  const errorDiv = document.getElementById("email-error");
-  const successDiv = document.getElementById("newsletter-success");
-
-  // Clear previous messages
-  errorDiv.textContent = "";
-  successDiv.textContent = "";
-
-  const email = emailInput.value.trim();
-
-  if (!email) {
-    errorDiv.textContent = "Please enter your email address";
-    return;
-  }
-
-  if (!isValidEmail(email)) {
-    errorDiv.textContent = "Please enter a valid email address";
-    return;
-  }
-
-  // Simulate subscription
-  successDiv.textContent =
-    "Thank you for subscribing! You'll hear from us soon.";
-  emailInput.value = "";
-}
-
 // Carousel navigation functions
 function nextSlide() {
-  console.log(
-    "nextSlide called - current:",
-    currentSlide,
-    "total products:",
-    carouselProducts.length
-  );
-
   if (carouselProducts.length === 0) {
-    console.log("No products loaded, cannot navigate");
     return;
   }
 
   currentSlide = (currentSlide + 1) % carouselProducts.length;
-  console.log("Moving to slide:", currentSlide);
   updateCarouselDisplay();
 }
 
 function prevSlide() {
-  console.log(
-    "prevSlide called - current:",
-    currentSlide,
-    "total products:",
-    carouselProducts.length
-  );
-
   if (carouselProducts.length === 0) {
-    console.log("No products loaded, cannot navigate");
     return;
   }
 
   currentSlide =
     (currentSlide - 1 + carouselProducts.length) % carouselProducts.length;
-  console.log("Moving to slide:", currentSlide);
   updateCarouselDisplay();
 }
 
 function goToSlide(index) {
-  console.log(
-    "goToSlide called with index:",
-    index,
-    "total products:",
-    carouselProducts.length
-  );
-
   if (carouselProducts.length === 0) {
-    console.log("No products loaded, cannot navigate");
     return;
   }
 
   currentSlide = index;
-  console.log("Moving to slide:", currentSlide);
   updateCarouselDisplay();
 }
 
 function updateCarouselDisplay() {
-  console.log("🎠 Updating carousel display for slide:", currentSlide);
-
   const slides = document.querySelectorAll(".carousel-slide");
   const indicators = document.querySelectorAll(".carousel-indicator");
-
-  console.log(
-    "🔍 Found slides:",
-    slides.length,
-    "indicators:",
-    indicators.length
-  );
 
   if (slides.length === 0) {
     console.error("❌ No carousel slides found in DOM!");
@@ -744,37 +593,16 @@ function updateCarouselDisplay() {
     if (isActive) {
       slide.classList.add("active");
     }
-
-    // Get product title for debugging
-    const productName = slide.getAttribute("data-product") || "Unknown";
-
-    console.log(
-      `🎯 Slide ${index}: ${
-        isActive ? "✅ ACTIVE" : "❌ inactive"
-      } - "${productName}"`
-    );
   });
 
   indicators.forEach((indicator, index) => {
     const isActive = index === currentSlide;
     indicator.classList.toggle("active", isActive);
   });
-
-  // Show current product info
-  const activeSlide = slides[currentSlide];
-  if (activeSlide) {
-    const productName =
-      activeSlide.getAttribute("data-product") || "Unknown Product";
-    console.log(`🎊 NOW SHOWING: "${productName}"`);
-  } else {
-    console.error(`❌ No slide found at index ${currentSlide}`);
-  }
 }
 
 // Setup carousel controls and indicators
 function setupCarouselControlsAndIndicators() {
-  console.log("🎛️ Setting up carousel controls and indicators...");
-
   // Setup indicators first
   const indicators = document.getElementById("carouselIndicators");
   if (indicators) {
@@ -786,24 +614,17 @@ function setupCarouselControlsAndIndicators() {
       indicator.addEventListener("click", () => goToSlide(index));
       indicators.appendChild(indicator);
     });
-    console.log("✅ Created", carouselProducts.length, "indicators");
   }
 
   // Navigation buttons
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
 
-  console.log("🔍 Button check:");
-  console.log("  - Prev button found:", !!prevBtn);
-  console.log("  - Next button found:", !!nextBtn);
-  console.log("  - Carousel products count:", carouselProducts.length);
-
   if (prevBtn) {
     // Remove any existing listeners
     prevBtn.replaceWith(prevBtn.cloneNode(true));
     const newPrevBtn = document.getElementById("prevBtn");
     newPrevBtn.addEventListener("click", () => {
-      console.log("⬅️ Previous button clicked");
       prevSlide();
     });
   }
@@ -813,7 +634,6 @@ function setupCarouselControlsAndIndicators() {
     nextBtn.replaceWith(nextBtn.cloneNode(true));
     const newNextBtn = document.getElementById("nextBtn");
     newNextBtn.addEventListener("click", () => {
-      console.log("➡️ Next button clicked");
       nextSlide();
     });
   }
@@ -825,16 +645,7 @@ function setupCarouselControlsAndIndicators() {
   // Auto-play carousel
   setInterval(() => {
     if (carouselProducts.length > 1) {
-      console.log("⏰ Auto-advancing carousel");
       nextSlide();
     }
   }, 5000); // Change slide every 5 seconds
-
-  console.log("✅ Carousel controls and indicators setup complete");
-}
-
-// Email validation helper
-function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
 }

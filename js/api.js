@@ -59,9 +59,6 @@ function createHeaders(includeAuth = true) {
 // Generic API call function with error handling
 async function apiCall(url, options = {}) {
   try {
-    console.log("Making API call to:", url);
-    console.log("With options:", options);
-
     const response = await fetch(url, {
       ...options,
       headers: {
@@ -69,12 +66,6 @@ async function apiCall(url, options = {}) {
         ...options.headers,
       },
     });
-
-    console.log("Response status:", response.status);
-    console.log(
-      "Response headers:",
-      Object.fromEntries(response.headers.entries())
-    );
 
     // Check if response is actually JSON
     const contentType = response.headers.get("content-type");
@@ -90,7 +81,6 @@ async function apiCall(url, options = {}) {
     }
 
     const data = await response.json();
-    console.log("Response data:", data);
 
     if (!response.ok) {
       // Create detailed error with API response information
@@ -154,16 +144,12 @@ const Auth = {
 
   // Logout user
   logout() {
-    console.log("Logout function called");
-
     // Clear all authentication data
     localStorage.removeItem(STORAGE_KEYS.accessToken);
-    localStorage.removeItem("profileName"); // Following teacher's guidance
+    localStorage.removeItem("profileName");
     localStorage.removeItem(STORAGE_KEYS.apiKey);
     localStorage.removeItem(STORAGE_KEYS.user);
     localStorage.removeItem(STORAGE_KEYS.cart); // Also clear cart
-
-    console.log("Authentication data cleared");
 
     // Force reload to ensure clean state
     setTimeout(() => {
@@ -188,19 +174,9 @@ const Shop = {
   // Get all products
   async getProducts() {
     try {
-      console.log("Calling API endpoint:", API_ENDPOINTS.shop.products);
       const result = await apiCall(API_ENDPOINTS.shop.products, {
         includeAuth: true,
       });
-
-      console.log("Raw API result:", result);
-
-      // Check if we got a successful response but with unexpected data structure
-      if (result.success && result.data) {
-        console.log("API data type:", typeof result.data);
-        console.log("API data is array:", Array.isArray(result.data));
-        console.log("API data structure:", result.data);
-      }
 
       return result;
     } catch (error) {
@@ -238,14 +214,7 @@ const Cart = {
 
   // Add item to cart
   addItem(product, quantity = 1) {
-    console.log(
-      "API.Cart.addItem called with product:",
-      product.id,
-      "quantity:",
-      quantity
-    );
     const cart = this.getCart();
-    console.log("Current cart before adding:", cart);
     const existingItem = cart.find((item) => item.id === product.id);
 
     if (existingItem) {
@@ -269,27 +238,10 @@ const Cart = {
   // Remove item from cart
   removeItem(productId) {
     let cart = this.getCart();
-    console.log("Removing item with ID:", productId, "Type:", typeof productId);
-    console.log(
-      "Cart items before filter:",
-      cart.map((item) => ({
-        id: item.id,
-        type: typeof item.id,
-        title: item.title,
-      }))
-    );
 
     // Try both string and number comparison to handle ID type mismatches
     cart = cart.filter((item) => item.id != productId && item.id !== productId);
 
-    console.log(
-      "Cart items after filter:",
-      cart.map((item) => ({
-        id: item.id,
-        type: typeof item.id,
-        title: item.title,
-      }))
-    );
     this.saveCart(cart);
     this.updateCartUI();
     return cart;
@@ -327,12 +279,10 @@ const Cart = {
 
   // Clear entire cart
   clearCart() {
-    console.log("Clearing entire cart");
     localStorage.removeItem(STORAGE_KEYS.cart);
     // Also try clearing any corrupted cart data
     localStorage.removeItem("cart"); // fallback key
     this.updateCartUI();
-    console.log("Cart cleared, remaining items:", this.getCart());
   },
 
   // Update cart UI elements (cart count badge, etc.)
@@ -519,7 +469,6 @@ const UI = {
     addToCartBtn.className = "btn btn-primary";
     addToCartBtn.textContent = "Add to Cart";
     addToCartBtn.addEventListener("click", function () {
-      console.log("Direct add to cart clicked for product:", product.id);
       Cart.addItem(product);
 
       // Use global showNotification if available, otherwise create one
