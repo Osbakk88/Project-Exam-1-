@@ -2,13 +2,13 @@
 
 ## What I Need to Build
 
-I need to make an online shop website for my exam. Here's what I planned to do:
+I need to make an online shop websi- **Learned about the use of !important in CSS** - Never knew this before!e for my exam. Here's what I planned to do:
 
 ## 0. Design Phase (Required)
 
 ### High-Fidelity Figma Design
 
-- **Required by exam**: 
+- **Required by exam**:
 - Had to create high-fidelity Figma prototype
 - Spent about 2 weeks designing the complete website in Figma
 - Made detailed wireframes and mockups for all pages (login, register, shop, cart)
@@ -146,13 +146,13 @@ I need to make an online shop website for my exam. Here's what I planned to do:
 - **Week 5**: Shopping cart (this was hard!)
 - **Week 6**: Making it look better and fixing bugs
 
-This plan was not followd to the point I wish. I had to take some breakes and start at diffrent pionts in the assignment. So I dont feel as structured as I would like. 
+This plan was not followed to the point I wish. I had to take some breaks and start at different points in the assignment. So I don't feel as structured as I would like.
 
 ## Help I Got
 
 - **Teacher's API guide** - Showed me exactly how to connect
 - **Designmodo tutorial** - For cart design ideas (combined with my Figma designs)
-- **AI help** - For organizing this document and understanding concepts in codeing. It has been a very usefull tool. But I see that I can not be used without guaidance and understanding. 
+- **AI help** - For organizing this document and understanding concepts in coding. It has been a very useful tool. But I see that it can not be used without guidance and understanding.
 
 All the actual coding was done by me, but I got help understanding how to organize and plan properly from my assignment, the teacher and AI.
 
