@@ -35,7 +35,7 @@ function updateNavigation() {
     authNav.appendChild(logoutBtn);
   } else {
     authNav.innerHTML = `
-      <a href="login.html">Login</a>
+      <a href="account/login.html">Login</a>
     `;
   }
 }
@@ -172,7 +172,7 @@ function setupProductEventListeners(product) {
         // Add to cart logic
         addToCart(product);
       } else {
-        window.location.href = "login.html";
+        window.location.href = "account/login.html";
       }
     });
   }
@@ -180,20 +180,20 @@ function setupProductEventListeners(product) {
   if (clearCartBtn) {
     clearCartBtn.addEventListener("click", function () {
       API.Cart.clearCart();
-      API.UI.showNotification("Cart cleared successfully");
+      showNotification("Cart cleared successfully");
     });
   }
 }
 
 function addToCart(product) {
   const quantity = parseInt(document.getElementById("quantity").value);
-  const success = API.Cart.addToCart(product, quantity);
+  const success = API.Cart.addItem(product, quantity);
 
   if (success) {
-    API.UI.showNotification(`Added ${quantity} item(s) to cart`);
+    showNotification(`Added ${quantity} item(s) to cart`);
     API.Cart.updateCartUI();
   } else {
-    API.UI.showNotification("Failed to add item to cart", "error");
+    showNotification("Failed to add item to cart", "error");
   }
 }
 
@@ -207,7 +207,7 @@ function shareProduct(product) {
   } else {
     // Fallback - copy URL to clipboard
     navigator.clipboard.writeText(window.location.href).then(() => {
-      API.UI.showNotification("Product URL copied to clipboard");
+      showNotification("Product URL copied to clipboard");
     });
   }
 }

@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Load cart items
   displayCart();
 
+  // Update checkout area based on login status
+  updateCheckoutArea();
+
   // Setup event listeners
   setupEventListeners();
 });
@@ -22,7 +25,7 @@ function updateNavigation() {
     `;
   } else {
     authNav.innerHTML = `
-      <a href="login.html">Login</a>
+      <a href="account/login.html">Login</a>
     `;
   }
 
@@ -95,7 +98,10 @@ function createDesignmodoCartItem(item, isFirstItem = false) {
     loginToPurchaseBtn.textContent = "Login to purchase";
     loginToPurchaseBtn.addEventListener("click", function (e) {
       e.preventDefault();
-      window.location.href = "login.html";
+      // Set pending checkout state so user gets redirected to checkout after login
+      localStorage.setItem("pendingCheckout", "true");
+      localStorage.setItem("returnUrl", "../checkout.html");
+      window.location.href = "account/login.html";
     });
 
     // Clear cart button
@@ -262,7 +268,7 @@ function updateCheckoutArea() {
     // User not logged in, show login requirement and clear cart button
     checkoutArea.innerHTML = `
       <div class="login-prompt">
-        <p>Please <a href="login.html">login</a> to proceed with checkout</p>
+        <p>Please <a href="account/login.html">login</a> to proceed with checkout</p>
       </div>
     `;
     // Re-append the clear cart button

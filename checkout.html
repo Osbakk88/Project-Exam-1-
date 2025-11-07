@@ -46,6 +46,13 @@
     <main class="container checkout-container" id="main-content">
       <h1 class="checkout-title">Checkout</h1>
 
+      <!-- Notification area for form validation messages -->
+      <div
+        id="checkoutNotification"
+        class="notification-container"
+        style="display: none"
+      ></div>
+
       <div class="checkout-card">
         <!-- Order Summary -->
         <div class="form-section">
@@ -190,7 +197,7 @@
         </div>
 
         <!-- Place Order Button -->
-        <a href="success.html" class="place-order-link"> Place Order </a>
+        <button id="placeOrderBtn" class="place-order-btn">Place Order</button>
       </div>
     </main>
 

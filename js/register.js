@@ -1,13 +1,13 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("registerForm");
+  const form = document.getElementById("registerFormElement");
   const messageDiv = document.getElementById("registerMessage");
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const name = document.getElementById("registerName").value;
+    const email = document.getElementById("registerEmail").value;
+    const password = document.getElementById("registerPassword").value;
 
     const userData = {
       name: name,
@@ -37,16 +37,25 @@
       const data = await response.json();
 
       if (response.ok) {
-        messageDiv.innerHTML =
-          '<p style="color: green;">Registration successful! Redirecting to login...</p>';
+        messageDiv.innerHTML = `
+          <div class="notification success">
+            <p>Registration successful! Redirecting to login...</p>
+          </div>
+        `;
         setTimeout(() => {
-          window.location.href = "login.html";
+          window.location.href = `login.html?email=${encodeURIComponent(
+            email
+          )}&password=${encodeURIComponent(password)}`;
         }, 1500);
       } else {
         console.log("Raw error response:", data);
-        messageDiv.innerHTML = `<p style="color: red;">Registration failed: ${
-          data.errors?.[0]?.message || "Check console for details."
-        }</p>`;
+        messageDiv.innerHTML = `
+          <div class="notification error">
+            <p>Registration failed: ${
+              data.errors?.[0]?.message || "Check console for details."
+            }</p>
+          </div>
+        `;
       }
     } catch (error) {
       console.error("Registration error:", error);

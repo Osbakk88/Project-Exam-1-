@@ -22,7 +22,7 @@ function updateNavigation() {
     `;
   } else {
     authNav.innerHTML = `
-      <a href="login.html">Login</a>
+      <a href="account/login.html">Login</a>
     `;
   }
 }

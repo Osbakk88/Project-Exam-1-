@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!API.Auth.isLoggedIn()) {
     // Store checkout intent and redirect to login
     localStorage.setItem("pendingCheckout", "true");
-    localStorage.setItem("returnUrl", "checkout.html");
-    window.location.href = "login.html";
+    localStorage.setItem("returnUrl", "../checkout.html");
+    window.location.href = "account/login.html";
     return;
   }
 
@@ -35,7 +35,7 @@ function updateNavigation() {
     `;
   } else {
     authNav.innerHTML = `
-      <a href="login.html">Login</a>
+      <a href="account/login.html">Login</a>
     `;
   }
 }
@@ -75,12 +75,20 @@ function loadOrderSummary() {
   const taxElement = document.getElementById("tax");
   const finalTotalElement = document.getElementById("finalTotal");
 
+  // If cart is empty, redirect to cart page
   if (cartItems.length === 0) {
     window.location.href = "cart.html";
     return;
   }
 
-  // Display cart items
+  // Check if dynamic order summary elements exist
+  // If not, skip dynamic loading (using static HTML instead)
+  if (!checkoutItemsContainer) {
+    console.log("Using static order summary - dynamic elements not found");
+    return;
+  }
+
+  // Display cart items dynamically
   checkoutItemsContainer.innerHTML = "";
   let subtotal = 0;
 
@@ -116,12 +124,23 @@ function loadOrderSummary() {
   const tax = subtotal * 0.08; // 8% tax
   const total = subtotal + shipping + tax;
 
-  // Update display
-  subtotalElement.textContent = API.UI.formatPrice(subtotal);
-  document.getElementById("shipping").textContent =
-    API.UI.formatPrice(shipping);
-  taxElement.textContent = API.UI.formatPrice(tax);
-  finalTotalElement.textContent = API.UI.formatPrice(total);
+  // Update display (only if elements exist)
+  if (subtotalElement) {
+    subtotalElement.textContent = API.UI.formatPrice(subtotal);
+  }
+
+  const shippingElement = document.getElementById("shipping");
+  if (shippingElement) {
+    shippingElement.textContent = API.UI.formatPrice(shipping);
+  }
+
+  if (taxElement) {
+    taxElement.textContent = API.UI.formatPrice(tax);
+  }
+
+  if (finalTotalElement) {
+    finalTotalElement.textContent = API.UI.formatPrice(total);
+  }
 
   // Update cart count
   API.Cart.updateCartUI();
@@ -252,6 +271,7 @@ function validateForms() {
   }
 
   let isValid = true;
+  const missingFields = [];
 
   // Check all required fields in the checkout form
   const requiredFields = checkoutCard.querySelectorAll("[required]");
@@ -259,14 +279,33 @@ function validateForms() {
   requiredFields.forEach((field) => {
     if (!field.value.trim()) {
       field.classList.add("error");
+
+      // Get field label or placeholder for user-friendly message
+      const fieldName = field.placeholder || field.id || "Unknown field";
+      missingFields.push(fieldName);
       isValid = false;
     } else {
       field.classList.remove("error");
     }
   });
 
+  // Show specific notification based on validation results
   if (!isValid) {
-    showNotification("Please fill in all required fields", "error");
+    const missingFieldsList = missingFields.join(", ");
+    showCheckoutNotification(
+      `Please fill in all required fields before placing your order.<br><br>Missing: ${missingFieldsList}`,
+      "error"
+    );
+
+    // Scroll to first empty field
+    const firstEmptyField = checkoutCard.querySelector(".error");
+    if (firstEmptyField) {
+      firstEmptyField.scrollIntoView({ behavior: "smooth", block: "center" });
+      firstEmptyField.focus();
+    }
+  } else {
+    // Hide notification if form is valid
+    hideCheckoutNotification();
   }
 
   return isValid;
@@ -351,6 +390,33 @@ function showNotification(message, type = "success") {
   setTimeout(() => {
     notification.remove();
   }, 3000);
+}
+
+function showCheckoutNotification(message, type = "info") {
+  const notificationContainer = document.getElementById("checkoutNotification");
+
+  if (notificationContainer) {
+    notificationContainer.innerHTML = `
+      <div class="notification ${type}">
+        <p>${message}</p>
+      </div>
+    `;
+    notificationContainer.style.display = "block";
+
+    // Scroll to notification
+    notificationContainer.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+}
+
+function hideCheckoutNotification() {
+  const notificationContainer = document.getElementById("checkoutNotification");
+
+  if (notificationContainer) {
+    notificationContainer.style.display = "none";
+  }
 }
 
 function setupPaymentSelection() {
