@@ -860,22 +860,32 @@
   }
 }
 
-/* Mobile Responsive Carousel */
+/* Enhanced Mobile Responsive Carousel */
 @media (max-width: 768px) {
   .banner-carousel-section {
     height: 400px;
     min-height: 400px;
+    /* Improve mobile performance */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   .carousel-slide {
     flex-direction: column !important;
     text-align: center;
+    /* Better mobile transitions */
+    will-change: transform, opacity;
   }
 
   .slide-image {
     max-width: 100% !important;
     height: 60%;
     order: 1;
+    /* Improve image loading on mobile */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
 
   .slide-content {
@@ -933,6 +943,8 @@
     width: 8px;
     height: 8px;
   }
+
+
 
   .hero-carousel {
     height: 300px;

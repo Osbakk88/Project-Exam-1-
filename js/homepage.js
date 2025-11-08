@@ -662,29 +662,48 @@ function setupTouchControls() {
   let startY = 0;
   let startTime = 0;
   let isDragging = false;
-  const minSwipeDistance = 50;
-  const maxSwipeTime = 300;
+  let currentX = 0;
+  // More sensitive settings for better mobile response
+  const minSwipeDistance = 30; // Reduced from 50 for easier swiping
+  const maxSwipeTime = 500; // Increased for slower swipes
+  const fastSwipeTime = 150; // Quick swipes need less distance
+  const fastSwipeDistance = 20;
 
-  // Touch events
+  // Touch events with enhanced responsiveness
   carouselTrack.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
+    currentX = startX;
     startTime = Date.now();
     isDragging = true;
     pauseAutoplay();
-  });
+    
+    // Add visual feedback
+    carouselTrack.style.cursor = 'grabbing';
+    carouselTrack.style.transition = 'none';
+  }, { passive: true });
 
   carouselTrack.addEventListener("touchmove", (e) => {
     if (!isDragging) return;
 
-    // Prevent scrolling while swiping horizontally
-    const currentX = e.touches[0].clientX;
+    currentX = e.touches[0].clientX;
     const currentY = e.touches[0].clientY;
     const deltaX = Math.abs(currentX - startX);
     const deltaY = Math.abs(currentY - startY);
 
-    if (deltaX > deltaY) {
-      e.preventDefault();
+    // More liberal horizontal swipe detection
+    if (deltaX > 10 && deltaX > deltaY * 0.3) {
+      e.preventDefault(); // Prevent vertical scrolling
+      
+      // Add subtle visual feedback during swipe
+      const movePercent = ((currentX - startX) / window.innerWidth) * 100;
+      const clampedMove = Math.max(-30, Math.min(30, movePercent));
+      
+      // Slight transform feedback (optional)
+      if (Math.abs(clampedMove) > 5) {
+        carouselTrack.style.transform = `translateX(${clampedMove}px)`;
+        carouselTrack.style.opacity = `${1 - Math.abs(clampedMove) * 0.01}`;
+      }
     }
   });
 
@@ -697,9 +716,35 @@ function setupTouchControls() {
     const deltaTime = endTime - startTime;
 
     isDragging = false;
+    
+    // Reset visual feedback
+    carouselTrack.style.cursor = 'grab';
+    carouselTrack.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    carouselTrack.style.transform = 'translateX(0)';
+    carouselTrack.style.opacity = '1';
 
-    // Check if it's a valid swipe
-    if (Math.abs(deltaX) >= minSwipeDistance && deltaTime <= maxSwipeTime) {
+    // Enhanced swipe detection with different thresholds
+    let shouldSwipe = false;
+    
+    // Fast swipe detection (quick flicks)
+    if (deltaTime <= fastSwipeTime && Math.abs(deltaX) >= fastSwipeDistance) {
+      shouldSwipe = true;
+    }
+    // Normal swipe detection
+    else if (Math.abs(deltaX) >= minSwipeDistance && deltaTime <= maxSwipeTime) {
+      shouldSwipe = true;
+    }
+    // Velocity-based detection for slower but long swipes
+    else if (Math.abs(deltaX) >= 80 && deltaTime <= 800) {
+      shouldSwipe = true;
+    }
+
+    if (shouldSwipe) {
+      // Add haptic feedback on supported devices
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+      
       if (deltaX > 0) {
         prevSlide(); // Swipe right - go to previous
       } else {
@@ -707,7 +752,8 @@ function setupTouchControls() {
       }
     }
 
-    resumeAutoplay();
+    // Slight delay before resuming autoplay for better UX
+    setTimeout(resumeAutoplay, 100);
   });
 
   // Mouse events for desktop (optional)
@@ -784,3 +830,5 @@ function resumeAutoplay() {
     }, 5000);
   }
 }
+
+
