@@ -642,14 +642,145 @@ function setupCarouselControlsAndIndicators() {
     });
   }
 
+  // Add touch/swipe functionality for mobile
+  setupTouchControls();
+
   // Initialize the display
   currentSlide = 0;
   updateCarouselDisplay();
 
-  // Auto-play carousel
-  setInterval(() => {
-    if (carouselProducts.length > 1) {
-      nextSlide();
+  // Auto-play carousel with pause on interaction
+  setupAutoplay();
+}
+
+// Touch/Swipe controls for mobile devices
+function setupTouchControls() {
+  const carouselTrack = document.getElementById("carouselTrack");
+  if (!carouselTrack) return;
+
+  let startX = 0;
+  let startY = 0;
+  let startTime = 0;
+  let isDragging = false;
+  const minSwipeDistance = 50;
+  const maxSwipeTime = 300;
+
+  // Touch events
+  carouselTrack.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    startTime = Date.now();
+    isDragging = true;
+    pauseAutoplay();
+  });
+
+  carouselTrack.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    
+    // Prevent scrolling while swiping horizontally
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const deltaX = Math.abs(currentX - startX);
+    const deltaY = Math.abs(currentY - startY);
+    
+    if (deltaX > deltaY) {
+      e.preventDefault();
     }
-  }, 5000); // Change slide every 5 seconds
+  });
+
+  carouselTrack.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    
+    const endX = e.changedTouches[0].clientX;
+    const endTime = Date.now();
+    const deltaX = endX - startX;
+    const deltaTime = endTime - startTime;
+    
+    isDragging = false;
+    
+    // Check if it's a valid swipe
+    if (Math.abs(deltaX) >= minSwipeDistance && deltaTime <= maxSwipeTime) {
+      if (deltaX > 0) {
+        prevSlide(); // Swipe right - go to previous
+      } else {
+        nextSlide(); // Swipe left - go to next
+      }
+    }
+    
+    resumeAutoplay();
+  });
+
+  // Mouse events for desktop (optional)
+  let isMouseDown = false;
+  
+  carouselTrack.addEventListener('mousedown', (e) => {
+    startX = e.clientX;
+    startTime = Date.now();
+    isMouseDown = true;
+    pauseAutoplay();
+    carouselTrack.style.cursor = 'grabbing';
+  });
+
+  carouselTrack.addEventListener('mousemove', (e) => {
+    if (!isMouseDown) return;
+    e.preventDefault();
+  });
+
+  carouselTrack.addEventListener('mouseup', (e) => {
+    if (!isMouseDown) return;
+    
+    const endX = e.clientX;
+    const endTime = Date.now();
+    const deltaX = endX - startX;
+    const deltaTime = endTime - startTime;
+    
+    isMouseDown = false;
+    carouselTrack.style.cursor = 'grab';
+    
+    if (Math.abs(deltaX) >= minSwipeDistance && deltaTime <= maxSwipeTime) {
+      if (deltaX > 0) {
+        prevSlide();
+      } else {
+        nextSlide();
+      }
+    }
+    
+    resumeAutoplay();
+  });
+
+  carouselTrack.addEventListener('mouseleave', () => {
+    isMouseDown = false;
+    carouselTrack.style.cursor = 'grab';
+    resumeAutoplay();
+  });
+
+  // Set cursor style
+  carouselTrack.style.cursor = 'grab';
+}
+
+// Enhanced autoplay with pause/resume functionality
+function setupAutoplay() {
+  startCarouselAutoplay();
+
+  // Pause on hover (desktop)
+  const carouselContainer = document.querySelector('.banner-carousel-section');
+  if (carouselContainer) {
+    carouselContainer.addEventListener('mouseenter', pauseAutoplay);
+    carouselContainer.addEventListener('mouseleave', resumeAutoplay);
+  }
+}
+
+function pauseAutoplay() {
+  if (carouselInterval) {
+    clearInterval(carouselInterval);
+    carouselInterval = null;
+  }
+}
+
+function resumeAutoplay() {
+  if (!carouselInterval && carouselProducts.length > 1) {
+    carouselInterval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+  }
 }
