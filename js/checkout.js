@@ -372,7 +372,7 @@ function getPaymentData() {
   };
 
   // For now, we don't collect credit card details in this simple form
-  // In a real application, you would add credit card input fields
+  // In a real application, I would add credit card input fields
 
   return paymentData;
 }

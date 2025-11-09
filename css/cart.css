@@ -1,4 +1,4 @@
-/* Cart CSS - Mobile Responsive Layout v2.1 - Fixed Spacing */
+/* Cart CSS - Mobile Responsive Layout - Fixed Spacing */
 /* First item needs special positioning due to Shopping Bag header */
 .item:first-child .buttons {
   top: calc(50% - 6rem);

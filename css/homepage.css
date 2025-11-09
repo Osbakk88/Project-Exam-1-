@@ -1,4 +1,4 @@
-/* Carousel - Clean 13:10 */
+/* Carousel */
 .banner-carousel-section {
   position: relative;
   height: 500px;
@@ -1238,7 +1238,7 @@
   }
 }
 
-/* FINAL MOBILE OVERRIDE - Force Update 13:05 */
+/* MOBILE OVERRIDE */
 @media screen and (max-width: 480px) {
   html
     body
@@ -1284,7 +1284,7 @@
     display: inline-block !important;
   }
 
-  /* MOBILE TEXT ALIGNMENT FIX - PUBLISHED SITE - Update Nov 9 2025 */
+  /* MOBILE TEXT ALIGNMENT FIX */
   html
     body
     .banner-carousel-section
@@ -1326,7 +1326,7 @@
     width: 100% !important;
   }
 
-  /* Match indicators to button styling - MOBILE ONLY - PUBLISHED SITE FIX */
+  /* Match indicators to button styling - MOBILE ONLY */
   html
     body
     .banner-carousel-section
@@ -1352,7 +1352,7 @@
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3) !important;
   }
 
-  /* Match arrow buttons to button styling - MOBILE ONLY - PUBLISHED SITE FIX */
+  /* Match arrow buttons to button styling - MOBILE ONLY */
   html body .banner-carousel-section .carousel-wrapper .carousel-btn {
     background: rgba(255, 255, 255, 0.15) !important;
     backdrop-filter: blur(20px) !important;
@@ -1379,7 +1379,7 @@
     color: white !important;
   }
 
-  /* ADDITIONAL OVERRIDE FOR PUBLISHED SITE - Nov 9 2025 */
+  /* ADDITIONAL OVERRIDE FOR PUBLISHED SITE */
   html
     body
     main
