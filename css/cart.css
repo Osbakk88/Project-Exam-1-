@@ -1,3 +1,4 @@
+/* Cart CSS - Updated Mobile Layout v2.0 */
 /* First item needs special positioning due to Shopping Bag header */
 .item:first-child .buttons {
   top: calc(50% - 6rem);
