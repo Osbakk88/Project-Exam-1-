@@ -318,18 +318,18 @@
   margin-bottom: 2rem;
 }
 
-/* MOBILE CART RESPONSIVE LAYOUT */
+/* MOBILE CART RESPONSIVE LAYOUT - iPhone Compatible */
 @media (max-width: 768px) {
   .item {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     text-align: center !important;
-    padding: 3rem 2rem !important;
+    padding: 2rem 1.5rem 3rem 1.5rem !important;
     min-height: auto !important;
     position: relative !important;
-    gap: 2rem !important;
-    margin-bottom: 2rem !important;
+    gap: 2.5rem !important;
+    margin-bottom: 3rem !important;
   }
 
   /* Reset positioning for main layout elements only */
@@ -360,59 +360,68 @@
 
   /* Mobile layout order using flexbox order */
 
-  /* Image container */
+  /* Image container - iPhone optimized */
   .image {
-    width: 200px !important;
-    height: 200px !important;
-    margin: 0 auto 1rem auto !important;
-    border-radius: 10px !important;
+    width: 220px !important;
+    height: 220px !important;
+    margin: 1rem auto 2rem auto !important;
+    border-radius: 12px !important;
     overflow: hidden !important;
     order: 1 !important;
     position: relative !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
   }
 
-  /* Position delete button right below the image */
+  /* Position delete button right below the image - iPhone spacing */
   .item .buttons {
     position: static !important;
     order: 2 !important; /* Right after image */
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
-    margin: 0 0 2rem 0 !important;
+    margin: 0 0 3rem 0 !important;
+    padding: 1rem 0 !important;
   }
 
-  /* Delete button styling for mobile - smaller and over image */
+  /* Delete button styling for mobile - iPhone optimized */
   .item .delete-btn {
     position: static !important;
-    width: 24px !important;
-    height: 24px !important;
-    font-size: 14px !important;
-    background: rgba(220, 53, 69, 0.9) !important;
-    backdrop-filter: blur(2px) !important;
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 16px !important;
+    background: #dc3545 !important;
+    border-radius: 50% !important;
+    border: 2px solid white !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
   }
 
   /* Product description - Third (after image and delete button) */
   .description {
     text-align: center !important;
-    margin: 0 0 2rem 0 !important;
+    margin: 0 0 3rem 0 !important;
     width: 100% !important;
     order: 3 !important;
-    padding: 1rem 2rem !important;
-    border-bottom: 2px solid #eee !important;
-    padding-bottom: 2rem !important;
+    padding: 2rem 1.5rem !important;
+    border-bottom: 3px solid #f0f0f0 !important;
+    padding-bottom: 3rem !important;
+    background: rgba(248, 249, 250, 0.5) !important;
+    border-radius: 8px !important;
   }
 
   .description span:first-child {
-    font-size: 1.5rem !important;
-    margin-bottom: 0.5rem !important;
+    font-size: 1.8rem !important;
+    margin-bottom: 1rem !important;
     display: block !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
+    color: #333 !important;
+    line-height: 1.2 !important;
   }
 
   .description span:last-child {
-    font-size: 1.3rem !important;
+    font-size: 1.4rem !important;
     display: block !important;
-    color: #666 !important;
+    color: #555 !important;
+    font-weight: 600 !important;
   }
 
   /* Quantity controls - Fourth */
@@ -561,8 +570,8 @@
   }
 }
 
-/* Small mobile screens */
-@media (max-width: 480px) {
+/* iPhone and small mobile screens */
+@media (max-width: 480px), (max-device-width: 480px) {
   .item {
     padding: 4rem 1rem 2rem 1rem !important;
     margin-bottom: 2rem !important;
@@ -644,5 +653,24 @@
   .cart-summary-section {
     margin: 1rem 0.5rem !important;
     padding: 2rem 1rem !important;
+  }
+}
+
+/* iPhone specific fixes */
+@media only screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2),
+  only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3),
+  only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) {
+  .item {
+    gap: 3rem !important;
+    padding: 2rem 1rem 4rem 1rem !important;
+  }
+
+  .item .buttons {
+    margin: 0 0 4rem 0 !important;
+  }
+
+  .description {
+    margin: 0 0 4rem 0 !important;
+    padding: 2.5rem 1rem !important;
   }
 }
