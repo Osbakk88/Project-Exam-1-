@@ -1281,30 +1281,90 @@
     display: inline-block !important;
   }
 
-  /* FORCE TEXT ALIGNMENT WITH IMAGE - MOBILE ONLY */
-  .banner-carousel-section .carousel-slide .slide-content {
+  /* MOBILE TEXT ALIGNMENT FIX - PUBLISHED SITE - Update Nov 9 2025 */
+  html
+    body
+    .banner-carousel-section
+    .carousel-wrapper
+    .carousel-slide
+    .slide-content {
     margin-top: 5rem !important;
     padding-top: 0 !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
+    align-items: flex-start !important;
   }
 
-  .banner-carousel-section .carousel-slide .slide-content .slide-text {
+  html
+    body
+    .banner-carousel-section
+    .carousel-wrapper
+    .carousel-slide
+    .slide-content
+    .slide-text {
     margin-top: 0 !important;
     padding-top: 0 !important;
+    width: 100% !important;
   }
 
-  .banner-carousel-section .slide-content h2 {
+  html body .banner-carousel-section .carousel-wrapper .slide-content h2 {
     text-align: left !important;
     margin: 0 0 0.5rem 0 !important;
     padding: 0 !important;
+    width: 100% !important;
   }
 
-  .banner-carousel-section .slide-content p {
+  html body .banner-carousel-section .carousel-wrapper .slide-content p {
     text-align: left !important;
     margin: 0 0 0.5rem 0 !important;
     padding: 0 !important;
     line-height: 1.4 !important;
+    width: 100% !important;
+  }
+
+  /* Match indicators to button styling - MOBILE ONLY */
+  .carousel-indicator {
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  .carousel-indicator.active {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border: 2px solid rgba(255, 255, 255, 0.6) !important;
+    transform: scale(1.3) !important;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* Match arrow buttons to button styling - MOBILE ONLY */
+  .carousel-btn {
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.4) !important;
+    color: white !important;
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .carousel-btn:hover,
+  .carousel-btn:focus {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border: 2px solid rgba(255, 255, 255, 0.6) !important;
+    transform: translateY(-50%) scale(1.1) !important;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3) !important;
+  }
+
+  /* ADDITIONAL OVERRIDE FOR PUBLISHED SITE - Nov 9 2025 */
+  html
+    body
+    main
+    .banner-carousel-section
+    .carousel-wrapper
+    .carousel-slide
+    .slide-content {
+    margin-top: 5rem !important;
   }
 }
