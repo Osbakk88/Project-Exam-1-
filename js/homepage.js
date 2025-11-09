@@ -312,7 +312,19 @@ function renderCarousel() {
 // Pattern: setInterval for automatic slide progression with navigation function
 // Source inspiration: Carousel tutorials from web development blogs and JavaScript slider examples
 function startCarouselAutoplay() {
+  console.log(
+    "▶️ Starting carousel autoplay with",
+    carouselProducts.length,
+    "slides"
+  );
+
+  if (carouselProducts.length <= 1) {
+    console.log("❌ Not enough slides for autoplay");
+    return;
+  }
+
   carouselInterval = setInterval(() => {
+    console.log("⏰ Autoplay: advancing slide");
     nextSlide();
   }, 5000); // Change slide every 5 seconds
 }
@@ -552,13 +564,20 @@ function showFeedError() {
 // Carousel navigation functions
 function nextSlide() {
   if (carouselProducts.length === 0) {
+    console.log("❌ No carousel products available for next slide");
     return;
   }
 
   const prevSlide = currentSlide;
   currentSlide = (currentSlide + 1) % carouselProducts.length;
+
+  // Explicit logging for looping behavior
+  if (prevSlide === carouselProducts.length - 1 && currentSlide === 0) {
+    console.log("🔄 Carousel LOOPED: Last slide → First slide");
+  }
+
   console.log(
-    `🎠 Carousel: ${prevSlide} → ${currentSlide} (${carouselProducts.length} slides)`
+    `🎠 Carousel: ${prevSlide} → ${currentSlide} (total: ${carouselProducts.length} slides)`
   );
   updateCarouselDisplay();
 }
@@ -817,13 +836,27 @@ function setupTouchControls() {
 
 // Enhanced autoplay with pause/resume functionality
 function setupAutoplay() {
+  console.log("🎮 Setting up carousel autoplay");
+
+  // Clear any existing interval first
+  if (carouselInterval) {
+    clearInterval(carouselInterval);
+    carouselInterval = null;
+  }
+
   startCarouselAutoplay();
 
   // Pause on hover (desktop)
   const carouselContainer = document.querySelector(".banner-carousel-section");
   if (carouselContainer) {
-    carouselContainer.addEventListener("mouseenter", pauseAutoplay);
-    carouselContainer.addEventListener("mouseleave", resumeAutoplay);
+    carouselContainer.addEventListener("mouseenter", () => {
+      console.log("🖱️ Mouse enter - pausing autoplay");
+      pauseAutoplay();
+    });
+    carouselContainer.addEventListener("mouseleave", () => {
+      console.log("🖱️ Mouse leave - resuming autoplay");
+      resumeAutoplay();
+    });
   }
 }
 
@@ -836,7 +869,9 @@ function pauseAutoplay() {
 
 function resumeAutoplay() {
   if (!carouselInterval && carouselProducts.length > 1) {
+    console.log("🔄 Resuming carousel autoplay");
     carouselInterval = setInterval(() => {
+      console.log("⏰ Autoplay tick - moving to next slide");
       nextSlide();
     }, 5000);
   }

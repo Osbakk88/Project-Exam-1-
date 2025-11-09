@@ -1229,7 +1229,7 @@
     .carousel-slide
     .slide-price {
     position: absolute !important;
-    bottom: 4rem !important;
+    bottom: 5rem !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     font-size: 1rem !important;
@@ -1261,5 +1261,12 @@
     border-radius: 30px !important;
     text-decoration: none !important;
     display: inline-block !important;
+  }
+
+  /* Align description text to match image position */
+  html body .banner-carousel-section .carousel-wrapper .slide-description {
+    text-align: left !important;
+    padding-left: 0.5rem !important;
+    margin-left: 0 !important;
   }
 }
