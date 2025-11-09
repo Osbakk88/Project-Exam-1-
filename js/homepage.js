@@ -160,7 +160,7 @@ async function initializeCarousel() {
         carouselProducts.forEach((_, index) => {
           indicatorsHTML += `<button class="carousel-indicator ${
             index === 0 ? "active" : ""
-          }" onclick="goToSlide(${index})"></button>`;
+          }" onclick="goToSlide(${index})" aria-label="Go to slide ${index + 1}"></button>`;
         });
         indicators.innerHTML = indicatorsHTML;
       }
@@ -642,6 +642,7 @@ function setupCarouselControlsAndIndicators() {
       const indicator = document.createElement("button");
       indicator.className = `carousel-indicator ${index === 0 ? "active" : ""}`;
       indicator.setAttribute("data-index", index);
+      indicator.setAttribute("aria-label", `Go to slide ${index + 1}`);
       indicator.addEventListener("click", () => goToSlide(index));
       indicators.appendChild(indicator);
     });
