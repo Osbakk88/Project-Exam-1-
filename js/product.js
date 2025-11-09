@@ -29,6 +29,10 @@ function updateNavigation() {
     logoutBtn.textContent = "Logout";
     logoutBtn.addEventListener("click", function () {
       API.Auth.logout();
+      updateNavigation(); // Refresh navigation
+      if (currentProduct) {
+        updateActionButtons(currentProduct); // Refresh buttons
+      }
     });
 
     authNav.innerHTML = "";
@@ -37,6 +41,11 @@ function updateNavigation() {
     authNav.innerHTML = `
       <a href="account/login.html">Login</a>
     `;
+  }
+
+  // Update action buttons based on new auth status
+  if (currentProduct) {
+    updateActionButtons(currentProduct);
   }
 }
 
@@ -162,26 +171,74 @@ function setupProductEventListeners(product) {
     });
   }
 
-  // Action buttons
-  const loginBtn = document.getElementById("loginToPurchaseBtn");
-  const clearCartBtn = document.getElementById("clearCartBtn");
+  // Update button behavior based on login status
+  updateActionButtons(product);
 
-  if (loginBtn) {
-    loginBtn.addEventListener("click", function () {
-      if (API.Auth.isLoggedIn()) {
-        // Add to cart logic
-        addToCart(product);
-      } else {
-        window.location.href = "account/login.html";
-      }
-    });
-  }
-
+  // Clear cart button (separate from login status)
   if (clearCartBtn) {
     clearCartBtn.addEventListener("click", function () {
       API.Cart.clearCart();
       showNotification("Cart cleared successfully");
     });
+  }
+}
+
+function updateActionButtons(product) {
+  const loginBtn = document.getElementById("loginToPurchaseBtn");
+  const clearCartBtn = document.getElementById("clearCartBtn");
+
+  if (API.Auth.isLoggedIn()) {
+    // User is logged in - show "Buy Now" and "Add to Cart" options
+    if (loginBtn) {
+      loginBtn.textContent = "Buy Now";
+      loginBtn.className = "action-btn primary-btn";
+      loginBtn.onclick = function () {
+        buyNowProduct(product);
+      };
+    }
+
+    // Add a new "Add to Cart" button if it doesn't exist
+    let addToCartBtn = document.getElementById("addToCartBtn");
+    if (!addToCartBtn && loginBtn) {
+      addToCartBtn = document.createElement("button");
+      addToCartBtn.id = "addToCartBtn";
+      addToCartBtn.className = "action-btn secondary-btn";
+      addToCartBtn.textContent = "Add to Cart";
+      addToCartBtn.onclick = function () {
+        addToCart(product);
+      };
+      loginBtn.parentNode.insertBefore(addToCartBtn, clearCartBtn);
+    }
+  } else {
+    // User is not logged in - show login button
+    if (loginBtn) {
+      loginBtn.textContent = "Login to purchase";
+      loginBtn.className = "action-btn primary-btn";
+      loginBtn.onclick = function () {
+        window.location.href = "account/login.html";
+      };
+    }
+
+    // Remove add to cart button if it exists
+    const addToCartBtn = document.getElementById("addToCartBtn");
+    if (addToCartBtn) {
+      addToCartBtn.remove();
+    }
+  }
+
+
+}
+
+function buyNowProduct(product) {
+  // Add item to cart first
+  const quantity = parseInt(document.getElementById("quantity").value);
+  const success = API.Cart.addItem(product, quantity);
+
+  if (success) {
+    // Redirect directly to checkout page
+    window.location.href = "checkout.html";
+  } else {
+    showNotification("Failed to add item to cart", "error");
   }
 }
 
@@ -225,4 +282,37 @@ function showError(message) {
   `;
 
   document.body.appendChild(errorDiv);
+}
+
+function showNotification(message, type = "success") {
+  const notification = document.createElement("div");
+  notification.className = `notification ${type}`;
+  notification.textContent = message;
+  
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${type === "success" ? "#28a745" : "#dc3545"};
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 10000;
+    font-weight: 500;
+    max-width: 300px;
+    animation: slideIn 0.3s ease-out;
+  `;
+
+  document.body.appendChild(notification);
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+    notification.style.animation = "slideOut 0.3s ease-in forwards";
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 300);
+  }, 3000);
 }
