@@ -1,4 +1,4 @@
-/* Carousel - Clean Version 13:01 */
+/* Carousel - FORCE UPDATE 13:05 */
 .banner-carousel-section {
   position: relative;
   height: 500px;
@@ -1217,5 +1217,49 @@
 
   .carousel-indicator.active {
     background: rgba(255, 255, 255, 0.9) !important;
+  }
+}
+
+/* FINAL MOBILE OVERRIDE - Force Update 13:05 */
+@media screen and (max-width: 480px) {
+  html
+    body
+    .banner-carousel-section
+    .carousel-wrapper
+    .carousel-slide
+    .slide-price {
+    position: absolute !important;
+    bottom: 4rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+    z-index: 999 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+
+  html
+    body
+    .banner-carousel-section
+    .carousel-wrapper
+    .carousel-slide
+    .slide-cta {
+    position: absolute !important;
+    bottom: 2.5rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-size: 0.75rem !important;
+    padding: 0.5rem 1rem !important;
+    z-index: 999 !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.4) !important;
+    color: white !important;
+    border-radius: 30px !important;
+    text-decoration: none !important;
+    display: inline-block !important;
   }
 }
