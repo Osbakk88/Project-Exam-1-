@@ -1,4 +1,4 @@
-/* Carousel - TEST UPDATE 12:47 */
+/* Carousel - Clean Version 13:01 */
 .banner-carousel-section {
   position: relative;
   height: 500px;
@@ -6,7 +6,6 @@
   overflow: hidden;
   margin-bottom: 4rem;
   z-index: 1;
-  border: 5px solid red; /* TEMPORARY TEST BORDER */
 }
 
 /* Desktop image quality improvements */
@@ -1171,10 +1170,24 @@
     margin-bottom: 0.3rem !important;
   }
 
+  /* Position price ABOVE the button */
+  .carousel-wrapper .slide-price {
+    position: absolute !important;
+    bottom: 4rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+    z-index: 102 !important;
+    margin: 0 !important;
+  }
+
   /* Center View Product button over the indicators */
   .banner-carousel-section .slide-cta {
     position: absolute !important;
-    bottom: 3rem !important;
+    bottom: 2.5rem !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     font-size: 0.75rem !important;
@@ -1186,20 +1199,6 @@
     color: white !important;
     border-radius: 30px !important;
     text-decoration: none !important;
-  }
-
-  /* Position price below the button, over indicators */
-  .carousel-wrapper .slide-price {
-    position: absolute !important;
-    bottom: 1.8rem !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    color: white !important;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
-    z-index: 102 !important;
-    margin: 0 !important;
   }
 
   /* Move indicators down below button and price */
