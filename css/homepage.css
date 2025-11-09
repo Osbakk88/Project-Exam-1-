@@ -877,11 +877,11 @@
   }
 }
 
-/* Mobile Phone Optimized Carousel */
-@media (max-width: 768px) {
+/* Tablet Carousel */
+@media (max-width: 768px) and (min-width: 481px) {
   .banner-carousel-section {
-    height: 280px;
-    min-height: 280px;
+    height: 350px;
+    min-height: 350px;
     margin-bottom: 2rem;
     /* Improve mobile performance */
     -webkit-transform: translateZ(0);
@@ -1011,18 +1011,18 @@
   }
 
   .carousel-slide {
-    padding: 1rem;
+    padding: 1rem !important;
     flex-direction: row !important;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: flex-start !important;
+    gap: 1rem !important;
   }
 
   .slide-image {
     flex: 0 0 45% !important;
     max-width: 45% !important;
     max-height: 200px !important;
-    height: 200px;
-    margin-top: 2rem;
+    height: 200px !important;
+    margin-top: 2rem !important;
   }
 
   .slide-content {
@@ -1049,8 +1049,8 @@
   }
 
   .slide-cta {
-    font-size: 0.85rem;
-    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem !important;
+    padding: 0.7rem 1.2rem !important;
   }
 
   .carousel-btn {
