@@ -313,9 +313,16 @@ function renderCarousel() {
 // Source inspiration: Carousel tutorials from web development blogs and JavaScript slider examples
 function startCarouselAutoplay() {
   if (carouselProducts.length <= 1) {
+    console.log("Not enough slides for autoplay");
     return;
   }
 
+  // Clear any existing interval first
+  if (carouselInterval) {
+    clearInterval(carouselInterval);
+  }
+
+  console.log("Starting carousel autoplay - will loop every 5 seconds");
   carouselInterval = setInterval(() => {
     nextSlide();
   }, 5000); // Change slide every 5 seconds
@@ -857,10 +864,7 @@ function pauseAutoplay() {
 
 function resumeAutoplay() {
   if (!carouselInterval && carouselProducts.length > 1) {
-    console.log("🔄 Resuming carousel autoplay");
-    carouselInterval = setInterval(() => {
-      console.log("⏰ Autoplay tick - moving to next slide");
-      nextSlide();
-    }, 5000);
+    console.log("Resuming carousel autoplay");
+    startCarouselAutoplay();
   }
 }

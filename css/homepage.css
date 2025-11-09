@@ -1239,6 +1239,9 @@
     z-index: 999 !important;
     margin: 0 !important;
     display: block !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    max-width: 90vw !important;
   }
 
   html
@@ -1264,16 +1267,22 @@
   }
 
   /* Align description text to match image position - MOBILE ONLY */
-  html body .banner-carousel-section .carousel-wrapper .slide-content p {
-    text-align: left !important;
-    padding-left: 0.5rem !important;
+  .banner-carousel-section .slide-content {
+    padding-left: 0 !important;
     margin-left: 0 !important;
-    line-height: 1.4 !important;
+    text-align: left !important;
   }
 
-  html body .banner-carousel-section .carousel-wrapper .slide-content h2 {
+  .banner-carousel-section .slide-content h2 {
     text-align: left !important;
-    padding-left: 0.5rem !important;
     margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .banner-carousel-section .slide-content p {
+    text-align: left !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    line-height: 1.4 !important;
   }
 }
