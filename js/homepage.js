@@ -313,7 +313,7 @@ function renderCarousel() {
 // Source inspiration: Carousel tutorials from web development blogs and JavaScript slider examples
 function startCarouselAutoplay() {
   carouselInterval = setInterval(() => {
-    goToSlide(currentSlide + 1);
+    nextSlide();
   }, 5000); // Change slide every 5 seconds
 }
 
@@ -555,7 +555,11 @@ function nextSlide() {
     return;
   }
 
+  const prevSlide = currentSlide;
   currentSlide = (currentSlide + 1) % carouselProducts.length;
+  console.log(
+    `🎠 Carousel: ${prevSlide} → ${currentSlide} (${carouselProducts.length} slides)`
+  );
   updateCarouselDisplay();
 }
 
