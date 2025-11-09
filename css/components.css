@@ -572,7 +572,7 @@ footer,
   border-radius: 8px;
 }
 
-/* Mobile Hamburger Menu - Hidden by default (desktop) */
+/* Mobile Hamburger Menu v2.0 - Hidden by default (desktop) */
 .hamburger-menu {
   display: none;
   flex-direction: column;
