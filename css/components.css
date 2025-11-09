@@ -574,32 +574,31 @@ footer,
 /* Mobile Navigation - Only for tablets and phones */
 @media (max-width: 768px) {
   nav ul {
-    flex-direction: column;
-    gap: 0;
-    padding: 1rem 0;
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   nav li {
-    width: 100%;
-    border-bottom: 1px solid #333;
-  }
-
-  nav li:last-child {
-    border-bottom: none;
+    width: auto;
+    border: none;
   }
 
   nav a,
   #authNav a,
   #authNav button {
-    display: block;
-    width: 100%;
-    padding: 1rem 2rem;
+    display: inline-block;
+    width: auto;
+    padding: 0.5rem 1rem;
     border: none;
-    border-radius: 0;
+    border-radius: 4px;
     background: transparent;
-    text-align: left;
-    font-size: 1.1rem;
+    text-align: center;
+    font-size: 0.9rem;
     transition: background 0.2s ease;
+    white-space: nowrap;
   }
 
   nav a:hover,
