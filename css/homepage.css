@@ -970,8 +970,8 @@
   }
 
   .hero-carousel {
-    height: 300px;
-    min-height: 300px;
+    height: 350px;
+    min-height: 350px;
   }
 
   .section-title {
@@ -1037,7 +1037,7 @@
   }
 
   .carousel-indicators {
-    bottom: 2.5rem;
+    bottom: 3rem;
     gap: 0.1rem;
   }
 
@@ -1045,5 +1045,17 @@
     width: 1.5px;
     height: 1.5px;
     padding: 4px;
+  }
+}
+
+/* Very small mobile devices */
+@media (max-width: 360px) {
+  .hero-carousel {
+    height: 380px;
+    min-height: 380px;
+  }
+  
+  .carousel-indicators {
+    bottom: 3.5rem;
   }
 }
