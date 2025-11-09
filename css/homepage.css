@@ -1161,28 +1161,36 @@
 
   .carousel-wrapper .slide-rating {
     font-size: 0.7rem !important;
-    margin-bottom: 0.3rem !important;
-  }
-
-  .carousel-wrapper .slide-price {
-    font-size: 1.1rem !important;
     margin-bottom: 0.5rem !important;
-    font-weight: 700 !important;
   }
 
-  /* Center the View Product button over indicators area */
+  /* Reposition price to be absolutely positioned */
+  .carousel-wrapper .slide-price {
+    position: absolute !important;
+    bottom: 2.5rem !important;
+    left: 22.5% !important;
+    transform: translateX(-50%) !important;
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+    z-index: 101 !important;
+    margin: 0 !important;
+  }
+
+  /* Center View Product button over the image area */
   .banner-carousel-section .slide-cta {
     position: absolute !important;
-    bottom: 3.5rem !important;
-    left: 50% !important;
+    bottom: 4.5rem !important;
+    left: 22.5% !important;
     transform: translateX(-50%) !important;
     font-size: 0.8rem !important;
-    padding: 0.6rem 1.2rem !important;
+    padding: 0.6rem 1rem !important;
     z-index: 101 !important;
   }
 
-  /* Move indicators down to make room for button */
+  /* Move indicators down below price */
   .carousel-indicators {
-    bottom: 1.5rem !important;
+    bottom: 0.5rem !important;
   }
 }
