@@ -1133,6 +1133,7 @@
     align-items: flex-start !important;
     padding: 1rem !important;
     gap: 1rem !important;
+    position: relative !important;
   }
 
   .carousel-wrapper .slide-image {
@@ -1149,5 +1150,39 @@
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
+  }
+
+  /* Reorganize text content for better mobile layout */
+  .carousel-wrapper .slide-text h2 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.3rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .carousel-wrapper .slide-rating {
+    font-size: 0.7rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  .carousel-wrapper .slide-price {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
+    font-weight: 700 !important;
+  }
+
+  /* Center the View Product button over indicators area */
+  .banner-carousel-section .slide-cta {
+    position: absolute !important;
+    bottom: 3.5rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-size: 0.8rem !important;
+    padding: 0.6rem 1.2rem !important;
+    z-index: 101 !important;
+  }
+
+  /* Move indicators down to make room for button */
+  .carousel-indicators {
+    bottom: 1.5rem !important;
   }
 }
