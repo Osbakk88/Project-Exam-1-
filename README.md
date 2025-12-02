@@ -2,8 +2,7 @@
 
 My second exam attempt. Building a full-featured e-commerce website with JavaScript and the Noroff API. I initially misunderstood the exam requirements and had to restart the project.
 
-Published page: [
-](https://osbakk88.github.io/Project-Exam-1-/)
+Published page: https://osbakk88.github.io/Project-Exam-1-/
 ## What This Project Does
 
 This is my online shop website for the FED1 exam. It's basically an e-commerce site where people can:
