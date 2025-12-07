@@ -152,6 +152,10 @@ I received significant assistance from AI throughout this project while maintain
 
 The collaboration taught me that AI can be a powerful learning and development partner when used thoughtfully, but also that AI assistance requires critical evaluation. While AI provided substantial technical guidance and problem-solving support, I learned that AI suggestions aren't always correct and sometimes needed verification, testing, or alternative approaches. This experience taught me to validate AI-generated solutions and maintain a questioning mindset. I made all architectural decisions, understood every implementation, and took ownership of the final product. This approach helped me learn more effectively while producing higher-quality, more maintainable code.
 
+## Contributing
+
+This is a student project for Noroff. Feedback and suggestions are welcome.
+
 ---
 
 **Student**: Christina Anett Osbakk  
